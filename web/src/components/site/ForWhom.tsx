@@ -51,11 +51,11 @@ export default function ForWhom() {
       <RevealGroup stagger={0.12} className="mt-14 grid gap-6 md:grid-cols-3">
         {groups.map((group) => (
           <RevealItem key={group.grade} className="h-full">
-            <article className="group relative flex h-full flex-col overflow-hidden rounded-panel border border-[var(--color-border)] bg-[var(--color-surface)] p-7 transition-[transform,box-shadow,border-color] duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-1.5 hover:border-[var(--color-primary)]/30 hover:shadow-lift sm:p-8">
+            <article className="group relative flex h-full flex-col overflow-hidden rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-surface)] p-7 shadow-hard transition-[translate,box-shadow] duration-150 ease-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-hard-lg sm:p-8">
               {/* Крупная цифра-ориентир на фоне карточки. */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute -right-2 -top-6 select-none text-[7rem] font-extrabold leading-none text-[var(--color-primary)]/[0.07] transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-110"
+                className="pointer-events-none absolute -right-3 -top-5 select-none font-display text-[6rem] font-extrabold leading-none text-[var(--color-accent)] opacity-30 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-110"
               >
                 {group.grade}
               </span>

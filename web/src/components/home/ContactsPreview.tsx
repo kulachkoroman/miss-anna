@@ -15,10 +15,6 @@ export default function ContactsPreview() {
   return (
     <Section id="contacts" tone="dark" size="lg" className="overflow-hidden">
       <div aria-hidden className="bg-grid-light pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-40 left-1/2 h-80 w-[40rem] -translate-x-1/2 rounded-full bg-[var(--color-accent)] opacity-25 blur-[120px]"
-      />
 
       <div className="relative mx-auto max-w-3xl text-center">
         <Reveal>
@@ -40,7 +36,7 @@ export default function ContactsPreview() {
                 href={m.href}
                 label={`Написать в ${m.id === "vk" ? "VK" : m.label}`}
                 size="lg"
-                className="w-full ring-1 ring-white/25"
+                className="w-full"
               />
             </RevealItem>
           ))}

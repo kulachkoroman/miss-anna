@@ -37,11 +37,9 @@ export default function Accordion({
           <div
             key={item.q}
             className={clsx(
-              "overflow-hidden rounded-card border bg-[var(--color-surface)]",
-              "transition-[border-color,box-shadow] duration-300",
-              isOpen
-                ? "border-[var(--color-primary)]/35 shadow-card"
-                : "border-[var(--color-border)] hover:border-[var(--color-border-strong)]"
+              "overflow-hidden rounded-card border-2 border-[var(--color-ink)] bg-[var(--color-surface)]",
+              "transition-shadow duration-200",
+              isOpen ? "shadow-hard" : "hover:shadow-hard-sm"
             )}
           >
             <button
@@ -53,10 +51,10 @@ export default function Accordion({
               {item.q}
               <span
                 className={clsx(
-                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all duration-300 ease-[var(--ease-out-expo)]",
+                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-ink)] transition-all duration-300 ease-[var(--ease-out-expo)]",
                   isOpen
-                    ? "rotate-45 bg-[var(--color-primary)] text-white"
-                    : "bg-[var(--color-primary-soft)] text-[var(--color-primary)]"
+                    ? "rotate-45 bg-[var(--color-accent)] text-[var(--color-ink)]"
+                    : "bg-white text-[var(--color-ink)]"
                 )}
               >
                 <Icon name="plus" className="h-4 w-4" strokeWidth={2.2} />

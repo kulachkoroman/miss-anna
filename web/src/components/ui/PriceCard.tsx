@@ -34,17 +34,15 @@ export default function PriceCard({
   return (
     <div
       className={clsx(
-        "relative flex h-full flex-col overflow-hidden rounded-panel p-7 sm:p-8",
-        "transition-[transform,box-shadow] duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-1",
-        highlight
-          ? "bg-brand-gradient texture-grain text-white shadow-hero"
-          : "border border-[var(--color-border)] bg-[var(--color-surface)] shadow-subtle hover:shadow-lift",
+        "relative flex h-full flex-col overflow-hidden rounded-panel border-2 border-[var(--color-ink)] p-7 shadow-hard sm:p-8",
+        "transition-[translate,box-shadow] duration-150 ease-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-hard-lg",
+        highlight ? "bg-brand-gradient text-white" : "bg-[var(--color-surface)]",
         className
       )}
     >
       {badge && (
         <div className="relative mb-5">
-          <Badge tone={highlight ? "light" : "accent"}>{badge}</Badge>
+          <Badge tone="accent">{badge}</Badge>
         </div>
       )}
       <div className="relative">
@@ -65,7 +63,7 @@ export default function PriceCard({
 
       <p
         className={clsx(
-          "relative mt-6 whitespace-nowrap text-[clamp(2.25rem,1.8rem+1.4vw,3rem)] font-extrabold leading-none tracking-[-0.04em]",
+          "relative mt-6 whitespace-nowrap font-display text-[clamp(1.875rem,1.5rem+1.2vw,2.5rem)] font-extrabold leading-none tracking-[-0.04em]",
           highlight ? "text-white" : "text-[var(--color-ink)]"
         )}
       >

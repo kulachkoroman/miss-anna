@@ -31,7 +31,7 @@ export default function Quote({
     <section
       className={clsx(
         "relative overflow-hidden py-20 sm:py-28",
-        dark ? "bg-brand-gradient texture-grain text-white" : "bg-[var(--color-bg)]"
+        dark ? "bg-brand-gradient border-y-2 border-[var(--color-ink)] text-white" : "bg-[var(--color-bg)]"
       )}
     >
       {dark && (
@@ -43,7 +43,7 @@ export default function Quote({
             <span
               aria-hidden
               className={clsx(
-                "block font-serif text-[7rem] leading-[0.6]",
+                "block font-display text-[5.5rem] font-extrabold leading-[0.7]",
                 dark ? "text-[var(--color-accent)]" : "text-[var(--color-primary)]"
               )}
             >
@@ -66,7 +66,7 @@ export default function Quote({
           {quote.caption && (
             <Reveal delay={0.3}>
               <figcaption className="mt-9 flex items-center gap-4">
-                <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full ring-2 ring-white/40">
+                <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-[var(--color-ink)]">
                   <Image
                     src={MEDIA.aboutPortrait.src}
                     alt=""

@@ -88,17 +88,16 @@ export default function MediaSlot({
 }
 
 /**
- * Заглушка: фирменный градиент со световыми пятнами и зернистостью.
+ * Заглушка: фирменный фиолетовый в тетрадную клетку и розовый круг
+ * с обводкой — та же графика, что за Анной на первом экране.
  * Выглядит как осознанный фон, а не как «картинка не загрузилась».
  */
 function Placeholder({ spec, devHint }: { spec: MediaSpec; devHint: boolean }) {
   return (
     <div aria-hidden className="absolute inset-0">
       <div className="absolute inset-0 bg-brand-gradient" />
-      <div
-        className="absolute inset-0 opacity-80 [background:radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.24),transparent_46%),radial-gradient(circle_at_88%_8%,rgba(255,143,212,0.42),transparent_44%),radial-gradient(circle_at_70%_95%,rgba(122,79,232,0.5),transparent_50%)]"
-      />
-      <div className="texture-grain absolute inset-0" />
+      <div className="bg-grid-light absolute inset-0" />
+      <div className="absolute -right-[8%] -top-[18%] aspect-square w-[34%] rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)]" />
 
       {/* Подсказка о нужном размере — только в режиме разработки.
           На опубликованном сайте её не видно. */}

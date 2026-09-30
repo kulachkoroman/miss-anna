@@ -32,12 +32,12 @@ export default function Reviews({ reviews }: { reviews: Review[] }) {
       >
         {reviews.map((review) => (
           <RevealItem key={review.id} className="w-[85%] shrink-0 snap-center sm:w-auto">
-            <figure className="flex h-full flex-col rounded-panel border border-[var(--color-border)] bg-[var(--color-surface)] p-7 shadow-subtle transition-[transform,box-shadow] duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:shadow-lift sm:p-8">
+            <figure className="flex h-full flex-col rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-surface)] p-7 shadow-hard transition-[translate,box-shadow] duration-150 ease-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-hard-lg sm:p-8">
               {/* Кавычка как графический элемент: делает карточку отзыва
                   узнаваемой с первого взгляда. */}
               <span
                 aria-hidden
-                className="font-serif text-[4rem] leading-[0.5] text-[var(--color-accent)]"
+                className="font-display text-[3.25rem] font-extrabold leading-[0.6] text-[var(--color-accent-dark)]"
               >
                 &laquo;
               </span>
@@ -47,7 +47,7 @@ export default function Reviews({ reviews }: { reviews: Review[] }) {
               </blockquote>
 
               <figcaption className="mt-7 flex items-center gap-3 border-t border-[var(--color-border)] pt-5">
-                <span className="bg-brand-gradient flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-h4 text-white">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] font-display text-h4 text-[var(--color-ink)]">
                   {review.studentName.trim().charAt(0).toUpperCase()}
                 </span>
                 <span className="leading-tight">

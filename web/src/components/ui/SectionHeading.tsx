@@ -47,7 +47,8 @@ export default function SectionHeading({
           as={as}
           text={title}
           highlight={highlight}
-          tone={onDark ? "accent" : "primary"}
+          /* Под розовым маркером — тёмный текст: фиолетовый на розовом рябит. */
+          tone={onDark ? "accent" : marker ? "inherit" : "primary"}
           marker={marker}
           className={titleClass}
         />

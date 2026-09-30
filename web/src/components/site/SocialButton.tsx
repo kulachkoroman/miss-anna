@@ -60,9 +60,9 @@ export default function SocialButton({
         href={href}
         {...external}
         className={clsx(
-          "group inline-flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] py-2.5 pl-2.5 pr-5",
-          "shadow-subtle transition-[transform,box-shadow,border-color] duration-300 ease-[var(--ease-out-expo)]",
-          "hover:-translate-y-0.5 hover:border-transparent hover:shadow-lift",
+          "group inline-flex items-center gap-3 rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-surface)] py-2.5 pl-2.5 pr-5",
+          "shadow-hard-sm transition-[translate,box-shadow] duration-150 ease-out",
+          "hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-hard",
           className
         )}
       >
@@ -85,10 +85,11 @@ export default function SocialButton({
       {...external}
       style={{ background: style.background }}
       className={clsx(
-        "btn-shine inline-flex items-center justify-center gap-2.5 rounded-full font-bold text-white",
-        "shadow-[0_10px_26px_-12px_rgba(0,0,0,0.5)] transition-[transform,box-shadow,filter] duration-300 ease-[var(--ease-out-expo)]",
-        "hover:-translate-y-0.5 hover:shadow-[0_16px_34px_-14px_rgba(0,0,0,0.55)] hover:brightness-105",
-        size === "lg" ? "px-7 py-4 text-[0.96875rem]" : "px-5 py-3 text-[0.9375rem]",
+        "btn-shine inline-flex items-center justify-center gap-2.5 rounded-full border-2 border-[var(--color-ink)] font-bold text-white",
+        "shadow-hard transition-[translate,box-shadow,filter] duration-150 ease-out",
+        "hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm hover:brightness-105",
+        "active:translate-x-[4px] active:translate-y-[4px] active:shadow-none",
+        size === "lg" ? "px-7 py-3.5 text-[0.96875rem]" : "px-5 py-2.5 text-[0.9375rem]",
         className
       )}
     >

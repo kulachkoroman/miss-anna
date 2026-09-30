@@ -6,7 +6,7 @@ type Tone = "primary" | "accent" | "neutral" | "light";
 
 const tones: Record<Tone, string> = {
   primary: "bg-[var(--color-primary-soft)] text-[var(--color-primary)]",
-  accent: "bg-[var(--color-accent-soft)] text-[var(--color-accent-dark)]",
+  accent: "bg-[var(--color-accent)] text-[var(--color-ink)]",
   neutral: "bg-[var(--color-surface-alt)] text-[var(--color-ink-soft)]",
   light: "bg-white/15 text-white backdrop-blur-sm ring-1 ring-white/25",
 };

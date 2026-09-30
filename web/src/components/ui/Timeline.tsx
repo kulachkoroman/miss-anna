@@ -52,10 +52,10 @@ export default function Timeline({
       <motion.span
         aria-hidden
         className={clsx(
-          "absolute left-[27px] top-4 w-px origin-top bg-gradient-to-b from-[var(--color-primary)]/45 to-[var(--color-primary)]/5",
+          "absolute left-[27px] top-4 w-[2px] origin-top bg-[var(--color-ink)]/15",
           vertical
             ? "block"
-            : "hidden sm:block md:left-0 md:right-0 md:top-[27px] md:h-px md:w-auto md:origin-left md:bg-gradient-to-r"
+            : "hidden sm:block md:left-0 md:right-0 md:top-[27px] md:h-[2px] md:w-auto md:origin-left"
         )}
         style={{ bottom: "1rem" }}
         initial={{ scaleY: 0, scaleX: 0 }}
@@ -73,8 +73,7 @@ export default function Timeline({
           <span
             className={clsx(
               "relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full",
-              "bg-[var(--color-surface)] text-[var(--color-primary)] ring-1 ring-[var(--color-border-strong)]",
-              "shadow-subtle"
+              "border-2 border-[var(--color-ink)] bg-[var(--color-surface)] text-[var(--color-primary)] shadow-hard-sm"
             )}
           >
             <Icon name={step.icon} className="h-6 w-6" />
@@ -82,7 +81,7 @@ export default function Timeline({
             {/* Номер нужен там, где важен порядок действий.
                 В биографии он только мешает. */}
             {!vertical && (
-              <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-accent)] text-[11px] font-extrabold text-[var(--color-ink)]">
+              <span className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] font-display text-[11px] font-bold text-[var(--color-ink)]">
                 {i + 1}
               </span>
             )}

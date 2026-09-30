@@ -20,11 +20,7 @@ export default function Results({ id = "results" }: { id?: string }) {
 
   return (
     <Section id={id} tone="ink" size="lg" className="overflow-hidden">
-      {/* Световое пятно — чтобы тёмный фон не был плоским. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-32 top-0 h-[28rem] w-[28rem] rounded-full bg-[var(--color-primary)] opacity-30 blur-[120px]"
-      />
+      {/* Клетка, растворяющаяся книзу, — чтобы тёмный фон не был плоским. */}
       <div aria-hidden className="bg-grid-light pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
 
       <div className="relative">
@@ -44,7 +40,7 @@ export default function Results({ id = "results" }: { id?: string }) {
         >
           {STUDENT_RESULTS.map((result) => (
             <RevealItem key={result.label} className="bg-[#140f2b] p-6 sm:p-8">
-              <p className="text-[clamp(2.25rem,1.6rem+2.4vw,3.5rem)] font-extrabold leading-none tracking-[-0.04em] text-white">
+              <p className="font-display text-[clamp(1.875rem,1.4rem+1.9vw,2.875rem)] font-extrabold leading-none tracking-[-0.04em] text-white">
                 {result.value !== null ? (
                   <Counter value={result.value} prefix={result.prefix} suffix={result.suffix} />
                 ) : (
@@ -63,7 +59,7 @@ export default function Results({ id = "results" }: { id?: string }) {
           <article className="mt-6 grid gap-10 rounded-panel bg-white/[0.05] p-7 ring-1 ring-white/10 backdrop-blur-sm sm:p-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
             <div>
               <p className="eyebrow eyebrow-on-dark">История ученицы</p>
-              <h3 className="mt-4 text-[clamp(1.75rem,1.3rem+1.8vw,2.75rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-white">
+              <h3 className="mt-4 font-display text-[clamp(1.5rem,1.15rem+1.4vw,2.25rem)] font-extrabold leading-[1.1] tracking-[-0.035em] text-white">
                 С {STUDENT_STORY.before} до {STUDENT_STORY.after} баллов
                 <span className="text-[var(--color-accent)]"> за месяц</span>
               </h3>

@@ -23,7 +23,7 @@ export default function AboutPreview() {
             <MediaSlot
               spec={MEDIA.aboutPreview}
               sizes="(max-width: 1024px) 100vw, 45vw"
-              className="aspect-square w-full rounded-hero shadow-lift"
+              className="aspect-square w-full rounded-hero border-2 border-[var(--color-ink)] shadow-hard-lg"
             />
 
             {/* Подпись поверх фото: где проходят занятия. */}
@@ -32,12 +32,12 @@ export default function AboutPreview() {
               Занятия проходят в Zoom
             </span>
 
-            {/* Плашка поверх фото: главный факт всегда на виду. */}
-            <div className="absolute -bottom-7 -right-3 rounded-card border border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-5 shadow-lift sm:-right-7">
-              <p className="text-h2 leading-none text-[var(--color-primary)]">
+            {/* Стикер поверх фото: главный факт всегда на виду. */}
+            <div className="absolute -bottom-7 -right-3 rotate-[3deg] rounded-card border-2 border-[var(--color-ink)] bg-[var(--color-accent)] px-6 py-5 shadow-hard sm:-right-7">
+              <p className="font-display text-[clamp(2rem,1.6rem+1.4vw,2.75rem)] font-extrabold leading-none tracking-[-0.04em] text-[var(--color-ink)]">
                 <Counter value={100} />
               </p>
-              <p className="mt-2 max-w-[10rem] text-caption text-[var(--color-ink-soft)]">
+              <p className="mt-2 max-w-[10rem] text-caption text-[var(--color-ink)]">
                 баллов на ЕГЭ — мой результат в {HUNDRED_YEARS.join(", ")}
               </p>
             </div>
@@ -65,11 +65,11 @@ export default function AboutPreview() {
 
           <RevealGroup
             stagger={0.08}
-            className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-[var(--color-border-strong)] pt-8 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4"
+            className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 border-t-2 border-[var(--color-ink)] pt-8 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4"
           >
             {FACTS.map((fact) => (
               <RevealItem key={fact.label}>
-                <p className="text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-extrabold leading-none tracking-[-0.03em] text-[var(--color-ink)]">
+                <p className="whitespace-nowrap font-display text-[clamp(1.25rem,1.05rem+0.8vw,1.625rem)] font-bold leading-none tracking-[-0.03em] text-[var(--color-ink)]">
                   {fact.value !== null ? (
                     <Counter value={fact.value} prefix={fact.prefix} suffix={fact.suffix} />
                   ) : (

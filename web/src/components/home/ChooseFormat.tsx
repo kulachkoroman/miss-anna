@@ -45,11 +45,11 @@ export default function ChooseFormat({ courses }: { courses: Course[] }) {
         {/* Разделитель с «или» — виден только на широком экране */}
         <span
           aria-hidden
-          className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-[var(--color-border-strong)] md:block"
+          className="absolute left-1/2 top-0 hidden h-full -translate-x-1/2 border-l-2 border-dashed border-[var(--color-ink)]/25 md:block"
         />
         <span
           aria-hidden
-          className="absolute left-1/2 top-1/2 hidden h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--color-border-strong)] bg-[var(--color-bg-tint)] text-caption font-bold uppercase text-[var(--color-ink-muted)] md:flex"
+          className="absolute left-1/2 top-1/2 hidden h-12 w-12 -translate-x-1/2 -translate-y-1/2 rotate-[-8deg] items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] font-display text-caption font-bold text-[var(--color-ink)] md:flex"
         >
           или
         </span>
@@ -125,8 +125,9 @@ function FormatColumn({
   return (
     <div className="flex h-full flex-col">
       <span
-        className="flex h-12 w-12 items-center justify-center rounded-2xl text-white"
-        style={{ backgroundColor: tint }}
+        className={`flex h-12 w-12 items-center justify-center rounded-2xl border-2 border-[var(--color-ink)] shadow-hard-sm ${
+          accent ? "bg-[var(--color-accent)] text-[var(--color-ink)]" : "bg-[var(--color-primary)] text-white"
+        }`}
       >
         <Icon name={icon} className="h-6 w-6" />
       </span>

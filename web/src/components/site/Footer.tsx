@@ -32,10 +32,9 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-[#100c22] text-white">
-      {/* Мягкое свечение и точки — та же графика, что на первом экране. */}
+      {/* Клетка, растворяющаяся книзу, — та же графика, что на первом экране. */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="bg-grid-light absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" />
-        <div className="absolute -top-40 left-1/3 h-80 w-[36rem] rounded-full bg-[var(--color-primary)] opacity-25 blur-[120px]" />
       </div>
 
       <Container className="relative pt-16 sm:pt-20">
@@ -43,7 +42,7 @@ export default function Footer() {
           {/* Бренд */}
           <div>
             <Link href="/" className="inline-flex flex-col leading-tight">
-              <span className="text-xl font-extrabold tracking-[-0.02em]">
+              <span className="font-display text-lg font-bold tracking-[-0.02em]">
                 {BLOG_NAME}
                 <span className="text-[var(--color-accent)]">.</span>
               </span>
@@ -112,7 +111,7 @@ export default function Footer() {
         {/* Крупная подпись — графический «замок» страницы. */}
         <p
           aria-hidden
-          className="pointer-events-none mt-16 select-none whitespace-nowrap bg-gradient-to-b from-white/[0.14] to-white/0 bg-clip-text text-center text-[clamp(3rem,1rem+9vw,9.5rem)] font-extrabold leading-[0.9] tracking-[-0.05em] text-transparent"
+          className="pointer-events-none mt-16 select-none whitespace-nowrap bg-gradient-to-b from-white/[0.14] to-white/0 bg-clip-text text-center font-display text-[clamp(1.75rem,6.6vw,6.25rem)] font-extrabold leading-[0.95] tracking-[-0.05em] text-transparent"
         >
           Анна Паршукова
         </p>

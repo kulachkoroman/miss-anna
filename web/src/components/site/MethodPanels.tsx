@@ -39,10 +39,11 @@ function MethodPanel({
   const tint = accent ? "var(--color-accent-dark)" : "var(--color-primary)";
 
   return (
-    <div className="flex h-full flex-col rounded-panel border border-[var(--color-border)] bg-[var(--color-surface)] p-7 shadow-subtle sm:p-9">
+    <div className="flex h-full flex-col rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-surface)] p-7 shadow-hard sm:p-9">
       <span
-        className="flex h-12 w-12 items-center justify-center rounded-2xl text-white"
-        style={{ backgroundColor: tint }}
+        className={`flex h-12 w-12 items-center justify-center rounded-2xl border-2 border-[var(--color-ink)] shadow-hard-sm ${
+          accent ? "bg-[var(--color-accent)] text-[var(--color-ink)]" : "bg-[var(--color-primary)] text-white"
+        }`}
       >
         <Icon name={icon} className="h-6 w-6" />
       </span>

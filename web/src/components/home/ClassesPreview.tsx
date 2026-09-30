@@ -26,8 +26,8 @@ export default function ClassesPreview() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="mt-8 flex items-start gap-4 rounded-card bg-[var(--color-accent-soft)] p-5">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)] text-[var(--color-ink)]">
+            <div className="mt-8 flex items-start gap-4 rounded-card border-2 border-[var(--color-ink)] bg-[var(--color-accent-soft)] p-5">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] text-[var(--color-ink)]">
                 <Icon name="sparkle" className="h-5 w-5" />
               </span>
               <div>

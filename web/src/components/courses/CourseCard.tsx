@@ -60,7 +60,7 @@ export default function CourseCard({
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="group relative aspect-[16/10] w-full overflow-hidden rounded-[1.75rem] border border-white/10 shadow-[0_25px_50px_-25px_rgba(32,28,46,0.5)] will-change-transform sm:aspect-[16/9]"
+      className="group relative aspect-[16/10] w-full overflow-hidden rounded-[1.75rem] border-2 border-[var(--color-ink)] shadow-hard-lg will-change-transform sm:aspect-[16/9]"
       style={{
         transform: "perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
         transitionProperty: "transform, box-shadow",
@@ -89,7 +89,11 @@ export default function CourseCard({
 
       <div className="relative flex h-full flex-col justify-between p-5 text-left sm:p-7">
         <div className="flex items-start justify-between gap-3">
-          <span className="w-fit rounded-full bg-white/90 px-3 py-1 text-caption font-semibold text-[var(--color-ink)]">
+          <span
+            className={`w-fit rounded-full border-2 border-[var(--color-ink)] px-3 py-0.5 text-caption font-bold text-[var(--color-ink)] ${
+              course.isFree ? "bg-[var(--color-accent)]" : "bg-white"
+            }`}
+          >
             {course.isFree ? "Бесплатно" : formatRub(course.priceRub)}
           </span>
           {meta && (
@@ -106,7 +110,7 @@ export default function CourseCard({
               {course.shortDescription}
             </p>
           </div>
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[var(--color-ink)] transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover:translate-x-1 group-hover:-translate-y-1">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] text-[var(--color-ink)] transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover:translate-x-1 group-hover:-translate-y-1">
             <Icon name={onOpen ? "plus" : "arrowUpRight"} className="h-5 w-5" strokeWidth={2} />
           </span>
         </div>
