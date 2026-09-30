@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// User.role: "STUDENT" | "PARENT" | "ADMIN"
+// User.accountType: "STUDENT_SELF" | "PARENT" (meaningless for ADMIN)
+model User {
+  id                  String   @id @default(cuid())
+  role                String   @default("STUDENT")
+  accountType         String   @default("STUDENT_SELF")
+  name                String
+  phone               String?  @unique
+  email               String?  @unique
+  passwordHash        String
+  studentName         String
+  studentAge          Int?
+  parentContact       String?
+  consentPersonalData Boolean  @default(false)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  enrollments    Enrollment[]
+  payments       Payment[]
+  progress       LessonProgress[]
+  passwordResets PasswordResetToken[]
+}
+
+model Course {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  title            String
+  shortDescription String
+  description      String
+  whatsIncluded    String?
+  forWhom          String?
+  duration         String?
+  coverImage       String?
+  isFree           Boolean  @default(false)
+  priceRub         Int      @default(0)
+  published        Boolean  @default(true)
+  order            Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  modules     Module[]
+  enrollments Enrollment[]
+  payments    Payment[]
+}
+
+model Module {
+  id       String @id @default(cuid())
+  courseId String
+  title    String
+  order    Int    @default(0)
+
+  course  Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons Lesson[]
+}
+
+model Lesson {
+  id          String   @id @default(cuid())
+  moduleId    String
+  title       String
+  order       Int      @default(0)
+  description String?
+  videoPath   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  module    Module           @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  materials Material[]
+  progress  LessonProgress[]
+}
+
+model Material {
+  id              String   @id @default(cuid())
+  lessonId        String
+  fileName        String
+  filePath        String
+  mimeType        String?
+  sizeBytes       Int?
+  downloadAllowed Boolean  @default(false)
+  createdAt       DateTime @default(now())
+
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+}
+
+// Enrollment.source: "FREE" | "PAYMENT" | "ADMIN_GRANT"
+model Enrollment {
+  id        String   @id @default(cuid())
+  userId    String
+  courseId  String
+  source    String   @default("FREE")
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+}
+
+model LessonProgress {
+  id          String    @id @default(cuid())
+  userId      String
+  lessonId    String
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+}
+
+// Payment.status: "PENDING" | "SUCCESS" | "FAILED"
+model Payment {
+  id        String    @id @default(cuid())
+  invoiceId Int       @unique
+  userId    String
+  courseId  String
+  amountRub Int
+  status    String    @default("PENDING")
+  rawResult String?
+  createdAt DateTime  @default(now())
+  paidAt    DateTime?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id           String   @id @default(cuid())
+  studentName  String
+  studentGrade String?
+  text         String
+  published    Boolean  @default(false)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  token     String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

@@ -1,0 +1,406 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS
+   Единственный источник правды по цвету, типографике и теням.
+   Меняешь здесь — меняется на всём сайте.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* --- Фоны и поверхности --- */
+  --color-bg: #fffaf3;          /* тёплый фон всего сайта */
+  --color-bg-tint: #f8f5ff;     /* холодная подложка для чередования секций */
+  --color-surface: #ffffff;     /* карточки */
+  --color-surface-alt: #f6f3fc; /* вложенные блоки внутри карточек */
+
+  /* --- Текст --- */
+  --color-ink: #17142a;         /* заголовки */
+  --color-ink-soft: #57536b;    /* основной текст */
+  --color-ink-muted: #8a869e;   /* подписи, мета */
+
+  /* --- Фиолетовый: основной --- */
+  --color-primary: #4a3aff;
+  --color-primary-dark: #372bd1;
+  --color-primary-deep: #1f1747; /* тёмный край градиентов */
+  --color-primary-soft: #edebff;
+  --color-primary-tint: #f7f6ff;
+
+  /* --- Оранжевый: акцент --- */
+  --color-accent: #ff8a3d;
+  --color-accent-dark: #e5701f;
+  --color-accent-soft: #fff0e1;
+  --color-accent-tint: #fff8f1;
+
+  /* --- Границы --- */
+  --color-border: #ece7f5;
+  --color-border-strong: #ddd5ee;
+
+  /* --- Служебные --- */
+  --color-success: #17a673;
+  --color-danger: #d94141;
+
+  /* --- Цвета приложений: по ним узнают, куда ведёт ссылка --- */
+  --brand-telegram: #229ed9;
+  --brand-telegram-light: #2aabee;
+  --brand-vk: #0077ff;
+  --brand-youtube: #ff0033;
+  --brand-tiktok: #010101;
+  --brand-tiktok-cyan: #25f4ee;
+  --brand-tiktok-pink: #fe2c55;
+  --brand-max-from: #00c6ff;
+  --brand-max-via: #2a45ff;
+  --brand-max-to: #8114ff;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-bg-tint: var(--color-bg-tint);
+  --color-surface: var(--color-surface);
+  --color-surface-alt: var(--color-surface-alt);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-primary-deep: var(--color-primary-deep);
+  --color-primary-soft: var(--color-primary-soft);
+  --color-primary-tint: var(--color-primary-tint);
+  --color-accent: var(--color-accent);
+  --color-accent-dark: var(--color-accent-dark);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-accent-tint: var(--color-accent-tint);
+  --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+  --color-success: var(--color-success);
+  --color-danger: var(--color-danger);
+  --font-sans: var(--font-inter);
+}
+
+/* ============================================================
+   ТИПОГРАФИЧЕСКАЯ ШКАЛА
+   Та же манера, что на лендинге Давида: Inter, плотные жирные
+   заголовки с отрицательным трекингом, короткий межстрочный интервал,
+   приглушённый основной текст с воздухом.
+   Размеры «резиновые» (clamp): плавно растут от телефона к десктопу.
+   ============================================================ */
+
+@theme {
+  --text-display: clamp(2.5rem, 1.2rem + 5.6vw, 5.5rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.04em;
+  --text-display--font-weight: 800;
+
+  --text-h1: clamp(2.25rem, 1.35rem + 3.9vw, 4.25rem);
+  --text-h1--line-height: 1.03;
+  --text-h1--letter-spacing: -0.035em;
+  --text-h1--font-weight: 800;
+
+  --text-h2: clamp(1.875rem, 1.2rem + 2.9vw, 3.375rem);
+  --text-h2--line-height: 1.08;
+  --text-h2--letter-spacing: -0.028em;
+  --text-h2--font-weight: 700;
+
+  --text-h3: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem);
+  --text-h3--line-height: 1.18;
+  --text-h3--letter-spacing: -0.02em;
+  --text-h3--font-weight: 700;
+
+  --text-h4: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  --text-h4--line-height: 1.35;
+  --text-h4--letter-spacing: -0.01em;
+  --text-h4--font-weight: 700;
+
+  --text-lead: clamp(1rem, 0.94rem + 0.32vw, 1.1875rem);
+  --text-lead--line-height: 1.62;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.5;
+
+  --text-eyebrow: 0.8125rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.14em;
+  --text-eyebrow--font-weight: 600;
+
+  /* --- Скругления --- */
+  --radius-card: 1.25rem;
+  --radius-panel: 1.75rem;
+  --radius-hero: 2.25rem;
+
+  /* --- Тени: мягкие, многослойные, без «серого пятна» --- */
+  --shadow-subtle: 0 1px 2px rgba(31, 23, 71, 0.04), 0 2px 8px rgba(31, 23, 71, 0.04);
+  --shadow-card: 0 2px 4px rgba(31, 23, 71, 0.03), 0 12px 28px -12px rgba(31, 23, 71, 0.14);
+  --shadow-lift: 0 4px 8px rgba(31, 23, 71, 0.04), 0 24px 48px -20px rgba(31, 23, 71, 0.28);
+  --shadow-hero: 0 40px 80px -40px rgba(31, 23, 71, 0.55);
+  --shadow-primary: 0 14px 34px -12px rgba(74, 58, 255, 0.6);
+  --shadow-accent: 0 14px 34px -12px rgba(255, 138, 61, 0.65);
+
+  /* --- Кривые анимации --- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-soft: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ============================================================
+   БАЗОВЫЕ СТИЛИ
+   ============================================================ */
+
+html {
+  scroll-behavior: smooth;
+  /* чтобы якорные ссылки не прятались под шапкой */
+  scroll-padding-top: 6.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: var(--text-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* убирает горизонтальный сдвиг от анимаций, уезжающих за край */
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: white;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   ТЕКСТОВЫЕ ПРИЁМЫ (из лендинга Давида)
+   ============================================================ */
+
+/*
+  Свои классы лежат в слое components: тогда утилиты Tailwind (absolute,
+  inline-flex и т. п.) их перебивают, а не наоборот. Без слоя обычный CSS
+  сильнее любой утилиты — так, например, зернистость ломала позицию арки.
+*/
+@layer components {
+/* Надзаголовок: мелкие прописные с разрядкой, цветом бренда, без плашки. */
+.eyebrow {
+  display: block;
+  font-size: var(--text-eyebrow);
+  line-height: var(--text-eyebrow--line-height);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.eyebrow-on-dark {
+  color: #ffb581;
+}
+
+/*
+  Заголовок, который появляется по словам.
+  Каждое слово лежит в своей «шторке» (overflow: hidden) и выезжает снизу
+  с небольшой задержкой относительно предыдущего. Отступы сверху и снизу
+  не дают шторке обрезать хвосты «у», «д» и значок над «й».
+*/
+.split .w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0.1em 0 0.12em;
+  margin: -0.1em 0 -0.12em;
+}
+.split .wi {
+  display: inline-block;
+  transform: translateY(108%);
+  transition: transform 1s var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 55ms + var(--d, 0ms));
+  will-change: transform;
+}
+.split.in .wi {
+  transform: none;
+}
+
+/*
+  Маркер под ключевыми словами. Прорисовывается слева направо
+  после того, как слова заголовка доехали. Фон строчного элемента,
+  поэтому корректно переносится на вторую строку.
+*/
+.hl {
+  background-image: linear-gradient(90deg, rgba(255, 138, 61, 0.5), rgba(255, 138, 61, 0.28));
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  background-size: 0% 0.3em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size 1.2s var(--ease-out-expo) 0.7s;
+}
+.split.in .hl,
+.hl.in {
+  background-size: 100% 0.3em;
+}
+
+/* Блик по кнопке при наведении — тот же, что у кнопок на лендинге Давида. */
+.btn-shine {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.38) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.9s var(--ease-out-expo);
+  pointer-events: none;
+}
+.btn-shine:hover::after {
+  transform: translateX(120%);
+}
+.btn-shine > svg:last-child {
+  transition: transform 0.45s var(--ease-out-expo);
+}
+.btn-shine:hover > svg:last-child {
+  transform: translateX(4px);
+}
+}
+
+/* ============================================================
+   УТИЛИТЫ
+   ============================================================ */
+
+/* Фирменный градиент — тот же, что на заглушке баннера. */
+@utility bg-brand-gradient {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-primary-deep) 0%,
+    var(--color-primary) 55%,
+    #6a45f0 100%
+  );
+}
+
+/* Текст градиентом — для выделения слова в заголовке. */
+@utility text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-primary) 0%,
+    #7a4fe8 45%,
+    var(--color-accent) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Сетка точек на фоне — как на лендинге Давида, только тёплая. */
+@utility bg-dots {
+  background-image: radial-gradient(rgba(31, 23, 71, 0.13) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+@utility bg-dots-light {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+/* Еле заметная зернистость — снимает ощущение «пластиковой» заливки.
+   Вешается на блок с градиентом: class="texture-grain" */
+@layer components {
+.texture-grain {
+  position: relative;
+}
+.texture-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+}
+}
+
+/* Мягкое «парение» плашек на первом экране. */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.animate-float {
+  animation: float-y 6s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: float-y 8s ease-in-out infinite;
+}
+
+/* ============================================================
+   ДОСТУПНОСТЬ: уважаем системную настройку «меньше движения».
+   Framer Motion гасится отдельно через MotionConfig в layout.
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .split .wi {
+    transform: none !important;
+  }
+  .hl {
+    background-size: 100% 0.3em !important;
+  }
+}
+
+/* ============================================================
+   ПЛЕЕР: прячем штатную кнопку скачивания, насколько это возможно.
+   ============================================================ */
+
+video::-internal-media-controls-download-button {
+  display: none;
+}
+video::-webkit-media-controls-enclosure {
+  overflow: hidden;
+}
+
+/* ============================================================
+   БЕГУЩАЯ СТРОКА
+   Контент дублируется в разметке дважды, поэтому сдвиг на -50%
+   даёт бесшовное зацикливание. При наведении не останавливается.
+   ============================================================ */
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee-scroll var(--marquee-duration, 38s) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,8 @@
+node_modules/
+*.log
+_backup_*/
+# private source documents from Anna (diploma with personal data, raw photos)
+/Документы/
+# local SQLite database lives here (outside the path web/.gitignore expects)
+/web/prisma/prisma/dev.db
+/web/prisma/prisma/dev.db-journal
