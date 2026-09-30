@@ -58,7 +58,7 @@ export default function ContactsPage() {
   return (
     <>
       <Section tone="default" size="lg" className="overflow-hidden">
-        <div aria-hidden className="bg-dots pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_60%_55%_at_20%_10%,black,transparent_75%)]" />
+        <div aria-hidden className="bg-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_60%_55%_at_20%_10%,black,transparent_75%)]" />
 
         <div className="relative grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div className="lg:pt-6">
@@ -171,7 +171,7 @@ export default function ContactsPage() {
       </Section>
 
       <Section tone="dark" size="lg" className="overflow-hidden">
-        <div aria-hidden className="bg-dots-light pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
+        <div aria-hidden className="bg-grid-light pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
         <div className="relative mx-auto max-w-2xl text-center">
           <Reveal>
             <SectionHeading

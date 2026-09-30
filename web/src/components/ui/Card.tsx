@@ -2,17 +2,19 @@ import clsx from "clsx";
 
 /**
  * Базовая карточка. Единая геометрия и тень для всего сайта.
+ * Новый стиль: тёмная обводка и жёсткая тень; при наведении карточка
+ * «приподнимается» — сдвигается от тени, тень растёт.
  * Варианты нужны, чтобы соседние блоки не выглядели одинаково.
  */
 
 type Variant = "solid" | "outline" | "soft" | "dark" | "glass";
 
 const variants: Record<Variant, string> = {
-  solid: "bg-[var(--color-surface)] border border-[var(--color-border)] shadow-subtle",
-  outline: "bg-transparent border border-[var(--color-border-strong)]",
-  soft: "bg-[var(--color-surface-alt)] border border-transparent",
-  dark: "bg-brand-gradient text-white border border-white/10 shadow-hero texture-grain",
-  glass: "bg-white/10 backdrop-blur-xl border border-white/20 text-white",
+  solid: "bg-[var(--color-surface)] border-2 border-[var(--color-ink)] shadow-hard",
+  outline: "bg-transparent border-2 border-[var(--color-ink)]",
+  soft: "bg-[var(--color-surface-alt)] border-2 border-transparent",
+  dark: "bg-brand-gradient text-white border-2 border-[var(--color-ink)] shadow-hard",
+  glass: "bg-white/10 backdrop-blur-xl border-2 border-white/20 text-white",
 };
 
 export default function Card({
@@ -33,7 +35,7 @@ export default function Card({
         "relative overflow-hidden rounded-card p-6 sm:p-8",
         variants[variant],
         interactive &&
-          "transition-[transform,box-shadow] duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:shadow-lift",
+          "transition-[translate,box-shadow] duration-150 ease-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-hard-lg",
         className
       )}
     >

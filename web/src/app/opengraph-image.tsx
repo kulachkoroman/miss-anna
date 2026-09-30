@@ -66,7 +66,7 @@ export default async function OpengraphImage() {
             height: 110,
             display: "flex",
             borderRadius: 999,
-            border: "4px solid #ff8a3d",
+            border: "4px solid #ff8fd4",
           }}
         />
         {/* eslint-disable-next-line @next/next/no-img-element -- next/og рисует обычный img */}

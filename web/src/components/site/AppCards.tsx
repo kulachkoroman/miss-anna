@@ -151,7 +151,7 @@ function YouTubeCard({ link }: { link: BlogLink }) {
     <CardShell link={link}>
       {/* Кадр видео с кнопкой воспроизведения, как в плеере YouTube. */}
       <div className="relative mt-6 flex aspect-video flex-1 items-center justify-center overflow-hidden rounded-2xl bg-[#0f0f0f]">
-        <div aria-hidden className="bg-dots-light absolute inset-0 opacity-40" />
+        <div aria-hidden className="bg-grid-light absolute inset-0 opacity-40" />
         <span className="relative flex h-12 w-[4.25rem] items-center justify-center rounded-[14px] bg-[var(--brand-youtube)] transition-transform duration-300 group-hover:scale-110">
           <Icon name="play" className="h-6 w-6 fill-white text-white" />
         </span>

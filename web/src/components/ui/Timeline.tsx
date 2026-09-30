@@ -82,7 +82,7 @@ export default function Timeline({
             {/* Номер нужен там, где важен порядок действий.
                 В биографии он только мешает. */}
             {!vertical && (
-              <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-accent)] text-[11px] font-extrabold text-white">
+              <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--color-accent)] text-[11px] font-extrabold text-[var(--color-ink)]">
                 {i + 1}
               </span>
             )}

@@ -34,7 +34,7 @@ export default function Footer() {
     <footer className="relative overflow-hidden bg-[#100c22] text-white">
       {/* Мягкое свечение и точки — та же графика, что на первом экране. */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="bg-dots-light absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" />
+        <div className="bg-grid-light absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" />
         <div className="absolute -top-40 left-1/3 h-80 w-[36rem] rounded-full bg-[var(--color-primary)] opacity-25 blur-[120px]" />
       </div>
 

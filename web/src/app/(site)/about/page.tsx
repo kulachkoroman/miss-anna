@@ -61,7 +61,7 @@ export default function AboutPage() {
 function Intro() {
   return (
     <Section tone="default" size="lg" className="overflow-hidden">
-      <div aria-hidden className="bg-dots pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_60%_60%_at_80%_20%,black,transparent_75%)]" />
+      <div aria-hidden className="bg-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_60%_60%_at_80%_20%,black,transparent_75%)]" />
 
       <div className="relative grid items-start gap-14 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-20">
         <div>
@@ -257,7 +257,7 @@ function Approach() {
             <ul className="relative mt-6 space-y-4">
               {APPROACH.instead.map((item) => (
                 <li key={item} className="flex items-start gap-3.5 text-white/85">
-                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/15 text-[#ffb581]">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/15 text-[var(--color-accent)]">
                     <Icon name="check" className="h-3.5 w-3.5" strokeWidth={2.8} />
                   </span>
                   {item}
@@ -271,7 +271,7 @@ function Approach() {
       {/* Самая частая ошибка — прямым текстом. */}
       <Reveal delay={0.1}>
         <div className="mx-auto mt-6 flex max-w-5xl flex-col gap-4 rounded-panel border border-[var(--color-accent)]/25 bg-[var(--color-accent-tint)] p-7 sm:flex-row sm:items-center sm:gap-6 sm:p-8">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[var(--color-accent)] text-white">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[var(--color-accent)] text-[var(--color-ink)]">
             <Icon name="target" className="h-6 w-6" />
           </span>
           <p className="text-lead text-[var(--color-ink-soft)]">
@@ -360,7 +360,7 @@ function Method() {
 function FinalCta() {
   return (
     <Section tone="dark" size="lg" className="overflow-hidden">
-      <div aria-hidden className="bg-dots-light pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
+      <div aria-hidden className="bg-grid-light pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
       <div className="relative mx-auto max-w-2xl text-center">
         <Reveal>
           <SectionHeading

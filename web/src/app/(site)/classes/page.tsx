@@ -256,7 +256,7 @@ function Trial() {
             {points.map((point) => (
               <RevealItem key={point.text}>
                 <div className="flex items-center gap-4 rounded-card bg-[var(--color-surface)] px-5 py-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent)] text-white">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent)] text-[var(--color-ink)]">
                     <Icon name={point.icon} className="h-5 w-5" />
                   </span>
                   <span className="text-[var(--color-ink-soft)]">{point.text}</span>
@@ -333,7 +333,7 @@ function Booking() {
 
   return (
     <Section id="booking" tone="dark" size="lg" className="overflow-hidden">
-      <div aria-hidden className="bg-dots-light pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
+      <div aria-hidden className="bg-grid-light pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
       <div className="relative mx-auto max-w-3xl text-center">
         <Reveal>
           <SectionHeading

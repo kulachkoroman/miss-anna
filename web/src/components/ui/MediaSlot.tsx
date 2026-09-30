@@ -96,7 +96,7 @@ function Placeholder({ spec, devHint }: { spec: MediaSpec; devHint: boolean }) {
     <div aria-hidden className="absolute inset-0">
       <div className="absolute inset-0 bg-brand-gradient" />
       <div
-        className="absolute inset-0 opacity-80 [background:radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.24),transparent_46%),radial-gradient(circle_at_88%_8%,rgba(255,138,61,0.42),transparent_44%),radial-gradient(circle_at_70%_95%,rgba(122,79,232,0.5),transparent_50%)]"
+        className="absolute inset-0 opacity-80 [background:radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.24),transparent_46%),radial-gradient(circle_at_88%_8%,rgba(255,143,212,0.42),transparent_44%),radial-gradient(circle_at_70%_95%,rgba(122,79,232,0.5),transparent_50%)]"
       />
       <div className="texture-grain absolute inset-0" />
 

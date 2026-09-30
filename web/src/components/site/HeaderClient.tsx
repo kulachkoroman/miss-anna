@@ -27,7 +27,7 @@ const navItems = [
 ];
 
 /**
- * Шапка сайта — плавающая стеклянная плашка, как на лендинге Давида.
+ * Шапка сайта — плавающая белая «таблетка» с обводкой и жёсткой тенью.
  *
  * На главной подсвечивает раздел, до которого долистал человек.
  * Справа — вход в кабинет и главная кнопка «Записаться», которая сразу
@@ -139,15 +139,13 @@ export default function HeaderClient({
     <header className="fixed inset-x-0 top-3 z-40 px-3 sm:top-4 sm:px-6 lg:px-8">
       <div
         className={clsx(
-          "mx-auto max-w-[76rem] rounded-[1.25rem] border backdrop-blur-xl backdrop-saturate-150 transition-[background-color,box-shadow,border-color] duration-500",
-          scrolled || mobileOpen
-            ? "border-white/70 bg-white/80 shadow-[0_18px_40px_-22px_rgba(31,23,71,0.45)]"
-            : "border-white/50 bg-white/55 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset]"
+          "mx-auto max-w-[76rem] rounded-full border-2 border-[var(--color-ink)] bg-white transition-shadow duration-300",
+          scrolled || mobileOpen ? "shadow-hard" : "shadow-hard-sm"
         )}
       >
-        <div className="flex h-16 items-center justify-between gap-3 pl-5 pr-2.5 sm:h-[4.25rem]">
+        <div className="flex h-16 items-center justify-between gap-3 pl-6 pr-2.5 sm:h-[4.25rem]">
           <Link href="/" className="flex min-w-0 flex-col leading-tight" onClick={() => setMobileOpen(false)}>
-            <span className="truncate text-[0.9375rem] font-extrabold tracking-[-0.02em] text-[var(--color-ink)] sm:text-base">
+            <span className="truncate font-display text-[0.8125rem] font-bold tracking-[-0.02em] text-[var(--color-ink)] sm:text-[0.9375rem]">
               {BLOG_NAME}
               <span className="text-[var(--color-accent)]">.</span>
             </span>
@@ -163,10 +161,10 @@ export default function HeaderClient({
                 href={item.href}
                 aria-current={isActive(item) ? "page" : undefined}
                 className={clsx(
-                  "rounded-xl px-3.5 py-2 text-[0.875rem] font-medium transition-colors duration-300",
+                  "rounded-full px-3.5 py-2 text-[0.875rem] transition-colors duration-300",
                   isActive(item)
-                    ? "bg-[var(--color-primary-soft)] text-[var(--color-primary)]"
-                    : "text-[var(--color-ink-soft)] hover:bg-black/[0.04] hover:text-[var(--color-ink)]"
+                    ? "bg-[var(--color-accent)] font-semibold text-[var(--color-ink)]"
+                    : "font-medium text-[var(--color-ink-soft)] hover:bg-[var(--color-accent-tint)] hover:text-[var(--color-ink)]"
                 )}
               >
                 {item.label}
@@ -181,7 +179,7 @@ export default function HeaderClient({
               href={TELEGRAM.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-shine hidden items-center gap-2 rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-[0.875rem] font-bold text-white shadow-[0_8px_20px_-10px_rgba(74,58,255,0.7)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-primary sm:inline-flex"
+              className="hidden items-center gap-2 rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] px-5 py-2 text-[0.875rem] font-bold text-[var(--color-ink)] shadow-hard-sm transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none sm:inline-flex"
             >
               <BrandIcon brand="telegram" mono className="h-4 w-4" />
               <span>Записаться</span>
@@ -228,7 +226,7 @@ export default function HeaderClient({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={{ duration: 0.35, ease: EASE.out }}
-            className="mx-auto mt-2 max-w-[76rem] origin-top overflow-hidden rounded-[1.5rem] border border-white/70 bg-white/95 p-3 shadow-[0_24px_50px_-24px_rgba(31,23,71,0.5)] backdrop-blur-xl lg:hidden"
+            className="mx-auto mt-2 max-w-[76rem] origin-top overflow-hidden rounded-[1.5rem] border-2 border-[var(--color-ink)] bg-white p-3 shadow-hard lg:hidden"
           >
             <ul className="flex flex-col">
               {navItems.map((item, i) => (
@@ -244,8 +242,8 @@ export default function HeaderClient({
                     className={clsx(
                       "flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg font-bold tracking-[-0.02em] transition-colors",
                       isActive(item)
-                        ? "bg-[var(--color-primary-soft)] text-[var(--color-primary)]"
-                        : "text-[var(--color-ink)] active:bg-black/[0.04]"
+                        ? "bg-[var(--color-accent)] text-[var(--color-ink)]"
+                        : "text-[var(--color-ink)] active:bg-[var(--color-accent-tint)]"
                     )}
                   >
                     {item.label}

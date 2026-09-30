@@ -14,7 +14,7 @@ import { BLOG_LINKS, MESSENGERS } from "@/content/site";
 export default function ContactsPreview() {
   return (
     <Section id="contacts" tone="dark" size="lg" className="overflow-hidden">
-      <div aria-hidden className="bg-dots-light pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
+      <div aria-hidden className="bg-grid-light pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-40 left-1/2 h-80 w-[40rem] -translate-x-1/2 rounded-full bg-[var(--color-accent)] opacity-25 blur-[120px]"

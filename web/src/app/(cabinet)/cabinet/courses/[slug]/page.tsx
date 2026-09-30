@@ -147,7 +147,7 @@ export default async function CabinetCoursePage(
                               done
                                 ? "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] text-white"
                                 : isNext
-                                  ? "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)] text-white"
+                                  ? "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)] text-[var(--color-ink)]"
                                   : "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-border-strong)] text-caption font-semibold text-[var(--color-ink-muted)]"
                             }
                           >

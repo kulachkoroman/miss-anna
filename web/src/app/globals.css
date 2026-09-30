@@ -10,10 +10,11 @@
   color-scheme: light;
 
   /* --- Фоны и поверхности --- */
-  --color-bg: #fffaf3;          /* тёплый фон всего сайта */
+  --color-bg: #fbf8fb;          /* «бумага»: фон всего сайта */
   --color-bg-tint: #f8f5ff;     /* холодная подложка для чередования секций */
   --color-surface: #ffffff;     /* карточки */
   --color-surface-alt: #f6f3fc; /* вложенные блоки внутри карточек */
+  --color-grid: rgba(96, 40, 96, 0.08); /* линии тетрадной клетки */
 
   /* --- Текст --- */
   --color-ink: #17142a;         /* заголовки */
@@ -27,11 +28,13 @@
   --color-primary-soft: #edebff;
   --color-primary-tint: #f7f6ff;
 
-  /* --- Оранжевый: акцент --- */
-  --color-accent: #ff8a3d;
-  --color-accent-dark: #e5701f;
-  --color-accent-soft: #fff0e1;
-  --color-accent-tint: #fff8f1;
+  /* --- Розовый: акцент ---
+     Светлый: текст и иконки на нём — только тёмные (--color-ink), белый не читается.
+     accent-dark — для розового текста и мелких значков на светлом фоне. */
+  --color-accent: #ff8fd4;
+  --color-accent-dark: #c42a7f;
+  --color-accent-soft: #ffe5f5;
+  --color-accent-tint: #fff4fb;
 
   /* --- Границы --- */
   --color-border: #ece7f5;
@@ -76,30 +79,33 @@
   --color-success: var(--color-success);
   --color-danger: var(--color-danger);
   --font-sans: var(--font-inter);
+  /* Заголовки — широкий Unbounded, пометки «на полях» — рукописный Caveat. */
+  --font-display: var(--font-unbounded), var(--font-inter), sans-serif;
+  --font-hand: var(--font-caveat), cursive;
 }
 
 /* ============================================================
    ТИПОГРАФИЧЕСКАЯ ШКАЛА
-   Та же манера, что на лендинге Давида: Inter, плотные жирные
-   заголовки с отрицательным трекингом, короткий межстрочный интервал,
-   приглушённый основной текст с воздухом.
+   Заголовки h1/h2 — Unbounded: он шире Inter, поэтому размеры
+   крупных ступеней меньше, чем были, а межстрочный — чуть свободнее.
+   Основной текст — Inter, приглушённый, с воздухом.
    Размеры «резиновые» (clamp): плавно растут от телефона к десктопу.
    ============================================================ */
 
 @theme {
-  --text-display: clamp(2.5rem, 1.2rem + 5.6vw, 5.5rem);
-  --text-display--line-height: 1.02;
+  --text-display: clamp(2.125rem, 1.1rem + 4vw, 4.25rem);
+  --text-display--line-height: 1.06;
   --text-display--letter-spacing: -0.04em;
   --text-display--font-weight: 800;
 
-  --text-h1: clamp(2.25rem, 1.35rem + 3.9vw, 4.25rem);
-  --text-h1--line-height: 1.03;
+  --text-h1: clamp(1.875rem, 1.2rem + 2.9vw, 3.5rem);
+  --text-h1--line-height: 1.08;
   --text-h1--letter-spacing: -0.035em;
   --text-h1--font-weight: 800;
 
-  --text-h2: clamp(1.875rem, 1.2rem + 2.9vw, 3.375rem);
-  --text-h2--line-height: 1.08;
-  --text-h2--letter-spacing: -0.028em;
+  --text-h2: clamp(1.625rem, 1.15rem + 2vw, 2.75rem);
+  --text-h2--line-height: 1.12;
+  --text-h2--letter-spacing: -0.03em;
   --text-h2--font-weight: 700;
 
   --text-h3: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem);
@@ -137,7 +143,12 @@
   --shadow-lift: 0 4px 8px rgba(31, 23, 71, 0.04), 0 24px 48px -20px rgba(31, 23, 71, 0.28);
   --shadow-hero: 0 40px 80px -40px rgba(31, 23, 71, 0.55);
   --shadow-primary: 0 14px 34px -12px rgba(74, 58, 255, 0.6);
-  --shadow-accent: 0 14px 34px -12px rgba(255, 138, 61, 0.65);
+
+  /* Жёсткие тени нового стиля: сплошной сдвиг без размытия.
+     Кнопка при нажатии «съедает» тень — будто вдавливается. */
+  --shadow-hard-sm: 2px 2px 0 #17142a;
+  --shadow-hard: 4px 4px 0 #17142a;
+  --shadow-hard-lg: 6px 6px 0 #17142a;
 
   /* --- Кривые анимации --- */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -168,9 +179,18 @@ body {
   overflow-x: clip;
 }
 
+/* Крупные заголовки — фирменным широким шрифтом. h3 и мельче остаются на Inter:
+   в карточках Unbounded слишком тяжёлый. */
+@layer base {
+  h1,
+  h2 {
+    font-family: var(--font-display);
+  }
+}
+
 ::selection {
-  background: var(--color-primary);
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-ink);
 }
 
 :focus-visible {
@@ -200,21 +220,22 @@ body {
   color: var(--color-primary);
 }
 .eyebrow-on-dark {
-  color: #ffb581;
+  color: var(--color-accent);
 }
 
 /*
   Заголовок, который появляется по словам.
   Каждое слово лежит в своей «шторке» (overflow: hidden) и выезжает снизу
   с небольшой задержкой относительно предыдущего. Отступы сверху и снизу
-  не дают шторке обрезать хвосты «у», «д» и значок над «й».
+  не дают шторке обрезать хвосты «у», «д» и значок над «й» — у Unbounded
+  высокие прописные, поэтому запас сверху больше обычного.
 */
 .split .w {
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
-  padding: 0.1em 0 0.12em;
-  margin: -0.1em 0 -0.12em;
+  padding: 0.16em 0 0.14em;
+  margin: -0.16em 0 -0.14em;
 }
 .split .wi {
   display: inline-block;
@@ -228,43 +249,26 @@ body {
 }
 
 /*
-  Маркер под ключевыми словами. Прорисовывается слева направо
-  после того, как слова заголовка доехали. Фон строчного элемента,
-  поэтому корректно переносится на вторую строку.
+  Текстовыделитель под ключевыми словами: розовая полоса на нижней
+  половине строки, как маркером в тетради. Прорисовывается слева
+  направо после того, как слова заголовка доехали. Фон строчного
+  элемента, поэтому корректно переносится на вторую строку.
 */
 .hl {
-  background-image: linear-gradient(90deg, rgba(255, 138, 61, 0.5), rgba(255, 138, 61, 0.28));
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
   background-repeat: no-repeat;
-  background-position: 0 88%;
-  background-size: 0% 0.3em;
+  background-position: 0 86%;
+  background-size: 0% 0.46em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   transition: background-size 1.2s var(--ease-out-expo) 0.7s;
 }
 .split.in .hl,
 .hl.in {
-  background-size: 100% 0.3em;
+  background-size: 100% 0.46em;
 }
 
-/* Блик по кнопке при наведении — тот же, что у кнопок на лендинге Давида. */
-.btn-shine {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-}
-.btn-shine::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.38) 50%, transparent 70%);
-  transform: translateX(-120%);
-  transition: transform 0.9s var(--ease-out-expo);
-  pointer-events: none;
-}
-.btn-shine:hover::after {
-  transform: translateX(120%);
-}
+/* Стрелка в конце кнопки чуть сдвигается вперёд при наведении. */
 .btn-shine > svg:last-child {
   transition: transform 0.45s var(--ease-out-expo);
 }
@@ -277,14 +281,11 @@ body {
    УТИЛИТЫ
    ============================================================ */
 
-/* Фирменный градиент — тот же, что на заглушке баннера. */
+/* Фирменная заливка. В новом стиле — ровный фиолетовый без перехода:
+   плоские цвета, объём дают обводка и жёсткая тень. Имя оставлено
+   прежним, чтобы не переписывать все места, где она используется. */
 @utility bg-brand-gradient {
-  background-image: linear-gradient(
-    135deg,
-    var(--color-primary-deep) 0%,
-    var(--color-primary) 55%,
-    #6a45f0 100%
-  );
+  background-color: var(--color-primary);
 }
 
 /* Текст градиентом — для выделения слова в заголовке. */
@@ -300,30 +301,25 @@ body {
   color: transparent;
 }
 
-/* Сетка точек на фоне — как на лендинге Давида, только тёплая. */
-@utility bg-dots {
-  background-image: radial-gradient(rgba(31, 23, 71, 0.13) 1px, transparent 1.2px);
-  background-size: 22px 22px;
+/* Тетрадная клетка на фоне. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
-@utility bg-dots-light {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1.2px);
-  background-size: 22px 22px;
+@utility bg-grid-light {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-/* Еле заметная зернистость — снимает ощущение «пластиковой» заливки.
-   Вешается на блок с градиентом: class="texture-grain" */
+/* Раньше здесь была зернистость поверх градиентов. В плоском стиле она
+   не нужна; класс оставлен, потому что блоки полагаются на его relative. */
 @layer components {
 .texture-grain {
   position: relative;
-}
-.texture-grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.55;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
 }
 }
 
@@ -365,7 +361,7 @@ body {
     transform: none !important;
   }
   .hl {
-    background-size: 100% 0.3em !important;
+    background-size: 100% 0.46em !important;
   }
 }
 

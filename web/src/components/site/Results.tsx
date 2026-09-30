@@ -25,7 +25,7 @@ export default function Results({ id = "results" }: { id?: string }) {
         aria-hidden
         className="pointer-events-none absolute -right-32 top-0 h-[28rem] w-[28rem] rounded-full bg-[var(--color-primary)] opacity-30 blur-[120px]"
       />
-      <div aria-hidden className="bg-dots-light pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
+      <div aria-hidden className="bg-grid-light pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
 
       <div className="relative">
         <Reveal>
@@ -65,7 +65,7 @@ export default function Results({ id = "results" }: { id?: string }) {
               <p className="eyebrow eyebrow-on-dark">История ученицы</p>
               <h3 className="mt-4 text-[clamp(1.75rem,1.3rem+1.8vw,2.75rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-white">
                 С {STUDENT_STORY.before} до {STUDENT_STORY.after} баллов
-                <span className="text-[#ffb581]"> за месяц</span>
+                <span className="text-[var(--color-accent)]"> за месяц</span>
               </h3>
 
               <ScoreJump before={STUDENT_STORY.before} after={STUDENT_STORY.after} />
@@ -100,7 +100,7 @@ function Tag({
 }) {
   return (
     <span className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.08] px-3.5 py-1.5 text-caption font-semibold text-white/80 ring-1 ring-white/10">
-      {icon && <Icon name={icon} className="h-3.5 w-3.5 text-[#ffb581]" />}
+      {icon && <Icon name={icon} className="h-3.5 w-3.5 text-[var(--color-accent)]" />}
       {children}
     </span>
   );

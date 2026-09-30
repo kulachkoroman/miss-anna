@@ -35,7 +35,7 @@ export default function Quote({
       )}
     >
       {dark && (
-        <div aria-hidden className="bg-dots-light pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
+        <div aria-hidden className="bg-grid-light pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
       )}
       <Container className="relative">
         <figure className="mx-auto max-w-4xl">

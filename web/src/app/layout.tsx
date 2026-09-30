@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Caveat, Inter, Unbounded } from "next/font/google";
 import "./globals.css";
 import MotionProvider from "@/components/ui/MotionProvider";
 
@@ -9,6 +9,22 @@ import MotionProvider from "@/components/ui/MotionProvider";
 */
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+});
+
+/*
+  Unbounded — широкий гротеск для крупных заголовков (h1, h2), задаёт
+  характер нового стиля. Caveat — рукописный, для пометок «на полях».
+*/
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin", "cyrillic"],
   display: "swap",
 });
@@ -64,7 +80,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="ru"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} h-full antialiased`}
+      className={`${inter.variable} ${unbounded.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-[var(--color-bg)] text-[var(--color-ink)]">
         {/*

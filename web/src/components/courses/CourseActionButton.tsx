@@ -12,7 +12,7 @@ function SubmitButton({ label }: { label: string }) {
     <button
       type="submit"
       disabled={pending}
-      className="w-full rounded-full bg-[var(--color-accent)] px-6 py-3.5 text-base font-semibold text-white shadow-[0_8px_20px_-8px_rgba(255,138,61,0.6)] transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-[var(--color-accent-dark)] disabled:opacity-60 sm:w-auto"
+      className="w-full rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] px-6 py-3 text-base font-bold text-[var(--color-ink)] shadow-hard transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:opacity-60 sm:w-auto"
     >
       {pending ? "Секунду…" : label}
     </button>
@@ -49,7 +49,7 @@ export default function CourseActionButton({
       <button
         type="button"
         onClick={() => openLogin({ type: isFree ? "enroll" : "pay", courseSlug })}
-        className="w-full rounded-full bg-[var(--color-accent)] px-6 py-3.5 text-base font-semibold text-white shadow-[0_8px_20px_-8px_rgba(255,138,61,0.6)] transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-[var(--color-accent-dark)] sm:w-auto"
+        className="w-full rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] px-6 py-3 text-base font-bold text-[var(--color-ink)] shadow-hard transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none sm:w-auto"
       >
         {label}
       </button>

@@ -17,10 +17,19 @@ const items = [
   "Все ученики сдали итоговое сочинение с первой попытки",
 ];
 
+/*
+  Розовая лента с обводкой, чуть наклонённая. Сама лента шире экрана (-mx-8)
+  и заходит на соседние блоки (-my-4): иначе у наклонённой полосы по краям
+  видны треугольные просветы. Заодно прячет нижний срез фото на первом экране.
+  Внешняя обёртка обрезает выступ по бокам (только по горизонтали), чтобы
+  страница не становилась шире экрана на телефоне.
+*/
 export default function TrustBar() {
   return (
-    <div className="bg-brand-gradient texture-grain relative z-10 py-3 text-white sm:py-3.5">
-      <Marquee items={items} duration={50} className="relative" />
+    <div className="relative z-10 -my-4 overflow-x-clip">
+      <div className="-mx-8 rotate-[-0.8deg] border-y-2 border-[var(--color-ink)] bg-[var(--color-accent)] py-3 text-[var(--color-ink)] sm:py-3.5">
+        <Marquee items={items} duration={50} className="relative" />
+      </div>
     </div>
   );
 }

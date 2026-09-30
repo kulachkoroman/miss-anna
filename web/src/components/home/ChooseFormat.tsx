@@ -120,7 +120,7 @@ function FormatColumn({
   cta: { href: string; label: string };
   accent?: boolean;
 }) {
-  const tint = accent ? "var(--color-accent)" : "var(--color-primary)";
+  const tint = accent ? "var(--color-accent-dark)" : "var(--color-primary)";
 
   return (
     <div className="flex h-full flex-col">

@@ -38,7 +38,7 @@ export default function ScoreJump({
           transition={{ duration: 0.9, ease: EASE.out }}
         />
         <motion.div
-          className="absolute inset-y-0 rounded-full bg-gradient-to-r from-[#ffb581] to-[var(--color-accent)] shadow-[0_0_24px_rgba(255,138,61,0.6)]"
+          className="absolute inset-y-0 rounded-full bg-gradient-to-r from-[var(--color-accent-soft)] to-[var(--color-accent)] shadow-[0_0_24px_rgba(255,143,212,0.55)]"
           style={{ left: `${before}%` }}
           initial={{ width: 0 }}
           animate={{ width: inView ? `${after - before}%` : 0 }}
@@ -80,7 +80,7 @@ function Marker({
       <p
         className={
           tone === "accent"
-            ? "text-2xl font-extrabold leading-none tracking-[-0.03em] text-[#ffb581]"
+            ? "text-2xl font-extrabold leading-none tracking-[-0.03em] text-[var(--color-accent)]"
             : "text-2xl font-extrabold leading-none tracking-[-0.03em] text-white/70"
         }
       >

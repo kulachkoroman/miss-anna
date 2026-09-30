@@ -73,7 +73,7 @@ export default function ForWhom() {
                   <li key={point} className="flex items-start gap-2.5 text-caption text-[var(--color-ink-soft)]">
                     <Icon
                       name="check"
-                      className="mt-px h-4 w-4 text-[var(--color-accent)]"
+                      className="mt-px h-4 w-4 text-[var(--color-accent-dark)]"
                       strokeWidth={2.4}
                     />
                     {point}

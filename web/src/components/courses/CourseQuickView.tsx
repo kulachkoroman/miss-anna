@@ -153,7 +153,7 @@ function QuickViewBody({
           <div className="space-y-8">
             {course.forWhom && (
               <div className="flex gap-4 rounded-card bg-[var(--color-accent-soft)] p-5 sm:p-6">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent)] text-white">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent)] text-[var(--color-ink)]">
                   <Icon name="target" className="h-5 w-5" />
                 </span>
                 <div>

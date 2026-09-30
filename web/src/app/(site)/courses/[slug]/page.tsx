@@ -99,7 +99,7 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
             {course.forWhom && (
               <Reveal delay={0.1}>
                 <div className="mt-10 flex gap-5 rounded-panel bg-[var(--color-accent-soft)] p-6 sm:p-8">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[var(--color-accent)] text-white">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[var(--color-accent)] text-[var(--color-ink)]">
                     <Icon name="target" className="h-6 w-6" />
                   </span>
                   <div>
@@ -259,7 +259,7 @@ function HeroStat({
     <div
       className={
         accent
-          ? "rounded-2xl bg-[var(--color-accent)] px-5 py-3 text-white"
+          ? "rounded-2xl bg-[var(--color-accent)] px-5 py-3 text-[var(--color-ink)]"
           : "rounded-2xl bg-white/10 px-5 py-3 text-white ring-1 ring-white/20 backdrop-blur-sm"
       }
     >

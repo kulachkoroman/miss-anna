@@ -36,7 +36,7 @@ function MethodPanel({
   items: string[];
   accent?: boolean;
 }) {
-  const tint = accent ? "var(--color-accent)" : "var(--color-primary)";
+  const tint = accent ? "var(--color-accent-dark)" : "var(--color-primary)";
 
   return (
     <div className="flex h-full flex-col rounded-panel border border-[var(--color-border)] bg-[var(--color-surface)] p-7 shadow-subtle sm:p-9">

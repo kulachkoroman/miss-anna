@@ -25,7 +25,7 @@ export default function NotFound() {
     <main className="relative flex flex-1 items-center justify-center overflow-hidden px-4 py-20">
       <div
         aria-hidden
-        className="bg-dots pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]"
+        className="bg-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]"
       />
 
       <div className="relative mx-auto w-full max-w-xl text-center">

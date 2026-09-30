@@ -43,10 +43,10 @@ export default function Marquee({
             aria-hidden={i >= items.length}
             className="flex items-center gap-7 whitespace-nowrap"
           >
-            <span className="text-[0.9375rem] font-semibold tracking-[-0.01em] sm:text-base">
+            <span className="font-display text-[0.8125rem] font-bold tracking-[-0.01em] sm:text-[0.875rem]">
               {item}
             </span>
-            <span aria-hidden className="text-[0.625rem] text-[var(--color-accent)]">
+            <span aria-hidden className="text-[0.75rem]">
               ✦
             </span>
           </span>
