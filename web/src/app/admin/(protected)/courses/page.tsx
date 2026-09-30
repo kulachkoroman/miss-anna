@@ -14,7 +14,7 @@ export default async function AdminCoursesPage() {
         <h1 className="text-2xl font-extrabold text-[var(--color-ink)]">Курсы</h1>
         <Link
           href="/admin/courses/new"
-          className="rounded-full bg-[var(--color-primary)] px-4 py-2 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:scale-[1.03]"
+          className="rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-primary)] px-4 py-1.5 text-sm font-bold text-white shadow-hard transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
         >
           + Новый курс
         </Link>

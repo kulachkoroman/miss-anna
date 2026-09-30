@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import MediaSlot from "@/components/ui/MediaSlot";
 import Badge from "@/components/ui/Badge";
+import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
 import { courseCoverSpec } from "@/content/media";
 import { formatRub, plural } from "@/lib/format";
@@ -82,7 +82,7 @@ export default function CourseQuickView({
             role="dialog"
             aria-modal="true"
             aria-labelledby="quickview-title"
-            className="relative flex max-h-[92svh] w-full max-w-6xl flex-col overflow-hidden rounded-t-hero bg-[var(--color-surface)] shadow-hero sm:rounded-hero"
+            className="relative flex max-h-[92svh] w-full max-w-6xl flex-col overflow-hidden rounded-t-hero border-2 border-[var(--color-ink)] bg-[var(--color-surface)] shadow-hard-lg sm:rounded-hero"
             initial={{ opacity: 0, y: 40, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.98 }}
@@ -121,13 +121,13 @@ function QuickViewBody({
           type="button"
           onClick={onClose}
           aria-label="Закрыть"
-          className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-all duration-200 hover:bg-black/60 hover:scale-105"
+          className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-white text-[var(--color-ink)] shadow-hard-sm transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
         >
           <Icon name="plus" className="h-5 w-5 rotate-45" strokeWidth={2.2} />
         </button>
 
         <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 lg:p-10">
-          <Badge tone="light">{course.isFree ? "Бесплатный курс" : "Платный курс"}</Badge>
+          <Badge tone="accent">{course.isFree ? "Бесплатный курс" : "Платный курс"}</Badge>
           <h2 id="quickview-title" className="mt-3 text-balance text-h2 text-white">
             {course.title}
           </h2>
@@ -152,8 +152,8 @@ function QuickViewBody({
         <div className="mt-10 grid gap-x-14 gap-y-10 lg:grid-cols-2">
           <div className="space-y-8">
             {course.forWhom && (
-              <div className="flex gap-4 rounded-card bg-[var(--color-accent-soft)] p-5 sm:p-6">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent)] text-[var(--color-ink)]">
+              <div className="flex gap-4 rounded-card border-2 border-[var(--color-ink)] bg-[var(--color-accent-soft)] p-5 sm:p-6">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-[var(--color-ink)] bg-[var(--color-accent)] text-[var(--color-ink)]">
                   <Icon name="target" className="h-5 w-5" />
                 </span>
                 <div>
@@ -194,9 +194,9 @@ function QuickViewBody({
                 {course.modules.map((module, i) => (
                   <li
                     key={module.id}
-                    className="flex items-center gap-4 rounded-card border border-[var(--color-border)] px-5 py-4"
+                    className="flex items-center gap-4 rounded-card border-2 border-[var(--color-ink)] px-5 py-4"
                   >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary-soft)] text-caption font-extrabold text-[var(--color-primary)]">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] font-display text-caption font-bold text-[var(--color-ink)]">
                       {i + 1}
                     </span>
                     <span className="flex-1 font-semibold leading-snug text-[var(--color-ink)]">
@@ -213,17 +213,14 @@ function QuickViewBody({
         </div>
       </div>
 
-      <div className="flex shrink-0 flex-wrap items-center justify-between gap-4 border-t border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-5 sm:px-8 lg:px-10">
-        <p className="text-h3 text-[var(--color-ink)]">
+      <div className="flex shrink-0 flex-wrap items-center justify-between gap-4 border-t-2 border-[var(--color-ink)] bg-[var(--color-surface)] px-6 py-5 sm:px-8 lg:px-10">
+        <p className="font-display text-h3 font-bold text-[var(--color-ink)]">
           {course.isFree ? "Бесплатно" : formatRub(course.priceRub)}
         </p>
-        <Link
-          href={`/courses/${course.slug}`}
-          className="inline-flex items-center gap-2 rounded-full bg-[var(--color-primary)] px-6 py-3 font-semibold text-white shadow-primary transition-all duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5 hover:bg-[var(--color-primary-dark)]"
-        >
+        <Button href={`/courses/${course.slug}`}>
           {course.isFree ? "Начать бесплатно" : "Открыть курс"}
           <Icon name="arrowRight" className="h-4 w-4" />
-        </Link>
+        </Button>
       </div>
     </>
   );

@@ -56,7 +56,7 @@ export default function DiplomaViewer({ pages }: { pages: readonly Page[] }) {
             onClick={() => setOpen(i)}
             aria-label={`Открыть: ${page.alt}`}
             className={clsx(
-              "group absolute w-[52%] overflow-hidden rounded-xl bg-white p-1.5 shadow-lift ring-1 ring-black/5",
+              "group absolute w-[52%] overflow-hidden rounded-xl border-2 border-[var(--color-ink)] bg-white p-1.5 shadow-hard",
               "transition-transform duration-500 ease-[var(--ease-out-expo)] hover:z-20 hover:scale-[1.04]",
               i === 0
                 ? "left-[6%] top-[6%] -rotate-6 hover:-rotate-3"
@@ -72,7 +72,7 @@ export default function DiplomaViewer({ pages }: { pages: readonly Page[] }) {
               className="h-auto w-full rounded-lg"
             />
             <span className="absolute inset-0 flex items-center justify-center bg-[var(--color-primary-deep)]/0 transition-colors duration-300 group-hover:bg-[var(--color-primary-deep)]/25">
-              <span className="flex h-11 w-11 scale-75 items-center justify-center rounded-full bg-white text-[var(--color-ink)] opacity-0 shadow-lift transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+              <span className="flex h-11 w-11 scale-75 items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] text-[var(--color-ink)] opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
                 <Icon name="plus" className="h-5 w-5" strokeWidth={2.2} />
               </span>
             </span>

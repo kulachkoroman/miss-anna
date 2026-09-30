@@ -6,7 +6,7 @@ import { updateProfileAction, changePasswordAction, type ProfileActionState } fr
 const initialState: ProfileActionState = { ok: false };
 
 const inputClasses =
-  "w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-2.5 text-sm outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-soft)]";
+  "w-full rounded-xl border-2 border-[var(--color-ink)] bg-white px-4 py-2.5 text-sm outline-none transition-shadow focus:shadow-[3px_3px_0_var(--color-accent)]";
 const labelClasses = "block text-sm font-medium text-[var(--color-ink)] mb-1.5";
 
 export function ProfileForm({
@@ -41,7 +41,7 @@ export function ProfileForm({
       <button
         type="submit"
         disabled={pending}
-        className="rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] disabled:opacity-60"
+        className="rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-primary)] px-5 py-2 text-sm font-bold text-white shadow-hard transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:opacity-60"
       >
         {pending ? "Сохраняем…" : "Сохранить"}
       </button>
@@ -73,7 +73,7 @@ export function PasswordForm() {
       <button
         type="submit"
         disabled={pending}
-        className="rounded-full border-2 border-[var(--color-primary)] px-5 py-2.5 text-sm font-semibold text-[var(--color-primary)] transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] hover:bg-[var(--color-primary-soft)] disabled:opacity-60"
+        className="rounded-full border-2 border-[var(--color-ink)] bg-white px-5 py-2 text-sm font-bold text-[var(--color-ink)] shadow-hard transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:opacity-60"
       >
         {pending ? "Сохраняем…" : "Изменить пароль"}
       </button>

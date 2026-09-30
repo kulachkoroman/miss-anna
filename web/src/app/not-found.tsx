@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { Metadata } from "next";
+import Button from "@/components/ui/Button";
 
 export const metadata: Metadata = {
   title: "Страница не найдена",
@@ -29,7 +29,7 @@ export default function NotFound() {
       />
 
       <div className="relative mx-auto w-full max-w-xl text-center">
-        <p className="relative inline-block text-[clamp(6rem,4rem+10vw,11rem)] font-extrabold leading-none tracking-[-0.06em] text-[var(--color-ink)]">
+        <p className="relative inline-block font-display text-[clamp(5rem,3.5rem+8vw,9rem)] font-extrabold leading-none tracking-[-0.06em] text-[var(--color-ink)]">
           404
           {/* Зачёркнуто и подписано на полях, как в тетради. */}
           <span
@@ -38,7 +38,7 @@ export default function NotFound() {
           />
           <span
             aria-hidden
-            className="absolute -right-6 -top-5 rotate-12 font-serif text-[0.22em] font-bold italic tracking-normal text-[#e5372f]"
+            className="absolute -right-6 -top-6 rotate-12 font-hand text-[0.3em] font-bold tracking-normal text-[#e5372f]"
           >
             нет такой!
           </span>
@@ -50,19 +50,11 @@ export default function NotFound() {
           Возможно, ссылка устарела или в адресе опечатка. Вот куда можно пойти дальше.
         </p>
 
-        <div className="mt-10 flex flex-wrap justify-center gap-3">
+        <div className="mt-10 flex flex-wrap justify-center gap-4">
           {links.map((link, i) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={
-                i === 0
-                  ? "btn-shine inline-flex items-center rounded-full bg-[var(--color-primary)] px-6 py-3 font-bold text-white shadow-primary transition-transform duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5"
-                  : "inline-flex items-center rounded-full border border-[var(--color-border-strong)] bg-white/70 px-6 py-3 font-semibold text-[var(--color-ink-soft)] transition-all duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
-              }
-            >
+            <Button key={link.href} href={link.href} variant={i === 0 ? "primary" : "outline"}>
               {link.label}
-            </Link>
+            </Button>
           ))}
         </div>
       </div>

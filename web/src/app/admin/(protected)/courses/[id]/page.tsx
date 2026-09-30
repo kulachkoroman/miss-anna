@@ -23,7 +23,7 @@ import {
 } from "@/lib/actions/admin/courses";
 
 const smallInput =
-  "rounded-lg border border-[var(--color-border)] bg-white px-3 py-1.5 text-sm outline-none focus:border-[var(--color-primary)]";
+  "rounded-lg border-2 border-[var(--color-ink)] bg-white px-3 py-1.5 text-sm outline-none transition-shadow focus:shadow-[3px_3px_0_var(--color-accent)]";
 const smallButton =
   "rounded-lg border border-[var(--color-border)] px-2.5 py-1.5 text-xs font-medium text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]";
 const dangerButton =
@@ -255,7 +255,7 @@ export default async function AdminCourseEditPage(
           <input name="title" placeholder="Название нового модуля" required className={`${smallInput} flex-1`} />
           <button
             type="submit"
-            className="rounded-full bg-[var(--color-primary)] px-4 py-2 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:scale-[1.03]"
+            className="rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-primary)] px-4 py-1.5 text-sm font-bold text-white shadow-hard transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
           >
             + Добавить модуль
           </button>

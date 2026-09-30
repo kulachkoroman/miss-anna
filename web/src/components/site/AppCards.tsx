@@ -32,9 +32,9 @@ export function MessengerCard({
       {...external}
       style={{ background: style.background }}
       className={clsx(
-        "group relative flex h-full flex-col overflow-hidden rounded-panel p-7 text-white sm:p-8",
-        "shadow-[0_24px_50px_-28px_rgba(0,0,0,0.55)] transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)]",
-        "hover:-translate-y-1.5 hover:shadow-[0_34px_60px_-30px_rgba(0,0,0,0.6)]",
+        "group relative flex h-full flex-col overflow-hidden rounded-panel border-2 border-[var(--color-ink)] p-7 text-white sm:p-8",
+        "shadow-hard transition-[translate,box-shadow] duration-150 ease-out",
+        "hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-hard-lg",
         className
       )}
     >
@@ -76,7 +76,7 @@ export function MessengerCard({
       )}
 
       <span className="relative mt-auto inline-flex items-center gap-2 pt-8 font-bold">
-        <span className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[0.9375rem] text-[#0f1419] shadow-subtle transition-transform duration-300 group-hover:translate-x-1">
+        <span className="inline-flex items-center gap-2 rounded-full border-2 border-[var(--color-ink)] bg-white px-5 py-2.5 text-[0.9375rem] text-[#0f1419] transition-transform duration-300 group-hover:translate-x-1">
           Написать
           <Icon name="arrowUpRight" className="h-4 w-4" />
         </span>
@@ -108,10 +108,8 @@ function CardShell({
       href={link.href}
       {...external}
       className={clsx(
-        "group flex h-full flex-col overflow-hidden rounded-panel p-6 transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1.5 sm:p-7",
-        dark
-          ? "bg-[#010101] text-white shadow-[0_24px_50px_-28px_rgba(0,0,0,0.7)]"
-          : "border border-[var(--color-border)] bg-[var(--color-surface)] shadow-subtle hover:shadow-lift",
+        "group flex h-full flex-col overflow-hidden rounded-panel border-2 border-[var(--color-ink)] p-6 shadow-hard transition-[translate,box-shadow] duration-150 ease-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-hard-lg sm:p-7",
+        dark ? "bg-[#010101] text-white" : "bg-[var(--color-surface)]",
         className
       )}
     >
@@ -138,7 +136,7 @@ function TelegramChannelCard({ link }: { link: BlogLink }) {
         </p>
         <p className="mt-2 text-[0.9375rem] text-[#3b6c86]">подписчиков в канале</p>
       </div>
-      <span className="btn-shine mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[var(--brand-telegram)] px-5 py-3 font-bold text-white">
+      <span className="btn-shine mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-[var(--color-ink)] bg-[var(--brand-telegram)] px-5 py-2.5 font-bold text-white">
         Читать канал
         <Icon name="arrowUpRight" className="h-4 w-4" />
       </span>

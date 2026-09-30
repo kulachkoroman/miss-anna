@@ -37,7 +37,7 @@ export default function CourseActionButton({
     return (
       <Link
         href={`/cabinet/courses/${courseSlug}`}
-        className="inline-flex w-full items-center justify-center rounded-full bg-[var(--color-primary)] px-6 py-3.5 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-[var(--color-primary-dark)] sm:w-auto"
+        className="inline-flex w-full items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-primary)] px-6 py-3 text-base font-bold text-white shadow-hard transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none sm:w-auto"
       >
         Перейти к курсу
       </Link>

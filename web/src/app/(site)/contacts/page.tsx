@@ -71,6 +71,7 @@ export default function ContactsPage() {
               delay={100}
               text="Напишите — отвечу и подскажу"
               highlight="отвечу и подскажу"
+              tone="inherit"
               marker
               className="mt-5 text-balance text-h1 text-[var(--color-ink)]"
             />
@@ -136,8 +137,8 @@ export default function ContactsPage() {
         <RevealGroup stagger={0.08} className="mt-12 grid gap-5 sm:grid-cols-2">
           {topics.map((topic) => (
             <RevealItem key={topic.title} className="h-full">
-              <div className="flex h-full gap-5 rounded-panel border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-[transform,box-shadow] duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:shadow-lift sm:p-7">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[var(--color-primary-soft)] text-[var(--color-primary)]">
+              <div className="flex h-full gap-5 rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-surface)] p-6 shadow-hard transition-[translate,box-shadow] duration-150 ease-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-hard-lg sm:p-7">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-primary-soft)] text-[var(--color-primary)]">
                   <Icon name={topic.icon} className="h-5 w-5" />
                 </span>
                 <div>
@@ -160,7 +161,7 @@ export default function ContactsPage() {
               <Link
                 key={shortcut.href}
                 href={shortcut.href}
-                className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border-strong)] bg-white/60 px-4 py-2 text-caption font-semibold text-[var(--color-ink-soft)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-[var(--color-ink)] bg-white px-4 py-1.5 text-caption font-semibold text-[var(--color-ink)] transition-colors duration-200 hover:bg-[var(--color-accent)]"
               >
                 <Icon name={shortcut.icon} className="h-4 w-4" />
                 {shortcut.label}
@@ -208,7 +209,7 @@ function FactRow({
 }) {
   return (
     <div className="flex items-center gap-4">
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[var(--color-primary-soft)] text-[var(--color-primary)]">
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-primary-soft)] text-[var(--color-primary)]">
         <Icon name={icon} className="h-5 w-5" />
       </span>
       <div className="leading-tight">

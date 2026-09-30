@@ -16,8 +16,8 @@ function FieldError({ message }: { message?: string }) {
 }
 
 const inputClasses =
-  "w-full rounded-xl border border-[var(--color-border)] bg-white px-4 py-2.5 text-sm text-[var(--color-ink)] " +
-  "outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-soft)]";
+  "w-full rounded-xl border-2 border-[var(--color-ink)] bg-white px-4 py-2.5 text-sm text-[var(--color-ink)] " +
+  "outline-none transition-shadow focus:shadow-[3px_3px_0_var(--color-accent)]";
 
 const labelClasses = "block text-sm font-medium text-[var(--color-ink)] mb-1.5";
 
@@ -76,7 +76,7 @@ export default function AuthModal() {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/50 px-4 py-8 sm:items-center"
+          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-[var(--color-primary-deep)]/70 px-4 py-8 backdrop-blur-sm sm:items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -86,21 +86,21 @@ export default function AuthModal() {
           }}
         >
           <motion.div
-            className="w-full max-w-md rounded-3xl bg-[var(--color-surface)] p-6 shadow-2xl sm:p-8"
+            className="w-full max-w-md rounded-3xl border-2 border-[var(--color-ink)] bg-[var(--color-surface)] p-6 shadow-hard-lg sm:p-8"
             initial={{ opacity: 0, y: 16, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.97 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="mb-6 flex items-center justify-between">
-              <div className="flex gap-1 rounded-full bg-black/5 p-1">
+              <div className="flex gap-1 rounded-full border-2 border-[var(--color-ink)] bg-white p-1">
                 <button
                   type="button"
                   onClick={() => setMode("login")}
                   className={clsx(
                     "rounded-full px-4 py-1.5 text-sm font-semibold transition-colors",
                     mode === "login"
-                      ? "bg-white text-[var(--color-ink)] shadow"
+                      ? "bg-[var(--color-accent)] text-[var(--color-ink)]"
                       : "text-[var(--color-ink-soft)]"
                   )}
                 >
@@ -112,7 +112,7 @@ export default function AuthModal() {
                   className={clsx(
                     "rounded-full px-4 py-1.5 text-sm font-semibold transition-colors",
                     mode === "register"
-                      ? "bg-white text-[var(--color-ink)] shadow"
+                      ? "bg-[var(--color-accent)] text-[var(--color-ink)]"
                       : "text-[var(--color-ink-soft)]"
                   )}
                 >
@@ -123,7 +123,7 @@ export default function AuthModal() {
                 type="button"
                 onClick={close}
                 aria-label="Закрыть"
-                className="rounded-full p-2 text-[var(--color-ink-soft)] transition-colors hover:bg-black/5"
+                className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[var(--color-ink)] text-[var(--color-ink)] transition-colors hover:bg-[var(--color-accent-tint)]"
               >
                 ✕
               </button>
@@ -152,7 +152,7 @@ export default function AuthModal() {
                 <button
                   type="submit"
                   disabled={loginPending}
-                  className="w-full rounded-full bg-[var(--color-primary)] py-3 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] hover:bg-[var(--color-primary-dark)] disabled:opacity-60"
+                  className="w-full rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-primary)] py-2.5 text-sm font-bold text-white shadow-hard transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:opacity-60"
                 >
                   {loginPending ? "Входим…" : "Войти"}
                 </button>
@@ -165,14 +165,14 @@ export default function AuthModal() {
             ) : (
               <form action={registerFormAction} className="space-y-4">
                 <input type="hidden" name="role" value={registerRole} />
-                <div className="flex gap-1 rounded-full bg-black/5 p-1">
+                <div className="flex gap-1 rounded-full border-2 border-[var(--color-ink)] bg-white p-1">
                   <button
                     type="button"
                     onClick={() => setRegisterRole("STUDENT")}
                     className={clsx(
                       "flex-1 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors sm:text-sm",
                       registerRole === "STUDENT"
-                        ? "bg-white text-[var(--color-ink)] shadow"
+                        ? "bg-[var(--color-accent)] text-[var(--color-ink)]"
                         : "text-[var(--color-ink-soft)]"
                     )}
                   >
@@ -184,7 +184,7 @@ export default function AuthModal() {
                     className={clsx(
                       "flex-1 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors sm:text-sm",
                       registerRole === "PARENT"
-                        ? "bg-white text-[var(--color-ink)] shadow"
+                        ? "bg-[var(--color-accent)] text-[var(--color-ink)]"
                         : "text-[var(--color-ink-soft)]"
                     )}
                   >
@@ -295,7 +295,7 @@ export default function AuthModal() {
                 <button
                   type="submit"
                   disabled={registerPending}
-                  className="w-full rounded-full bg-[var(--color-primary)] py-3 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02] hover:bg-[var(--color-primary-dark)] disabled:opacity-60"
+                  className="w-full rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-primary)] py-2.5 text-sm font-bold text-white shadow-hard transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:opacity-60"
                 >
                   {registerPending ? "Регистрируем…" : "Зарегистрироваться"}
                 </button>

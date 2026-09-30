@@ -98,8 +98,8 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
 
             {course.forWhom && (
               <Reveal delay={0.1}>
-                <div className="mt-10 flex gap-5 rounded-panel bg-[var(--color-accent-soft)] p-6 sm:p-8">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[var(--color-accent)] text-[var(--color-ink)]">
+                <div className="mt-10 flex gap-5 rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-accent-soft)] p-6 sm:p-8">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-accent)] text-[var(--color-ink)]">
                     <Icon name="target" className="h-6 w-6" />
                   </span>
                   <div>
@@ -118,7 +118,7 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
                 <RevealGroup stagger={0.08} className="mt-6 grid gap-4 sm:grid-cols-2">
                   {included.map((item) => (
                     <RevealItem key={item} className="h-full">
-                      <div className="flex h-full items-start gap-3 rounded-card border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+                      <div className="flex h-full items-start gap-3 rounded-card border-2 border-[var(--color-ink)] bg-[var(--color-surface)] p-5">
                         <Icon
                           name="check"
                           className="mt-0.5 h-5 w-5 shrink-0 text-[var(--color-primary)]"
@@ -188,7 +188,7 @@ function CourseHero({
   lessonCount: number;
 }) {
   return (
-    <section className="relative -mt-[88px] flex min-h-[max(56svh,440px)] flex-col overflow-hidden sm:-mt-[104px]">
+    <section className="relative -mt-[88px] flex min-h-[max(56svh,440px)] flex-col overflow-hidden border-b-2 border-[var(--color-ink)] sm:-mt-[104px]">
       <MediaSlot
         spec={courseCoverSpec(course)}
         preload
@@ -196,9 +196,15 @@ function CourseHero({
         devHint={false}
         className="absolute inset-0"
       />
+      {/* Сильное затемнение нужно только настоящему фото: на фирменной
+          заглушке белый текст читается и так, а тёмный слой делает её грязной. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/55 to-black/35"
+        className={`pointer-events-none absolute inset-0 bg-gradient-to-t ${
+          course.coverImage
+            ? "from-black/85 via-black/55 to-black/35"
+            : "from-[var(--color-primary-deep)]/70 via-transparent to-transparent"
+        }`}
       />
 
       <Container className="relative flex flex-1 flex-col justify-end pb-12 pt-[120px] sm:pb-16 sm:pt-[140px]">
@@ -217,7 +223,7 @@ function CourseHero({
 
         <Reveal immediate delay={0.08}>
           <div className="mt-5">
-            <Badge tone="light">{course.isFree ? "Бесплатный курс" : "Платный курс"}</Badge>
+            <Badge tone="accent">{course.isFree ? "Бесплатный курс" : "Платный курс"}</Badge>
           </div>
         </Reveal>
 
@@ -259,8 +265,8 @@ function HeroStat({
     <div
       className={
         accent
-          ? "rounded-2xl bg-[var(--color-accent)] px-5 py-3 text-[var(--color-ink)]"
-          : "rounded-2xl bg-white/10 px-5 py-3 text-white ring-1 ring-white/20 backdrop-blur-sm"
+          ? "rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-accent)] px-5 py-3 text-[var(--color-ink)]"
+          : "rounded-2xl border-2 border-white/25 bg-white/10 px-5 py-3 text-white backdrop-blur-sm"
       }
     >
       <dt className="text-eyebrow uppercase opacity-70">{label}</dt>
@@ -285,8 +291,8 @@ function PurchasePanel({
 }) {
   return (
     <Reveal from="left" className="lg:sticky lg:top-28 lg:self-start">
-      <div className="rounded-panel border border-[var(--color-border)] bg-[var(--color-surface)] p-7 shadow-card sm:p-8">
-        <p className="text-display leading-none text-[var(--color-ink)] [font-size:clamp(2.25rem,1.8rem+1.6vw,3rem)]">
+      <div className="rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-surface)] p-7 shadow-hard-lg sm:p-8">
+        <p className="font-display text-display leading-none text-[var(--color-ink)] [font-size:clamp(1.875rem,1.5rem+1.2vw,2.5rem)]">
           {course.isFree ? "Бесплатно" : formatRub(course.priceRub)}
         </p>
 
@@ -344,12 +350,12 @@ function OtherCourses({ courses }: { courses: CourseLike[] }) {
           <RevealItem key={course.slug} className="h-full">
             <Link
               href={`/courses/${course.slug}`}
-              className="group flex h-full flex-col overflow-hidden rounded-panel border border-[var(--color-border)] bg-[var(--color-surface)] transition-[transform,box-shadow] duration-400 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:shadow-lift"
+              className="group flex h-full flex-col overflow-hidden rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-surface)] shadow-hard transition-[translate,box-shadow] duration-150 ease-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-hard-lg"
             >
               <MediaSlot
                 spec={courseCoverSpec(course)}
                 sizes="(max-width: 640px) 100vw, 45vw"
-                className="aspect-[16/9] w-full"
+                className="aspect-[16/9] w-full border-b-2 border-[var(--color-ink)]"
                 imageClassName="transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
               />
               <div className="flex flex-1 flex-col p-6 sm:p-7">

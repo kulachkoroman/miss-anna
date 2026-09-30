@@ -36,10 +36,8 @@ export default function CourseProgram({ modules }: { modules: ProgramModule[] })
           <div
             key={module.id}
             className={clsx(
-              "overflow-hidden rounded-card border bg-[var(--color-surface)] transition-[border-color,box-shadow] duration-300",
-              isOpen
-                ? "border-[var(--color-primary)]/35 shadow-card"
-                : "border-[var(--color-border)] hover:border-[var(--color-border-strong)]"
+              "overflow-hidden rounded-card border-2 border-[var(--color-ink)] bg-[var(--color-surface)] transition-shadow duration-200",
+              isOpen ? "shadow-hard" : "hover:shadow-hard-sm"
             )}
           >
             <button
@@ -50,10 +48,10 @@ export default function CourseProgram({ modules }: { modules: ProgramModule[] })
             >
               <span
                 className={clsx(
-                  "flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-caption font-extrabold transition-colors duration-300",
+                  "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-ink)] font-display text-caption font-bold transition-colors duration-300",
                   isOpen
-                    ? "bg-[var(--color-primary)] text-white"
-                    : "bg-[var(--color-primary-soft)] text-[var(--color-primary)]"
+                    ? "bg-[var(--color-accent)] text-[var(--color-ink)]"
+                    : "bg-white text-[var(--color-ink)]"
                 )}
               >
                 {index + 1}

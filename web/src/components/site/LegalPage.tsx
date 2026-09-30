@@ -40,10 +40,10 @@ export default function LegalPage({
             as="h1"
             immediate
             text={title}
-            className="mt-5 text-balance text-[clamp(2rem,1.4rem+2.6vw,3.25rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-[var(--color-ink)]"
+            className="mt-5 text-balance text-[clamp(1.75rem,1.2rem+2.2vw,2.75rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[var(--color-ink)]"
           />
 
-          <div className="mt-8 flex gap-4 rounded-card border border-[var(--color-accent)]/25 bg-[var(--color-accent-tint)] p-5">
+          <div className="mt-8 flex gap-4 rounded-card border-2 border-[var(--color-ink)] bg-[var(--color-accent-soft)] p-5">
             <Icon name="shield" className="mt-0.5 h-5 w-5 shrink-0 text-[var(--color-accent-dark)]" />
             <p className="text-[0.9375rem] leading-relaxed text-[var(--color-ink-soft)]">{notice}</p>
           </div>
@@ -60,7 +60,7 @@ export default function LegalPage({
                 <li key={section.id}>
                   <a
                     href={`#${section.id}`}
-                    className="flex gap-3 rounded-lg px-3 py-2 text-[0.9375rem] text-[var(--color-ink-soft)] transition-colors duration-200 hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)]"
+                    className="flex gap-3 rounded-lg px-3 py-2 text-[0.9375rem] text-[var(--color-ink-soft)] transition-colors duration-200 hover:bg-[var(--color-accent-tint)] hover:text-[var(--color-ink)]"
                   >
                     <span className="text-[var(--color-ink-muted)]">{i + 1}.</span>
                     {section.title}

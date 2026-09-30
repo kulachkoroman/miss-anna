@@ -102,11 +102,11 @@ function Intro() {
 
           <RevealGroup
             stagger={0.08}
-            className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-[var(--color-border-strong)] pt-8 sm:grid-cols-4"
+            className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 border-t-2 border-[var(--color-ink)] pt-8 sm:grid-cols-4"
           >
             {FACTS.map((fact) => (
               <RevealItem key={fact.label}>
-                <p className="text-[clamp(1.5rem,1.2rem+1vw,2rem)] font-extrabold leading-none tracking-[-0.03em] text-[var(--color-ink)]">
+                <p className="whitespace-nowrap font-display text-[clamp(1.25rem,1.05rem+0.8vw,1.625rem)] font-bold leading-none tracking-[-0.03em] text-[var(--color-ink)]">
                   {fact.value !== null ? (
                     <Counter value={fact.value} prefix={fact.prefix} suffix={fact.suffix} />
                   ) : (
@@ -139,7 +139,7 @@ function Intro() {
               overlay="bottom"
               preload
               sizes="(max-width: 1024px) 100vw, 40vw"
-              className="aspect-[4/5] w-full rounded-hero shadow-hero"
+              className="aspect-[4/5] w-full rounded-hero border-2 border-[var(--color-ink)] shadow-hard-lg"
             >
               <div className="flex h-full flex-col justify-end p-7 sm:p-8">
                 <p className="text-h3 text-white">Анна Паршукова</p>
@@ -150,8 +150,8 @@ function Intro() {
             </MediaSlot>
 
             {/* Наклейка «100» — как оценка красной ручкой на полях. */}
-            <div className="absolute -right-3 -top-5 flex h-24 w-24 rotate-[10deg] flex-col items-center justify-center rounded-full border-[3px] border-[#e5372f] bg-[var(--color-bg)] text-[#e5372f] shadow-lift sm:-right-6 sm:h-28 sm:w-28">
-              <span className="font-serif text-4xl font-bold italic leading-none sm:text-5xl">100</span>
+            <div className="absolute -right-3 -top-5 flex h-24 w-24 rotate-[10deg] flex-col items-center justify-center rounded-full border-[3px] border-[#e5372f] bg-[var(--color-bg)] text-[#e5372f] sm:-right-6 sm:h-28 sm:w-28">
+              <span className="font-hand text-5xl font-bold leading-none sm:text-6xl">100</span>
               <span className="mt-1 text-[0.625rem] font-bold uppercase tracking-[0.14em]">×3 ЕГЭ</span>
             </div>
           </div>
@@ -199,12 +199,12 @@ function WhyPrivate() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="relative rounded-panel border border-[var(--color-border)] bg-[var(--color-surface)] p-8 shadow-card sm:p-10">
+          <div className="relative rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-surface)] p-8 pt-10 shadow-hard sm:p-10 sm:pt-12">
             <span
               aria-hidden
-              className="absolute -top-6 left-8 font-serif text-[5.5rem] leading-none text-[var(--color-accent)]"
+              className="absolute -top-6 left-8 flex h-12 w-12 rotate-[-8deg] items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] font-display text-2xl font-extrabold leading-none text-[var(--color-ink)]"
             >
-              &ldquo;
+              &laquo;
             </span>
             <div className="space-y-5 text-lead text-[var(--color-ink-soft)]">
               {WHY_PRIVATE.map((paragraph, i) => (
@@ -236,7 +236,7 @@ function Approach() {
 
       <div className="mx-auto mt-14 grid max-w-5xl gap-6 md:grid-cols-2">
         <Reveal from="right">
-          <div className="h-full rounded-panel border border-[var(--color-border)] bg-[var(--color-surface)] p-7 sm:p-9">
+          <div className="h-full rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-surface)] p-7 shadow-hard sm:p-9">
             <p className="eyebrow text-[var(--color-ink-muted)]">Чего на занятиях не будет</p>
             <ul className="mt-6 space-y-4">
               {APPROACH.not.map((item) => (
@@ -252,7 +252,7 @@ function Approach() {
         </Reveal>
 
         <Reveal from="left" delay={0.1}>
-          <div className="bg-brand-gradient texture-grain h-full overflow-hidden rounded-panel p-7 text-white shadow-hero sm:p-9">
+          <div className="bg-brand-gradient h-full overflow-hidden rounded-panel border-2 border-[var(--color-ink)] p-7 text-white shadow-hard sm:p-9">
             <p className="eyebrow eyebrow-on-dark">Что вместо этого</p>
             <ul className="relative mt-6 space-y-4">
               {APPROACH.instead.map((item) => (
@@ -270,8 +270,8 @@ function Approach() {
 
       {/* Самая частая ошибка — прямым текстом. */}
       <Reveal delay={0.1}>
-        <div className="mx-auto mt-6 flex max-w-5xl flex-col gap-4 rounded-panel border border-[var(--color-accent)]/25 bg-[var(--color-accent-tint)] p-7 sm:flex-row sm:items-center sm:gap-6 sm:p-8">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[var(--color-accent)] text-[var(--color-ink)]">
+        <div className="mx-auto mt-6 flex max-w-5xl flex-col gap-4 rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-accent-soft)] p-7 sm:flex-row sm:items-center sm:gap-6 sm:p-8">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-accent)] text-[var(--color-ink)]">
             <Icon name="target" className="h-6 w-6" />
           </span>
           <p className="text-lead text-[var(--color-ink-soft)]">
@@ -319,7 +319,7 @@ function Education() {
         </div>
 
         <Reveal from="left" variant="scale">
-          <div className="rounded-hero bg-[var(--color-bg-tint)] p-6 sm:p-10">
+          <div className="bg-grid rounded-hero border-2 border-[var(--color-ink)] bg-white p-6 shadow-hard sm:p-10">
             <DiplomaViewer pages={DIPLOMA.pages} />
           </div>
         </Reveal>
@@ -379,7 +379,6 @@ function FinalCta() {
               href={MESSENGERS[0].href}
               label="Записаться на пробный урок"
               size="lg"
-              className="ring-1 ring-white/25"
             />
             <Button href="/courses" variant="light" size="lg">
               Смотреть курсы

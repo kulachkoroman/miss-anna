@@ -41,8 +41,8 @@ export default function LearningFormat({ className }: { className?: string }) {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {points.map((point) => (
           <RevealItem key={point.title} className="h-full">
-            <div className="flex h-full flex-col rounded-card bg-[var(--color-surface)] p-6 ring-1 ring-[var(--color-border)]">
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--color-primary-soft)] text-[var(--color-primary)]">
+            <div className="flex h-full flex-col rounded-card border-2 border-[var(--color-ink)] bg-[var(--color-surface)] p-6 shadow-hard">
+              <span className="flex h-11 w-11 items-center justify-center rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-primary-soft)] text-[var(--color-primary)]">
                 <Icon name={point.icon} className="h-5 w-5" />
               </span>
               <h3 className="mt-4 text-h4 text-[var(--color-ink)]">{point.title}</h3>

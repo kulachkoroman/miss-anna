@@ -124,6 +124,7 @@ function Intro() {
             delay={100}
             text="Разбираем то, что не получается именно у вас"
             highlight="именно у вас"
+            tone="inherit"
             marker
             className="mt-5 text-balance text-h1 text-[var(--color-ink)]"
           />
@@ -138,7 +139,7 @@ function Intro() {
           <RevealGroup stagger={0.08} className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-4">
             {essentials.map((item) => (
               <RevealItem key={item.label}>
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-primary-soft)] text-[var(--color-primary)]">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-[var(--color-ink)] bg-[var(--color-primary-soft)] text-[var(--color-primary)]">
                   <Icon name={item.icon} className="h-5 w-5" />
                 </span>
                 <p className="mt-3 text-caption text-[var(--color-ink-muted)]">{item.label}</p>
@@ -166,10 +167,10 @@ function Intro() {
               spec={MEDIA.classesScene}
               preload
               sizes="(max-width: 1024px) 100vw, 42vw"
-              className="aspect-[4/3] w-full rounded-hero shadow-hero"
+              className="aspect-[4/3] w-full rounded-hero border-2 border-[var(--color-ink)] shadow-hard-lg"
             />
-            <figcaption className="absolute -bottom-6 left-6 right-6 flex items-center gap-3 rounded-2xl border border-white/80 bg-white/85 px-4 py-3 shadow-lift backdrop-blur-xl sm:left-auto sm:max-w-xs">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-primary)] text-white">
+            <figcaption className="absolute -bottom-6 left-6 right-6 flex rotate-[-2deg] items-center gap-3 rounded-2xl border-2 border-[var(--color-ink)] bg-white px-4 py-3 shadow-hard sm:left-auto sm:max-w-xs">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-[var(--color-ink)] bg-[var(--color-primary)] text-white">
                 <Icon name="document" className="h-5 w-5" />
               </span>
               <span className="text-caption leading-snug text-[var(--color-ink-soft)]">
@@ -244,7 +245,7 @@ function Trial() {
 
   return (
     <Section tone="default">
-      <div className="overflow-hidden rounded-hero bg-[var(--color-accent-soft)] p-8 sm:p-12">
+      <div className="overflow-hidden rounded-hero border-2 border-[var(--color-ink)] bg-[var(--color-accent-soft)] p-8 shadow-hard-lg sm:p-12">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,5fr)] lg:items-center">
           <Reveal>
             <Badge tone="accent">Ни к чему не обязывает</Badge>
@@ -255,8 +256,8 @@ function Trial() {
           <RevealGroup stagger={0.1} className="space-y-4">
             {points.map((point) => (
               <RevealItem key={point.text}>
-                <div className="flex items-center gap-4 rounded-card bg-[var(--color-surface)] px-5 py-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent)] text-[var(--color-ink)]">
+                <div className="flex items-center gap-4 rounded-card border-2 border-[var(--color-ink)] bg-[var(--color-surface)] px-5 py-4">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-[var(--color-ink)] bg-[var(--color-accent)] text-[var(--color-ink)]">
                     <Icon name={point.icon} className="h-5 w-5" />
                   </span>
                   <span className="text-[var(--color-ink-soft)]">{point.text}</span>
@@ -303,7 +304,7 @@ function Lesson() {
           <MediaSlot
             spec={MEDIA.aboutPreview}
             sizes="(max-width: 1024px) 100vw, 40vw"
-            className="aspect-[4/3] w-full rounded-hero shadow-lift"
+            className="aspect-[4/3] w-full rounded-hero border-2 border-[var(--color-ink)] shadow-hard-lg"
           />
         </Reveal>
       </div>
@@ -353,7 +354,7 @@ function Booking() {
                 href={m.href}
                 label={`Написать в ${m.id === "vk" ? "VK" : m.label}`}
                 size="lg"
-                className="w-full ring-1 ring-white/25"
+                className="w-full"
               />
             </RevealItem>
           ))}
