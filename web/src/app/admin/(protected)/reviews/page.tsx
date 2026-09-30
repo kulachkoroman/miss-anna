@@ -24,7 +24,7 @@ export default async function AdminReviewsPage() {
           <form
             key={review.id}
             action={updateReviewAction.bind(null, review.id)}
-            className="rounded-2xl border border-[var(--color-border)] bg-white p-5 space-y-3"
+            className="rounded-2xl border-2 border-[var(--color-ink)] bg-white p-5 space-y-3"
           >
             <div className="grid gap-3 sm:grid-cols-2">
               <input name="studentName" defaultValue={review.studentName} className={inputClasses} placeholder="Имя" />
@@ -57,7 +57,7 @@ export default async function AdminReviewsPage() {
       </div>
 
       <div className="mt-8 rounded-2xl border border-dashed border-[var(--color-border)] bg-white p-5">
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[var(--color-primary)]">
+        <h2 className="mb-3 font-sans text-sm font-semibold uppercase tracking-wide text-[var(--color-primary)]">
           Добавить отзыв
         </h2>
         <form action={createReviewAction} className="space-y-3">

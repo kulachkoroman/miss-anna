@@ -97,7 +97,7 @@ export default function CourseCard({
             {course.isFree ? "Бесплатно" : formatRub(course.priceRub)}
           </span>
           {meta && (
-            <span className="w-fit rounded-full bg-white/15 px-3 py-1 text-caption font-medium text-white ring-1 ring-white/25 backdrop-blur-sm">
+            <span className="w-fit rounded-full border-2 border-[var(--color-ink)] bg-white px-3 py-0.5 text-caption font-semibold text-[var(--color-ink)]">
               {meta}
             </span>
           )}

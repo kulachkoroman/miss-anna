@@ -20,8 +20,8 @@ export default function VideoPlayer({
 }) {
   if (!hasVideo) {
     return (
-      <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-panel border border-dashed border-[var(--color-border-strong)] bg-[var(--color-surface-alt)] text-center">
-        <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--color-primary-soft)] text-[var(--color-primary)]">
+      <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-panel border-2 border-dashed border-[var(--color-ink)]/40 bg-[var(--color-surface-alt)] text-center">
+        <span className="flex h-12 w-12 items-center justify-center rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-primary-soft)] text-[var(--color-primary)]">
           <Icon name="play" className="h-6 w-6" />
         </span>
         <p className="text-[var(--color-ink-soft)]">Видео для этого урока пока не загружено</p>
@@ -33,7 +33,7 @@ export default function VideoPlayer({
   }
 
   return (
-    <div className="overflow-hidden rounded-panel bg-black shadow-lift">
+    <div className="overflow-hidden rounded-panel border-2 border-[var(--color-ink)] bg-black shadow-hard">
       <video
         controls
         controlsList="nodownload noremoteplayback"

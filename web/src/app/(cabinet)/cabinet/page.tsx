@@ -64,7 +64,7 @@ export default async function CabinetHomePage() {
   return (
     <div className="space-y-10">
       <Reveal>
-        <section className="overflow-hidden rounded-hero border border-[var(--color-border)] bg-[var(--color-surface)] shadow-subtle">
+        <section className="overflow-hidden rounded-hero border-2 border-[var(--color-ink)] bg-[var(--color-surface)] shadow-hard-lg">
           <div className="flex flex-col gap-8 p-7 sm:p-9 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <Badge>{user.role === "PARENT" ? "Аккаунт родителя" : "Аккаунт ученика"}</Badge>
@@ -82,7 +82,7 @@ export default async function CabinetHomePage() {
               {continueFrom?.nextLesson && (
                 <Link
                   href={`/cabinet/courses/${continueFrom.course.slug}/lessons/${continueFrom.nextLesson.id}`}
-                  className="mt-7 inline-flex items-center gap-2.5 rounded-full bg-[var(--color-primary)] px-6 py-3.5 font-semibold text-white shadow-primary transition-all duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5 hover:bg-[var(--color-primary-dark)]"
+                  className="mt-7 inline-flex items-center gap-2.5 rounded-full px-6 py-3 border-2 border-[var(--color-ink)] bg-[var(--color-primary)] font-bold text-white shadow-hard transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
                 >
                   <Icon name="play" className="h-5 w-5" />
                   Продолжить: {continueFrom.nextLesson.title}
@@ -96,11 +96,11 @@ export default async function CabinetHomePage() {
                 <dl className="space-y-4">
                   <div>
                     <dt className="text-caption text-[var(--color-ink-muted)]">Курсов открыто</dt>
-                    <dd className="text-h3 text-[var(--color-ink)]">{enrollments.length}</dd>
+                    <dd className="font-display text-h3 font-bold text-[var(--color-ink)]">{enrollments.length}</dd>
                   </div>
                   <div>
                     <dt className="text-caption text-[var(--color-ink-muted)]">Уроков пройдено</dt>
-                    <dd className="text-h3 text-[var(--color-ink)]">
+                    <dd className="font-display text-h3 font-bold text-[var(--color-ink)]">
                       {overall.done}
                       <span className="text-[var(--color-ink-muted)]">/{overall.total}</span>
                     </dd>
@@ -114,8 +114,8 @@ export default async function CabinetHomePage() {
 
       {courses.length === 0 ? (
         <Reveal>
-          <div className="rounded-hero border border-dashed border-[var(--color-border-strong)] bg-[var(--color-surface)] p-12 text-center">
-            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--color-primary-soft)] text-[var(--color-primary)]">
+          <div className="rounded-hero border-2 border-dashed border-[var(--color-ink)]/40 bg-[var(--color-surface)] p-12 text-center">
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-accent)] text-[var(--color-ink)] shadow-hard-sm">
               <Icon name="graduation" className="h-7 w-7" />
             </span>
             <p className="mt-5 text-h4 text-[var(--color-ink)]">Пока нет открытых курсов</p>
@@ -124,7 +124,7 @@ export default async function CabinetHomePage() {
             </p>
             <Link
               href="/courses"
-              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[var(--color-primary)] px-6 py-3 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5"
+              className="mt-7 inline-flex items-center gap-2 rounded-full px-6 py-2.5 border-2 border-[var(--color-ink)] bg-[var(--color-primary)] font-bold text-white shadow-hard transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
             >
               Смотреть каталог
               <Icon name="arrowRight" className="h-4 w-4" />
@@ -139,13 +139,13 @@ export default async function CabinetHomePage() {
               <RevealItem key={item.enrollmentId} className="h-full">
                 <Link
                   href={`/cabinet/courses/${item.course.slug}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-panel border border-[var(--color-border)] bg-[var(--color-surface)] transition-[transform,box-shadow] duration-400 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:shadow-lift"
+                  className="group flex h-full flex-col overflow-hidden rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-surface)] shadow-hard transition-[translate,box-shadow] duration-150 ease-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-hard-lg"
                 >
                   <MediaSlot
                     spec={courseCoverSpec(item.course)}
                     overlay="bottom"
                     sizes="(max-width: 640px) 100vw, 45vw"
-                    className="aspect-[16/7] w-full"
+                    className="aspect-[16/7] w-full border-b-2 border-[var(--color-ink)]"
                     imageClassName="transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
                   />
 
@@ -158,13 +158,13 @@ export default async function CabinetHomePage() {
                     </p>
 
                     <div className="mt-5 flex items-center gap-3">
-                      <div className="h-2 flex-1 overflow-hidden rounded-full bg-[var(--color-primary)]/10">
+                      <div className="h-3 flex-1 overflow-hidden rounded-full border-2 border-[var(--color-ink)] bg-white">
                         <div
                           className="h-full rounded-full bg-[var(--color-primary)] transition-[width] duration-700 ease-[var(--ease-out-expo)]"
                           style={{ width: `${item.progress.percent}%` }}
                         />
                       </div>
-                      <span className="text-caption font-bold text-[var(--color-primary)]">
+                      <span className="font-display text-caption font-bold text-[var(--color-ink)]">
                         {item.progress.percent}%
                       </span>
                     </div>
@@ -184,7 +184,7 @@ export default async function CabinetHomePage() {
               <RevealItem key={course.id}>
                 <Link
                   href={`/courses/${course.slug}`}
-                  className="group flex items-center justify-between gap-4 rounded-card border border-[var(--color-border)] bg-[var(--color-surface)] p-5 transition-all duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:shadow-card"
+                  className="group flex items-center justify-between gap-4 rounded-card border-2 border-[var(--color-ink)] bg-[var(--color-surface)] p-5 transition-[translate,box-shadow] duration-150 ease-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-hard"
                 >
                   <div>
                     <p className="font-semibold text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-primary)]">
@@ -206,9 +206,9 @@ export default async function CabinetHomePage() {
       )}
 
       <Reveal>
-        <div className="flex flex-col items-start justify-between gap-5 rounded-panel bg-[var(--color-primary-soft)] p-7 sm:flex-row sm:items-center">
+        <div className="flex flex-col items-start justify-between gap-5 rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-accent-soft)] p-7 sm:flex-row sm:items-center">
           <div className="flex gap-4">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[var(--color-primary)] text-white">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-accent)] text-[var(--color-ink)]">
               <Icon name="chat" className="h-5 w-5" />
             </span>
             <div>
@@ -221,7 +221,7 @@ export default async function CabinetHomePage() {
           <a
             href={supportHref()}
             {...(isExternal(supportHref()) ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--color-primary)] px-6 py-3 font-semibold text-white transition-all duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5 hover:bg-[var(--color-primary-dark)]"
+            className="inline-flex shrink-0 items-center gap-2 rounded-full px-6 py-2.5 border-2 border-[var(--color-ink)] bg-[var(--color-primary)] font-bold text-white shadow-hard transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
           >
             Написать
             <Icon name="arrowRight" className="h-4 w-4" />

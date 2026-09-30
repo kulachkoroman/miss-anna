@@ -62,12 +62,12 @@ export default async function CabinetCoursePage(
       </Link>
 
       <Reveal>
-        <section className="overflow-hidden rounded-hero border border-[var(--color-border)] bg-[var(--color-surface)] shadow-subtle">
+        <section className="overflow-hidden rounded-hero border-2 border-[var(--color-ink)] bg-[var(--color-surface)] shadow-hard-lg">
           <MediaSlot
             spec={courseCoverSpec(course)}
             overlay="bottom"
             sizes="(max-width: 1024px) 100vw, 64rem"
-            className="aspect-[16/6] w-full sm:aspect-[24/6]"
+            className="aspect-[16/6] w-full border-b-2 border-[var(--color-ink)] sm:aspect-[24/6]"
           >
             <div className="flex h-full items-end p-7 sm:p-9">
               <h1 className="text-balance text-h2 text-white">{course.title}</h1>
@@ -91,7 +91,7 @@ export default async function CabinetCoursePage(
             {nextLesson && (
               <Link
                 href={`/cabinet/courses/${slug}/lessons/${nextLesson.id}`}
-                className="inline-flex shrink-0 items-center gap-2.5 rounded-full bg-[var(--color-primary)] px-6 py-3.5 font-semibold text-white shadow-primary transition-all duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5 hover:bg-[var(--color-primary-dark)]"
+                className="inline-flex shrink-0 items-center gap-2.5 rounded-full px-6 py-3 border-2 border-[var(--color-ink)] bg-[var(--color-primary)] font-bold text-white shadow-hard transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
               >
                 <Icon name="play" className="h-5 w-5" />
                 {progress.done === 0 ? "Начать обучение" : "Продолжить"}
@@ -107,17 +107,17 @@ export default async function CabinetCoursePage(
 
           return (
             <RevealItem key={module.id}>
-              <section className="overflow-hidden rounded-panel border border-[var(--color-border)] bg-[var(--color-surface)]">
-                <header className="flex flex-wrap items-center justify-between gap-4 border-b border-[var(--color-border)] px-6 py-5">
+              <section className="overflow-hidden rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-surface)] shadow-hard">
+                <header className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-[var(--color-ink)] px-6 py-5">
                   <div className="flex items-center gap-4">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary-soft)] text-caption font-extrabold text-[var(--color-primary)]">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] font-display text-caption font-bold text-[var(--color-ink)]">
                       {moduleIndex + 1}
                     </span>
                     <h2 className="text-h4 text-[var(--color-ink)]">{module.title}</h2>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="h-1.5 w-24 overflow-hidden rounded-full bg-[var(--color-primary)]/10">
+                    <div className="h-3 w-24 overflow-hidden rounded-full border-2 border-[var(--color-ink)] bg-white">
                       <div
                         className="h-full rounded-full bg-[var(--color-primary)] transition-[width] duration-700 ease-[var(--ease-out-expo)]"
                         style={{ width: `${moduleProgress.percent}%` }}
@@ -138,16 +138,16 @@ export default async function CabinetCoursePage(
                       <li key={lesson.id}>
                         <Link
                           href={`/cabinet/courses/${slug}/lessons/${lesson.id}`}
-                          className="group flex items-center gap-4 px-6 py-4 transition-colors duration-200 hover:bg-[var(--color-surface-alt)]"
+                          className="group flex items-center gap-4 px-6 py-4 transition-colors duration-200 hover:bg-[var(--color-accent-tint)]"
                         >
                           {/* Состояние урока: пройден, следующий по очереди
                               или ещё не начат. */}
                           <span
                             className={
                               done
-                                ? "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] text-white"
+                                ? "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-primary)] text-white"
                                 : isNext
-                                  ? "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)] text-[var(--color-ink)]"
+                                  ? "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] text-[var(--color-ink)]"
                                   : "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-border-strong)] text-caption font-semibold text-[var(--color-ink-muted)]"
                             }
                           >

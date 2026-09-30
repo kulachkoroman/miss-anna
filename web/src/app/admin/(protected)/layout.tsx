@@ -17,9 +17,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="flex min-h-screen bg-[var(--color-bg)]">
-      <aside className="hidden w-64 shrink-0 border-r border-[var(--color-border)] bg-white p-5 sm:block">
-        <div className="mb-8 flex items-center gap-2 text-base font-extrabold">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-primary)] text-xs text-white">
+      <aside className="hidden w-64 shrink-0 border-r-2 border-[var(--color-ink)] bg-white p-5 sm:block">
+        <div className="mb-8 flex items-center gap-2 font-display text-base font-bold">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] text-xs text-[var(--color-ink)]">
             АП
           </span>
           Админ-панель
@@ -29,7 +29,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <Link
               key={item.href}
               href={item.href}
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-ink-soft)] transition-colors hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)]"
+              className="block rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-ink-soft)] transition-colors hover:bg-[var(--color-accent-tint)] hover:text-[var(--color-ink)]"
             >
               {item.label}
             </Link>
@@ -38,7 +38,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <form action={logoutAction} className="mt-8">
           <button
             type="submit"
-            className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm text-[var(--color-ink-soft)] transition-colors hover:border-red-300 hover:text-red-600"
+            className="w-full rounded-lg border-2 border-[var(--color-ink)] px-3 py-1.5 text-sm font-semibold text-[var(--color-ink)] transition-colors hover:bg-[#ffd6d6]"
           >
             Выйти
           </button>

@@ -33,11 +33,11 @@ export default function CompleteButton({
         })
       }
       className={clsx(
-        "inline-flex items-center gap-2.5 rounded-full px-6 py-3 font-semibold",
-        "transition-all duration-300 ease-[var(--ease-out-expo)] disabled:opacity-60",
+        "inline-flex items-center gap-2.5 rounded-full border-2 border-[var(--color-ink)] px-6 py-2.5 font-bold",
+        "transition-[translate,box-shadow,background-color] duration-150 ease-out disabled:opacity-60",
         completed
-          ? "border-2 border-[var(--color-primary)] bg-[var(--color-primary-soft)] text-[var(--color-primary)] hover:bg-white"
-          : "bg-[var(--color-primary)] text-white shadow-primary hover:-translate-y-0.5 hover:bg-[var(--color-primary-dark)]"
+          ? "bg-[var(--color-accent-soft)] text-[var(--color-ink)] hover:bg-white"
+          : "bg-[var(--color-primary)] text-white shadow-hard hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
       )}
     >
       <Icon

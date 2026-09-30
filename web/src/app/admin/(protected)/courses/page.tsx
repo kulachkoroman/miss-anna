@@ -20,7 +20,7 @@ export default async function AdminCoursesPage() {
         </Link>
       </div>
 
-      <div className="mt-6 overflow-x-auto rounded-2xl border border-[var(--color-border)] bg-white">
+      <div className="mt-6 overflow-x-auto rounded-2xl border-2 border-[var(--color-ink)] bg-white">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-[var(--color-border)] text-left text-[var(--color-ink-soft)]">

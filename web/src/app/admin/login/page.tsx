@@ -10,8 +10,8 @@ export default function AdminLoginPage() {
   const [state, formAction, pending] = useActionState(adminLoginAction, initialState);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--color-ink)] px-4">
-      <div className="w-full max-w-sm rounded-3xl bg-white p-8 shadow-2xl">
+    <div className="bg-grid-light flex min-h-screen items-center justify-center bg-[var(--color-ink)] px-4">
+      <div className="w-full max-w-sm rounded-3xl border-2 border-[var(--color-ink)] bg-white p-8 shadow-[6px_6px_0_var(--color-accent)]">
         <h1 className="text-xl font-extrabold text-[var(--color-ink)]">Админ-панель</h1>
         <p className="mt-1 text-sm text-[var(--color-ink-soft)]">Вход только для Анны</p>
 

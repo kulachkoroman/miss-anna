@@ -23,7 +23,7 @@ export default async function AdminStudentsPage() {
           const availableCourses = courses.filter((c) => !enrolledCourseIds.has(c.id));
 
           return (
-            <div key={user.id} className="rounded-2xl border border-[var(--color-border)] bg-white p-5">
+            <div key={user.id} className="rounded-2xl border-2 border-[var(--color-ink)] bg-white p-5">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
                   <p className="font-semibold text-[var(--color-ink)]">

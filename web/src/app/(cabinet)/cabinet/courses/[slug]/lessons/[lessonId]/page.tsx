@@ -82,7 +82,7 @@ export default async function LessonPage(
         </div>
 
         {lesson.materials.length > 0 && (
-          <section className="mt-8 rounded-panel border border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:p-7">
+          <section className="mt-8 rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-surface)] p-6 shadow-hard sm:p-7">
             <h2 className="flex items-center gap-2.5 text-h4 text-[var(--color-ink)]">
               <Icon name="document" className="h-5 w-5 text-[var(--color-primary)]" />
               Материалы урока
@@ -94,7 +94,7 @@ export default async function LessonPage(
                     href={`/api/files/${material.id}`}
                     target={material.downloadAllowed ? undefined : "_blank"}
                     rel="noopener noreferrer"
-                    className="group flex items-center justify-between gap-4 rounded-card border border-[var(--color-border)] px-5 py-3.5 transition-all duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5 hover:border-[var(--color-primary)]"
+                    className="group flex items-center justify-between gap-4 rounded-card border-2 border-[var(--color-ink)] px-5 py-3.5 transition-colors duration-200 hover:bg-[var(--color-accent-tint)]"
                   >
                     <span className="font-medium text-[var(--color-ink)]">{material.fileName}</span>
                     <span className="flex shrink-0 items-center gap-2 text-caption font-semibold text-[var(--color-primary)]">
@@ -111,14 +111,14 @@ export default async function LessonPage(
           </section>
         )}
 
-        <div className="mt-9 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--color-border)] pt-7">
+        <div className="mt-9 flex flex-wrap items-center justify-between gap-4 border-t-2 border-[var(--color-ink)] pt-7">
           <CompleteButton lessonId={lesson.id} completed={isCompleted} />
 
           <div className="flex gap-2.5">
             {prevLesson && (
               <Link
                 href={`/cabinet/courses/${slug}/lessons/${prevLesson.id}`}
-                className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border-strong)] px-5 py-2.5 font-medium text-[var(--color-ink-soft)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-[var(--color-ink)] bg-white px-5 py-2 font-semibold text-[var(--color-ink)] shadow-hard-sm transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
               >
                 <Icon name="arrowRight" className="h-4 w-4 rotate-180" />
                 Назад
@@ -127,7 +127,7 @@ export default async function LessonPage(
             {nextLesson && (
               <Link
                 href={`/cabinet/courses/${slug}/lessons/${nextLesson.id}`}
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--color-ink)] px-5 py-2.5 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[var(--color-primary)]"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-primary)] px-5 py-2 font-bold text-white shadow-hard-sm transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
               >
                 Следующий урок
                 <Icon name="arrowRight" className="h-4 w-4" />
@@ -138,17 +138,17 @@ export default async function LessonPage(
       </div>
 
       <aside className="lg:sticky lg:top-8 lg:self-start">
-        <div className="overflow-hidden rounded-panel border border-[var(--color-border)] bg-[var(--color-surface)]">
-          <div className="border-b border-[var(--color-border)] px-5 py-4">
+        <div className="overflow-hidden rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-surface)] shadow-hard">
+          <div className="border-b-2 border-[var(--color-ink)] px-5 py-4">
             <p className="text-eyebrow uppercase text-[var(--color-ink-muted)]">Программа курса</p>
             <div className="mt-3 flex items-center gap-3">
-              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[var(--color-primary)]/10">
+              <div className="h-3 flex-1 overflow-hidden rounded-full border-2 border-[var(--color-ink)] bg-white">
                 <div
                   className="h-full rounded-full bg-[var(--color-primary)] transition-[width] duration-700 ease-[var(--ease-out-expo)]"
                   style={{ width: `${progress.percent}%` }}
                 />
               </div>
-              <span className="text-caption font-bold text-[var(--color-primary)]">
+              <span className="font-display text-caption font-bold text-[var(--color-ink)]">
                 {progress.percent}%
               </span>
             </div>
@@ -174,14 +174,14 @@ export default async function LessonPage(
                           aria-current={isCurrent ? "page" : undefined}
                           className={
                             isCurrent
-                              ? "flex items-start gap-3 border-l-2 border-[var(--color-primary)] bg-[var(--color-primary-soft)] px-[18px] py-3 text-[0.9375rem] font-semibold text-[var(--color-primary)]"
-                              : "flex items-start gap-3 border-l-2 border-transparent px-[18px] py-3 text-[0.9375rem] text-[var(--color-ink-soft)] transition-colors duration-200 hover:bg-[var(--color-surface-alt)]"
+                              ? "flex items-start gap-3 border-l-4 border-[var(--color-ink)] bg-[var(--color-accent-soft)] px-4 py-3 text-[0.9375rem] font-semibold text-[var(--color-ink)]"
+                              : "flex items-start gap-3 border-l-2 border-transparent px-[18px] py-3 text-[0.9375rem] text-[var(--color-ink-soft)] transition-colors duration-200 hover:bg-[var(--color-accent-tint)]"
                           }
                         >
                           <span
                             className={
                               done
-                                ? "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] text-white"
+                                ? "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-primary)] text-white"
                                 : "mt-0.5 h-5 w-5 shrink-0 rounded-full border-2 border-[var(--color-border-strong)]"
                             }
                           >

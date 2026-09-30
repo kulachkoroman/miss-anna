@@ -29,16 +29,16 @@ export default async function AdminDashboardPage() {
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((s) => (
-          <div key={s.label} className="rounded-2xl border border-[var(--color-border)] bg-white p-5">
+          <div key={s.label} className="rounded-2xl border-2 border-[var(--color-ink)] bg-white p-5">
             <p className="text-2xl font-extrabold text-[var(--color-ink)]">{s.value}</p>
             <p className="mt-1 text-sm text-[var(--color-ink-soft)]">{s.label}</p>
           </div>
         ))}
       </div>
 
-      <div className="mt-8 rounded-2xl border border-[var(--color-border)] bg-white p-5">
+      <div className="mt-8 rounded-2xl border-2 border-[var(--color-ink)] bg-white p-5">
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary)]">
+          <h2 className="font-sans text-sm font-semibold uppercase tracking-wide text-[var(--color-primary)]">
             Последние платежи
           </h2>
           <Link href="/admin/payments" className="text-sm text-[var(--color-primary)] hover:underline">

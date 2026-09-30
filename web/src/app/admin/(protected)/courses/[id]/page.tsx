@@ -74,13 +74,13 @@ export default async function AdminCourseEditPage(
         </form>
       </div>
 
-      <section className="rounded-2xl border border-[var(--color-border)] bg-white p-6">
-        <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-[var(--color-primary)]">
+      <section className="rounded-2xl border-2 border-[var(--color-ink)] bg-white p-6">
+        <h2 className="mb-4 font-sans text-sm font-semibold uppercase tracking-wide text-[var(--color-primary)]">
           Обложка курса
         </h2>
         <div className="flex flex-wrap items-center gap-5">
           <div
-            className="flex h-28 w-20 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] bg-cover bg-center text-xs text-white/80"
+            className="flex h-28 w-20 shrink-0 items-center justify-center rounded-xl border-2 border-[var(--color-ink)] bg-[var(--color-primary)] bg-cover bg-center text-xs text-white/80"
             style={course.coverImage ? { backgroundImage: `url(${course.coverImage})` } : undefined}
           >
             {!course.coverImage && "нет фото"}
@@ -98,8 +98,8 @@ export default async function AdminCourseEditPage(
         </div>
       </section>
 
-      <section className="rounded-2xl border border-[var(--color-border)] bg-white p-6">
-        <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-[var(--color-primary)]">
+      <section className="rounded-2xl border-2 border-[var(--color-ink)] bg-white p-6">
+        <h2 className="mb-4 font-sans text-sm font-semibold uppercase tracking-wide text-[var(--color-primary)]">
           Основные данные
         </h2>
         <CourseForm course={course} action={updateCourseAction.bind(null, course.id)} />
@@ -110,7 +110,7 @@ export default async function AdminCourseEditPage(
 
         <div className="space-y-5">
           {course.modules.map((module, mIdx) => (
-            <div key={module.id} className="rounded-2xl border border-[var(--color-border)] bg-white p-5">
+            <div key={module.id} className="rounded-2xl border-2 border-[var(--color-ink)] bg-white p-5">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <form action={updateModuleAction.bind(null, module.id)} className="flex flex-1 items-center gap-2">
                   <span className="text-sm font-semibold text-[var(--color-ink-soft)]">{mIdx + 1}.</span>
