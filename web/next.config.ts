@@ -1,7 +1,17 @@
 import type { NextConfig } from "next";
 
+/*
+  PAGES_SNAPSHOT=1 — сборка для статичной копии лендинга на GitHub Pages
+  (показать дизайн без сервера). Pages отдаёт сайт по адресу /miss-anna/,
+  поэтому все пути получают эту приставку, а картинки идут без оптимизатора:
+  ему нужен сервер. Обычная сборка этот режим не затрагивает.
+*/
+const pagesSnapshot = process.env.PAGES_SNAPSHOT === "1";
+
 const nextConfig: NextConfig = {
+  ...(pagesSnapshot && { basePath: "/miss-anna" }),
   images: {
+    unoptimized: pagesSnapshot,
     /*
       Современные форматы: браузер получает AVIF или WebP вместо JPEG.
       На фотографиях это обычно вдвое меньший вес при том же качестве —
