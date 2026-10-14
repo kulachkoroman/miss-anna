@@ -227,7 +227,14 @@ function WordView({ card, picks, result }: { card: PublicCard; picks: (string | 
     return (
       <p className="mt-6 text-center font-display text-[clamp(1.75rem,1.2rem+3vw,3rem)] font-bold leading-tight tracking-[-0.03em] text-[var(--color-ink)]">
         {result ? (
-          result.word
+          <span
+            className={clsx(
+              "transition-[text-shadow] duration-500 ease-out",
+              result.correct ? "[text-shadow:0_0_22px_rgba(23,166,115,0.5)]" : "[text-shadow:0_0_22px_rgba(217,65,65,0.45)]"
+            )}
+          >
+            {result.word}
+          </span>
         ) : (
           <>
             {card.before}
@@ -243,16 +250,21 @@ function WordView({ card, picks, result }: { card: PublicCard; picks: (string | 
       {card.segments.map((s, i) => {
         if ("text" in s) return <span key={i}>{s.text}</span>;
         const letter = result ? result.right[s.gap] : picks[s.gap];
+        // После ответа — без рамок: правильная буква мягко светится,
+        // зелёным, если в этом пропуске угадали, красным — если ошиблись.
+        const gapRight = result && picks[s.gap] === result.right[s.gap];
         return (
           <span
             key={i}
             className={clsx(
-              "mx-0.5 inline-block min-w-[1.1em] rounded-lg border-b-4 px-1 transition-colors duration-300",
+              "mx-0.5 inline-block min-w-[1.1em] border-b-4 px-1 transition-[color,border-color,text-shadow] duration-500 ease-out",
               result
-                ? "border-[var(--color-success)] bg-[#e3f6ee] text-[var(--color-success)]"
+                ? gapRight
+                  ? "border-transparent text-[var(--color-success)] [text-shadow:0_0_18px_rgba(23,166,115,0.55)]"
+                  : "border-transparent text-[var(--color-danger)] [text-shadow:0_0_18px_rgba(217,65,65,0.5)]"
                 : letter
-                  ? "border-[var(--color-primary)] bg-[var(--color-primary-soft)] text-[var(--color-primary)]"
-                  : "border-[var(--color-ink-muted)] text-transparent"
+                  ? "border-[var(--color-ink)] text-[var(--color-primary)]"
+                  : "border-[var(--color-ink)] text-transparent"
             )}
           >
             {letter ?? "_"}
@@ -288,8 +300,11 @@ function Feedback({
     >
       <div
         className={clsx(
-          "rounded-card border-2 p-5 text-center",
-          result.correct ? "border-[var(--color-success)] bg-[#effaf5]" : "border-[var(--color-danger)] bg-[#fdf0f0]"
+          // Мягкое свечение вместо цветной рамки.
+          "rounded-card bg-white p-5 text-center",
+          result.correct
+            ? "shadow-[0_0_0_1px_rgba(23,166,115,0.25),0_0_28px_rgba(23,166,115,0.28)]"
+            : "shadow-[0_0_0_1px_rgba(217,65,65,0.25),0_0_28px_rgba(217,65,65,0.24)]"
         )}
       >
         <p className={clsx("font-bold", result.correct ? "text-[var(--color-success)]" : "text-[var(--color-danger)]")}>
