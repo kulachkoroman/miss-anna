@@ -180,6 +180,8 @@ export async function updateLessonAction(
     data: {
       title: String(formData.get("title") ?? ""),
       description: String(formData.get("description") ?? "") || null,
+      /* «Перед уроком» есть не во всех формах — не затираем, если поля нет. */
+      ...(formData.has("prep") ? { prep: String(formData.get("prep") ?? "").trim() || null } : {}),
     },
   });
   revalidatePath(`/admin/courses/${courseId}`);
@@ -219,30 +221,7 @@ export async function moveLessonAction(
   revalidatePath(`/admin/courses/${courseId}`);
 }
 
-export async function uploadLessonVideoAction(
-  lessonId: string,
-  courseId: string,
-  formData: FormData
-) {
-  await requireAdmin();
-  const file = formData.get("video");
-  if (!(file instanceof File) || file.size === 0) {
-    throw new Error("Выберите видеофайл");
-  }
-
-  await ensureStorageDirs();
-  const lesson = await prisma.lesson.findUnique({ where: { id: lessonId } });
-  if (lesson?.videoPath) {
-    await fs.unlink(path.join(VIDEOS_DIR, lesson.videoPath)).catch(() => {});
-  }
-
-  const fileName = `${lessonId}-${Date.now()}-${safeFileName(file.name)}`;
-  const buffer = Buffer.from(await file.arrayBuffer());
-  await fs.writeFile(path.join(VIDEOS_DIR, fileName), buffer);
-
-  await prisma.lesson.update({ where: { id: lessonId }, data: { videoPath: fileName } });
-  revalidatePath(`/admin/courses/${courseId}`);
-}
+/* Загрузка видео — маршрут /api/admin/lessons/[lessonId]/video (большие файлы потоком). */
 
 export async function deleteLessonVideoAction(lessonId: string, courseId: string) {
   await requireAdmin();

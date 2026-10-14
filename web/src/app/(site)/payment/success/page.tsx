@@ -32,8 +32,8 @@ export default async function PaymentSuccessPage(
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Button href="/cabinet">Перейти в личный кабинет</Button>
-          <Button href="/courses" variant="outline">
-            К каталогу курсов
+          <Button href="/" variant="outline">
+            На главную
           </Button>
         </div>
       </Container>

@@ -1,17 +1,7 @@
-import { prisma } from "@/lib/prisma";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 
-export default async function PaymentFailPage(props: PageProps<"/payment/fail">) {
-  const params = await props.searchParams;
-  const invId = Array.isArray(params.InvId) ? params.InvId[0] : params.InvId;
-  const payment = invId
-    ? await prisma.payment.findUnique({
-        where: { invoiceId: Number(invId) },
-        include: { course: true },
-      })
-    : null;
-
+export default function PaymentFailPage() {
   return (
     <section className="flex min-h-[60vh] items-center py-16">
       <Container className="max-w-lg text-center">
@@ -24,10 +14,7 @@ export default async function PaymentFailPage(props: PageProps<"/payment/fail">)
           оплатить ещё раз.
         </p>
         <div className="mt-8 flex justify-center gap-3">
-          {payment && (
-            <Button href={`/courses/${payment.course.slug}`}>Повторить оплату</Button>
-          )}
-          {!payment && <Button href="/courses">К каталогу курсов</Button>}
+          <Button href="/">На главную</Button>
         </div>
       </Container>
     </section>

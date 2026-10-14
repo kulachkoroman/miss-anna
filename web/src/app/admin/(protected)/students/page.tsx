@@ -8,10 +8,18 @@ export default async function AdminStudentsPage() {
     prisma.user.findMany({
       where: { role: { in: ["STUDENT", "PARENT"] } },
       orderBy: { createdAt: "desc" },
-      include: { enrollments: { include: { course: true } } },
+      include: {
+        enrollments: { include: { course: true } },
+        progress: { where: { completed: true }, select: { lesson: { select: { module: { select: { courseId: true } } } } } },
+        _count: { select: { courseRequests: true } },
+      },
     }),
-    prisma.course.findMany({ orderBy: { order: "asc" } }),
+    prisma.course.findMany({
+      orderBy: { order: "asc" },
+      include: { modules: { select: { _count: { select: { lessons: true } } } } },
+    }),
   ]);
+  const lessonsInCourse = new Map(courses.map((c) => [c.id, c.modules.reduce((n, m) => n + m._count.lessons, 0)]));
 
   return (
     <div>
@@ -31,10 +39,16 @@ export default async function AdminStudentsPage() {
                     <span className="ml-2 rounded-full bg-[var(--color-primary-soft)] px-2 py-0.5 text-xs font-semibold text-[var(--color-primary)]">
                       {user.role === "PARENT" ? "Родитель" : "Ученик"}
                     </span>
+                    {user._count.courseRequests > 0 && (
+                      <span className="ml-1.5 rounded-full bg-[var(--color-accent-soft)] px-2 py-0.5 text-xs font-semibold text-[var(--color-accent-dark)]">
+                        заявка на платный курс
+                      </span>
+                    )}
                   </p>
                   <p className="text-sm text-[var(--color-ink-soft)]">
-                    {user.role === "PARENT" ? `Ребёнок: ${user.studentName}` : null}
-                    {user.studentAge ? ` · ${user.studentAge} лет` : ""}
+                    {[user.role === "PARENT" ? `Ребёнок: ${user.studentName}` : null, user.studentAge ? `${user.studentAge} лет` : null]
+                      .filter(Boolean)
+                      .join(" · ")}
                   </p>
                   <p className="text-xs text-[var(--color-ink-soft)]">
                     {[user.phone, user.email].filter(Boolean).join(" · ") || "Без контактов"} ·
@@ -51,7 +65,8 @@ export default async function AdminStudentsPage() {
                   >
                     <span className="font-medium text-[var(--color-ink)]">{e.course.title}</span>
                     <span className="text-[var(--color-ink-soft)]">
-                      {e.source === "PAYMENT" ? "оплачен" : e.source === "FREE" ? "бесплатный" : "выдан вручную"}
+                      пройдено {user.progress.filter((p) => p.lesson.module.courseId === e.courseId).length} из{" "}
+                      {lessonsInCourse.get(e.courseId) ?? 0}
                     </span>
                     <form action={revokeCourseAction.bind(null, user.id, e.courseId)}>
                       <ConfirmSubmit
