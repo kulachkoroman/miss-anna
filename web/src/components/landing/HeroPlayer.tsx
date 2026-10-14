@@ -86,9 +86,12 @@ export default function HeroPlayer({ access }: { access: CourseAccess }) {
                 {/* Название курса — как заставка видео */}
                 <div className="absolute left-[6%] top-[12%] max-w-[72%] origin-top-left transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] sm:left-[5%] sm:top-[9%] sm:max-w-[52%]">
                   <p className="whitespace-nowrap text-[0.6875rem] font-bold uppercase tracking-[0.1em] text-white/75 sm:text-[0.8125rem] sm:tracking-[0.18em]">
-                    Бесплатный курс подготовки к
+                    Бесплатный курс
                   </p>
-                  <p className="mt-2 font-display text-[clamp(1.875rem,0.9rem+3.6vw,4rem)] font-bold leading-[0.98] tracking-[-0.035em] text-white">
+                  {/* Название курса целиком: «Подготовка к итоговому сочинению» */}
+                  <p className="mt-2 font-display text-[clamp(1.625rem,0.8rem+3vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.035em] text-white">
+                    подготовка к
+                    <br />
                     итоговому
                     <br />
                     <span className="mt-1 inline-block rotate-[-1.5deg] rounded-xl border-2 border-[var(--color-ink)] bg-[var(--color-accent)] px-2.5 pb-1 text-[var(--color-ink)] shadow-hard-sm sm:px-3.5">
