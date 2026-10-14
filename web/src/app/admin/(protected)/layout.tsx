@@ -8,8 +8,8 @@ import { FREE_COURSE_SLUG } from "@/content/course";
 /**
  * Админка под формат «лендинг бесплатного курса»: обзор, курс (сразу
  * редактор бесплатного курса), заявки на платный курс, ученики.
- * «Платежи» и «Отзывы» из меню убраны — на сайте их больше нет;
- * страницы остались по прямым адресам.
+ * Оплата на сайте и отзывы убраны в октябре 2026: платный курс у Анны
+ * на другой платформе. Вернуть — из истории git.
  */
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const user = await getCurrentUser();
@@ -22,7 +22,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   const items: AdminNavItem[] = [
     { href: "/admin", label: "Обзор" },
-    { href: course ? `/admin/courses/${course.id}` : "/admin/courses", label: "Курс" },
+    { href: course ? `/admin/courses/${course.id}` : "/admin", label: "Курс" },
     { href: "/admin/requests", label: "Заявки", badge: newRequests },
     { href: "/admin/students", label: "Ученики" },
   ];

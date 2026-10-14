@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { formatRub, plural } from "@/lib/format";
+import { plural } from "@/lib/format";
 import { calcProgress, findNextLesson } from "@/lib/progress";
 import { supportHref, isExternal } from "@/content/site";
 import { courseCoverSpec } from "@/content/media";
@@ -191,7 +191,7 @@ export default async function CabinetHomePage() {
                       {course.title}
                     </p>
                     <p className="mt-1 text-caption text-[var(--color-ink-soft)]">
-                      {course.isFree ? "Бесплатно" : formatRub(course.priceRub)}
+                      Бесплатно — открыть на главной
                     </p>
                   </div>
                   <Icon

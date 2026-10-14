@@ -6,7 +6,6 @@ import clsx from "clsx";
 import { useAuthModal } from "./AuthModalContext";
 import { loginAction, registerAction, type AuthActionState } from "@/lib/actions/auth";
 import { enrollFreeAction } from "@/lib/actions/enrollment";
-import { createPaymentAction } from "@/lib/actions/payments";
 
 const initialState: AuthActionState = { ok: false };
 
@@ -55,8 +54,6 @@ export default function AuthModal() {
   async function resolveSuccess() {
     if (intent?.type === "enroll") {
       await enrollFreeAction(intent.courseSlug);
-    } else if (intent?.type === "pay") {
-      await createPaymentAction(intent.courseSlug);
     } else {
       close();
     }

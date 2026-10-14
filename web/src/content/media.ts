@@ -70,25 +70,9 @@ export const MEDIA = {
     focus: "center",
   },
 
-  /** Настоящее занятие: разбор задания 23 на онлайн-доске (IMG_3953). */
-  classesScene: {
-    src: "/images/lesson-board.jpg",
-    alt: "Онлайн-занятие: разбор задания 23 ОГЭ на интерактивной доске",
-    width: 1600,
-    height: 1200,
-    hint: "Горизонтальный кадр 4:3: ноутбук с открытым уроком, тетради, рабочее место.",
-    focus: "center",
-  },
 } satisfies Record<string, MediaSpec>;
 
 export type MediaKey = keyof typeof MEDIA;
-
-/** Список незаполненных слотов — чтобы быстро понять, каких фото не хватает. */
-export function missingMedia(): Array<{ key: MediaKey; spec: MediaSpec }> {
-  return (Object.keys(MEDIA) as MediaKey[])
-    .filter((key) => !MEDIA[key].src)
-    .map((key) => ({ key, spec: MEDIA[key] }));
-}
 
 /**
  * Обложка курса.

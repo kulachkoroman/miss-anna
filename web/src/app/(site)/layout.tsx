@@ -4,7 +4,6 @@ import AuthModal from "@/components/auth/AuthModal";
 import AuthQueryOpener from "@/components/auth/AuthQueryOpener";
 import LandingHeader from "@/components/landing/LandingHeader";
 import LandingFooter from "@/components/landing/LandingFooter";
-import PageTransition from "@/components/ui/PageTransition";
 import { getCurrentUser } from "@/lib/auth";
 import { getCourseAccess } from "@/lib/course-access";
 
@@ -15,7 +14,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
     <AuthModalProvider>
       <LandingHeader access={access} userName={user ? user.studentName || user.name : null} />
       <main id="main" className="flex flex-1 flex-col pt-[88px] sm:pt-[104px]">
-        <PageTransition>{children}</PageTransition>
+        {children}
       </main>
       <LandingFooter />
       <AuthModal />

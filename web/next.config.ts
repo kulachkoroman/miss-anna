@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
     Старые адреса ведут на главную, чтобы сохранённые ссылки не упирались в 404.
   */
   async redirects() {
-    return ["/about", "/classes", "/contacts", "/courses", "/courses/:slug"].map((source) => ({
+    return ["/about", "/classes", "/contacts", "/courses", "/courses/:slug", "/offer", "/payment/:path*"].map((source) => ({
       source,
       destination: "/",
       permanent: false,

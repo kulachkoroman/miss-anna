@@ -6,53 +6,46 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Full-stack site for tutor Anna Parshukova (ЕГЭ/ОГЭ Russian-language exam prep): marketing pages, paid/free video courses with a student cabinet, Robokassa payments, and an admin panel. Built from a Russian-language spec at `../prompt.pdf` — read it for product intent before changing product behavior.
+Site for tutor Anna Parshukova, reworked in October 2026 into a **one-page landing for her free course on the итоговое сочинение** (final essay, 11th grade) plus a student cabinet with the lessons and an admin panel. Anna's brief: short page, a button that leads straight to the course, a little about her, **no "sign up for lessons" anywhere** (she has no free slots). Paid course lives on another platform; on-site payments (Robokassa), reviews and the course catalog were removed — restore from git history if ever needed.
 
-Next.js 16 (App Router, Turbopack, React 19.2) + TypeScript + Prisma 6 + SQLite. Node.js is not on PATH by default in this environment — commands below assume it's been added (e.g. `export PATH="/c/Program Files/nodejs:$PATH"` in Git Bash on Windows).
+Next.js 16 (App Router, React 19.2) + TypeScript + Prisma 6 + SQLite. Node.js is not on PATH by default here (`export PATH="/c/Program Files/nodejs:$PATH"` in Git Bash).
 
 ## Commands
 
 ```bash
-npm run dev          # start dev server (Turbopack) at localhost:3000
-npm run build         # production build; also type-checks (tsc) — treat build failures as blocking
-npm run start          # run a production build
-npm run lint            # eslint (flat config); NOT run automatically by `next build` in v16
-npm run db:seed          # (re)seed: creates admin user + the 2 seed courses + placeholder reviews
-npm run db:studio         # Prisma Studio GUI on the SQLite db
+npx next dev --webpack     # dev server; Turbopack is blocked on this machine (AppControl), always --webpack
+npx next build --webpack   # production build + full type check — the main correctness gate
+npm run lint               # eslint; not run by next build in v16
+npm run db:seed            # admin user + the free course built from prisma/course-content (idempotent)
 npx prisma migrate dev --name <name>   # after editing prisma/schema.prisma
-npx prisma generate                     # regenerate client only (migrate dev does this too)
 ```
 
-There is no test suite yet. `npm run build` is the main correctness gate (full TypeScript check across the app).
-
-Seeded admin login (`/admin/login`): credentials come from `.env` (`ADMIN_EMAIL` / `ADMIN_PASSWORD`), defaults `anna@example.com` / `change-me-admin-123`.
+No test suite. Verify UI with headless Chrome (puppeteer-core + installed Chrome). To test flows that write data, run the server against a **copy** of `prisma/prisma/dev.db` (`DATABASE_URL="file:<copy>"`); the copy path must not contain Cyrillic.
 
 ## Architecture
 
-**Route groups by audience**, each with its own chrome — do not mix them:
-- `src/app/(site)/` — public marketing site. Layout wraps children in `AuthModalProvider` + `<Header>`/`<Footer>` + the global `<AuthModal>` (see below).
-- `src/app/(cabinet)/cabinet/` — logged-in student/parent area. Layout does its own `getCurrentUser()` guard (`redirect("/?auth=1")` if absent).
-- `src/app/admin/(protected)/` — admin panel, guarded by its own layout (`redirect("/admin/login")` if not `role === "ADMIN"`). `src/app/admin/login/page.tsx` sits *outside* the `(protected)` group so the login page itself isn't guarded.
-- `src/proxy.ts` (Next 16 renamed `middleware.ts` → `proxy.ts`, function must be named `proxy`) does a cheap first-pass redirect for `/cabinet/**` and `/admin/**` based on the JWT cookie alone — the real, authoritative checks still live in each layout/Server Action. Don't rely on the proxy as the only gate.
+**Route groups:**
+- `src/app/(site)/` — landing `/` and `/privacy`, `/reset-password`. Layout: `LandingHeader` / `LandingFooter` + global `AuthModal`.
+- `src/app/(cabinet)/cabinet/` — student area: course page, lesson page, course text pages (`docs/[docId]`). `lib/cabinet-course.ts` loads the course, checks login + enrollment (admins bypass enrollment to preview).
+- `src/app/admin/(protected)/` — overview, course editor, requests, students; guarded by its layout. `admin/login` sits outside the group.
+- `src/proxy.ts` (Next 16 name for middleware, function `proxy`) — cheap cookie check for `/cabinet/**` and `/admin/**`; real checks stay in layouts/actions.
 
-**Auth is hand-rolled, not NextAuth**: `src/lib/auth.ts` signs a JWT (jose, `HS256`) into an httpOnly cookie (`annasite_session`) holding `{ sub: userId, role }`. `getCurrentUser()` re-reads the user from Prisma each time (strips `passwordHash`) — actions that need the hash (e.g. password change) must fetch the full row themselves via `getSessionPayload()` + `prisma.user.findUnique`. `requireAdmin()` / `requireUser()` throw if the check fails; call these at the top of any new admin/user Server Action.
+**Content lives in code, not in the DB:** landing and in-course UI texts — `src/content/course.ts`; Anna, contacts, legal — `src/content/site.ts`; images — `src/content/media.ts`. Lesson texts (notes, answers, mock topics, route) are `CourseDoc` rows editable in the admin; their source files are `prisma/course-content/*.md` (Anna's 12 Oct 2026 materials). `CourseDoc.body` is simplified markdown rendered by `components/cabinet/CourseText.tsx` (`# ` headings, `1.1.` tasks, `А.` options, `Мой ответ: ____` blanks).
 
-**Mutations are Server Actions, not API routes.** Everything under `src/lib/actions/**` is `"use server"` and is invoked either from a `<form action={...}>` (optionally `fn.bind(null, id, ...)` to curry extra args — used extensively in the admin panel) or called directly from a client event handler/`useEffect` (see `AuthModal.tsx`'s `resolveSuccess()`, which calls `enrollFreeAction`/`createPaymentAction` after a successful login — both end in `redirect()`, which works whether the action was invoked via a form or called directly). Reach for a Server Action first; only add a real Route Handler (`route.ts`) when something outside Next's RSC protocol needs to hit the endpoint (Robokassa's webhook, file streaming with `Range` support).
+**Start-course flow:** `StartCourseButton` / `StartCourseTrigger` use `lib/course-access.ts`: guest → `AuthModal` register with intent `enroll` → `enrollFreeAction` → `/cabinet/courses/itogovoe-sochinenie`; enrolled → straight to the course.
 
-**Route Handlers that do exist and why:**
-- `src/app/api/payments/result/route.ts` — Robokassa's server-to-server Result URL webhook. Verifies the MD5 signature (`src/lib/robokassa.ts`), flips the `Payment` to `SUCCESS`, upserts the `Enrollment`. Must reply with the literal body `OK<InvId>` or Robokassa retries. This is the *only* source of truth for payment success — the `/payment/success` page is just a friendly UI reflection of DB state, not itself authoritative (Robokassa's client-side SuccessURL redirect is not signature-checked here).
-- `src/app/api/stream/[lessonId]/route.ts` and `src/app/api/files/[materialId]/route.ts` — protected media delivery. Every request re-checks session + `Enrollment` (or `role === ADMIN`) before streaming from the private `storage/` directory (never `public/`). Stream route supports HTTP `Range` for video seeking. This is the mechanism behind the "no direct download link" requirement in the spec — see `src/components/cabinet/VideoPlayer.tsx` for the matching frontend half (`controlsList`, `onContextMenu` block).
+**Auth is hand-rolled** (`lib/auth.ts`): JWT (jose, HS256) in httpOnly cookie `annasite_session`; `getCurrentUser()`, `requireAdmin()`, `requireUser()`.
 
-**File storage split:**
-- `storage/{videos,materials,covers}/` — private, gitignored, served only through the two protected routes above. Written by the admin upload actions in `src/lib/actions/admin/courses.ts`.
-- `public/uploads/covers/` — course cover images, served as normal static files (not access-controlled — marketing content, not course content).
+**Mutations are Server Actions** (`lib/actions/**`). Route Handlers exist only where Server Actions don't fit:
+- `api/admin/lessons/[lessonId]/video` — admin video upload, streamed to disk (Server Actions cap the body; videos are hundreds of MB). Client: `components/admin/VideoUploader.tsx` (XHR with progress).
+- `api/stream/[lessonId]`, `api/files/[materialId]` — protected media with `Range` support; files live in private `storage/` (gitignored).
 
-**Payments (`src/lib/robokassa.ts` + `src/lib/actions/payments.ts`):** `createPaymentAction` creates a `Payment` row with a fresh numeric `invoiceId` before redirecting to Robokassa's hosted payment page — this row is what the webhook later matches against. Real Merchant Login / Password1 / Password2 / test-mode flag live in `.env` (`ROBOKASSA_*`) — currently placeholders; Anna configures the real Result/Success/Fail URLs in her own Robokassa dashboard to point at this site.
+`serverActions.bodySizeLimit` is 10 MB (lesson files); proxy on `/admin` also caps at 10 MB by default.
 
-**Auth modal + intent resumption:** `AuthModalContext` tracks a `PendingIntent` (`{type: "enroll"|"pay", courseSlug}`) set when an unauthenticated visitor clicks a course CTA (`CourseActionButton.tsx`). After successful login/register inside `AuthModal.tsx`, the pending intent is resolved automatically (enroll in the free course / start the paid checkout) so the user doesn't lose their place. `AuthQueryOpener.tsx` opens the login modal on `?auth=1`, which is how the proxy redirect for `/cabinet` surfaces the login prompt.
+**Data model:** SQLite, enum-like fields are `String`s with allowed values in comments in `schema.prisma`. Free course: one `Module` "Уроки" with 6 `Lesson`s (`prep` = "before the lesson"), `CourseDoc`s, `PaidCourseRequest` (finish-of-course request, shown in admin).
 
-**Data model** (`prisma/schema.prisma`): SQLite doesn't support native enums in this Prisma setup, so `User.role`, `User.accountType`, `Enrollment.source`, and `Payment.status` are plain `String` fields with the allowed values documented in comments directly above each model — check those comments rather than assuming an enum exists.
+**Styling:** Tailwind v4, tokens in `src/app/globals.css` (`--color-primary` #4A3AFF, `--color-accent` pink #FF8FD4 — only dark text on pink). Soft neo-brutalism: 2px ink borders, hard shadows, notebook grid. Unbounded for h1/h2, Caveat (`font-hand`) for handwritten notes, Inter for text.
 
-**Styling:** Tailwind v4 (CSS-based config, no `tailwind.config.ts`) — design tokens are CSS custom properties in `src/app/globals.css` (`--color-primary`, `--color-accent`, `--color-ink`, etc.), referenced in components as `text-[var(--color-primary)]` etc. rather than Tailwind theme color names. Scroll-triggered reveal animations go through `src/components/ui/FadeIn.tsx` (framer-motion `whileInView`); reuse it instead of hand-rolling intersection observers.
+**Motion:** `components/ui/Reveal.tsx`. Above-the-fold (`immediate`) reveals are pure CSS (`.reveal-now` in globals.css) so the first screen paints without waiting for JS; scroll reveals use Framer Motion with `VIEWPORT` (triggers slightly before entering view). Don't wrap pages in opacity-0 transitions — it left the landing blank until hydration (~2 s on phones).
 
-**Next.js 16 specifics that differ from older docs/training data** (also called out in `AGENTS.md`, which is auto-regenerated by `next dev` — don't hand-edit that block): `params`/`searchParams` in pages and Route Handlers are `Promise`s and must be `await`ed; use the generated `PageProps<"/route/[param]">` / `LayoutProps<...>` helper types (regenerated on `next dev`/`next build`); `cookies()`/`headers()` from `next/headers` are async; the middleware convention is `proxy.ts` exporting `proxy`, not `middleware.ts`.
+**Next.js 16 specifics:** `params`/`searchParams` are Promises; use generated `PageProps<"/route">` / `LayoutProps`; `cookies()`/`headers()` are async; `proxy.ts` instead of `middleware.ts`; `next/image` uses `preload` instead of `priority`.

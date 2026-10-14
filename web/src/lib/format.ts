@@ -1,9 +1,3 @@
-export function formatRub(amount: number) {
-  return new Intl.NumberFormat("ru-RU", {
-    maximumFractionDigits: 0,
-  }).format(amount) + " ₽";
-}
-
 export function formatDate(date: Date | string) {
   const d = typeof date === "string" ? new Date(date) : date;
   return new Intl.DateTimeFormat("ru-RU", {
@@ -37,10 +31,3 @@ export function plural(count: number, forms: [string, string, string]) {
   return forms[2];
 }
 
-/** «3 модуля · 12 уроков» — короткая строка объёма курса. */
-export function courseVolume(moduleCount: number, lessonCount: number) {
-  return (
-    `${moduleCount} ${plural(moduleCount, ["модуль", "модуля", "модулей"])}` +
-    ` · ${lessonCount} ${plural(lessonCount, ["урок", "урока", "уроков"])}`
-  );
-}

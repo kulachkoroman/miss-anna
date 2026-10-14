@@ -2,10 +2,7 @@
 
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
 
-export type PendingIntent =
-  | { type: "enroll"; courseSlug: string }
-  | { type: "pay"; courseSlug: string }
-  | null;
+export type PendingIntent = { type: "enroll"; courseSlug: string } | null;
 
 type AuthModalState = {
   isOpen: boolean;

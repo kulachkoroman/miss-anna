@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Бесплатный курс по итоговому сочинению — сайт Анны Паршуковой
 
-## Getting Started
+Одностраничный лендинг бесплатного курса + личный кабинет ученика с уроками + админка для Анны.
 
-First, run the development server:
+- **Главная `/`** — первый экран с «плеером» урока 1, «если трудно понять, что писать», программа из 6 уроков,
+  как проходить уроки, блок «Кто ведёт курс», вопросы. Кнопка «Начать первый урок» → регистрация → урок 1.
+- **Кабинет `/cabinet`** — уроки: «перед уроком», видео, конспект и задания, ответы, темы пробника,
+  в конце — заявка на платный курс.
+- **Админка `/admin`** — обзор, курс (уроки, видео, тексты), заявки на платный курс, ученики.
+
+Оплаты на сайте нет: платный курс у Анны на другой платформе (убрано в октябре 2026, вернуть можно из git).
+
+## Запуск на своём компьютере
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx next dev --webpack     # именно с --webpack: Turbopack на этой машине не запускается
+npm run db:seed            # админ + курс из prisma/course-content (повторный запуск безопасен)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Сайт — http://localhost:3000, вход в админку — http://localhost:3000/admin/login
+(логин и пароль — `ADMIN_EMAIL` / `ADMIN_PASSWORD` в `.env`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Где что менять
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Тексты лендинга и курса — `src/content/course.ts`; про Анну и контакты — `src/content/site.ts`.
+- Тексты уроков (конспекты, ответы, пробник) — в админке; исходники — `prisma/course-content/`.
+- Видео уроков загружаются в админке, лежат в `storage/videos` (не в git). На хостинге нужен постоянный диск.
