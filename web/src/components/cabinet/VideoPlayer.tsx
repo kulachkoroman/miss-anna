@@ -1,6 +1,7 @@
 "use client";
 
 import Icon from "@/components/ui/Icon";
+import { LESSON_TEXTS } from "@/content/course";
 
 /**
  * Плеер урока.
@@ -24,10 +25,8 @@ export default function VideoPlayer({
         <span className="flex h-12 w-12 items-center justify-center rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-primary-soft)] text-[var(--color-primary)]">
           <Icon name="play" className="h-6 w-6" />
         </span>
-        <p className="text-[var(--color-ink-soft)]">Видео для этого урока пока не загружено</p>
-        <p className="max-w-xs text-caption text-[var(--color-ink-muted)]">
-          Материалы урока, если они есть, доступны ниже.
-        </p>
+        <p className="font-semibold text-[var(--color-ink)]">Видео скоро появится</p>
+        <p className="max-w-xs px-4 text-caption text-[var(--color-ink-muted)]">{LESSON_TEXTS.videoSoon}</p>
       </div>
     );
   }

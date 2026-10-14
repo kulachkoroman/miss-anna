@@ -1,13 +1,32 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { COURSE_HERO, COURSE_LESSONS, COURSE_SEO, FREE_COURSE_SLUG } from "../src/content/course";
 
 const prisma = new PrismaClient();
 
-async function main() {
+/**
+ * Наполнение базы.
+ *
+ * 1. Администратор (Анна) — данные входа из .env.
+ * 2. Бесплатный курс по итоговому сочинению: шесть уроков и тексты к ним
+ *    (конспекты, ответы, темы пробника, маршрут). Тексты лежат в
+ *    prisma/course-content — это файлы из материалов Анны от 12 октября 2026.
+ *
+ * Повторный запуск безопасен: если уроки курса уже совпадают с программой,
+ * они не трогаются (и правки Анны из админки не затираются); тексты
+ * создаются, только если у курса их ещё нет.
+ */
+
+const CONTENT_DIR = join(__dirname, "course-content");
+const read = (file: string) => readFileSync(join(CONTENT_DIR, file), "utf8").replace(/\r\n/g, "\n").trim();
+const pad = (n: number) => String(n).padStart(2, "0");
+
+async function seedAdmin() {
   const adminEmail = process.env.ADMIN_EMAIL || "anna@example.com";
   const adminPassword = process.env.ADMIN_PASSWORD || "change-me-admin-123";
 
-  const adminPasswordHash = await bcrypt.hash(adminPassword, 10);
   await prisma.user.upsert({
     where: { email: adminEmail },
     update: {},
@@ -16,185 +35,95 @@ async function main() {
       accountType: "STUDENT_SELF",
       name: "Анна Паршукова",
       email: adminEmail,
-      passwordHash: adminPasswordHash,
+      passwordHash: await bcrypt.hash(adminPassword, 10),
       studentName: "Анна Паршукова",
       consentPersonalData: true,
     },
   });
-  console.log(`Admin user ready: ${adminEmail} / ${adminPassword}`);
+  console.log(`Admin user ready: ${adminEmail}`);
+}
 
-  const freeCourse = await prisma.course.upsert({
-    where: { slug: "itogovoe-sochinenie" },
-    update: {},
+async function seedFreeCourse() {
+  const course = await prisma.course.upsert({
+    where: { slug: FREE_COURSE_SLUG },
+    update: {
+      title: COURSE_HERO.title,
+      shortDescription: COURSE_SEO.description,
+      description: COURSE_HERO.text,
+      isFree: true,
+      priceRub: 0,
+      published: true,
+    },
     create: {
-      slug: "itogovoe-sochinenie",
-      title: "Итоговое сочинение: допуск к ЕГЭ с первого раза",
-      shortDescription:
-        "Разбираем требования и структуру итогового сочинения, чтобы получить «зачёт» с первой попытки.",
-      description:
-        "Итоговое сочинение — обязательный допуск к ЕГЭ для всех 11-классников. Курс разбирает требования к работе, структуру сочинения по всем открытым направлениям, разбор типичных ошибок и примеры аргументации на основе литературных произведений. После курса вы будете точно знать, как писать сочинение, чтобы получить «зачёт» с первого раза и без стресса.",
-      whatsIncluded:
-        "Видеоуроки по структуре и требованиям;Разбор аргументов и литературных примеров;Чек-лист самопроверки перед экзаменом;Материалы для скачивания",
-      forWhom:
-        "Ученикам 11 класса, которым предстоит писать итоговое сочинение в этом учебном году",
-      duration: "3 модуля, доступ без ограничения по времени",
+      slug: FREE_COURSE_SLUG,
+      title: COURSE_HERO.title,
+      shortDescription: COURSE_SEO.description,
+      description: COURSE_HERO.text,
+      duration: "6 видеоуроков, до 20 часов вместе с чтением и практикой",
       isFree: true,
       priceRub: 0,
       published: true,
       order: 1,
-      modules: {
-        create: [
-          {
-            title: "Модуль 1. Структура и требования",
-            order: 1,
-            lessons: {
-              create: [
-                {
-                  title: "Критерии зачёта: что проверяют эксперты",
-                  order: 1,
-                  description:
-                    "Разбираем формальные и содержательные требования к итоговому сочинению.",
-                },
-                {
-                  title: "Композиция сочинения: вступление, аргументы, заключение",
-                  order: 2,
-                  description:
-                    "Как выстроить сочинение так, чтобы оно точно соответствовало структуре.",
-                },
-              ],
-            },
-          },
-          {
-            title: "Модуль 2. Аргументация и примеры",
-            order: 2,
-            lessons: {
-              create: [
-                {
-                  title: "Как подобрать литературный аргумент под тему",
-                  order: 1,
-                },
-                {
-                  title: "Разбор готовых аргументов по открытым направлениям",
-                  order: 2,
-                },
-              ],
-            },
-          },
-          {
-            title: "Модуль 3. Типичные ошибки и разбор работ",
-            order: 3,
-            lessons: {
-              create: [
-                {
-                  title: "Разбор реальных работ учеников: что исправить",
-                  order: 1,
-                },
-              ],
-            },
-          },
-        ],
-      },
     },
+    include: { modules: { include: { lessons: { orderBy: { order: "asc" } } } } },
   });
 
-  const paidCourse = await prisma.course.upsert({
-    where: { slug: "sochinenie-ege-maksimum" },
-    update: {},
-    create: {
-      slug: "sochinenie-ege-maksimum",
-      title: "Сочинение ЕГЭ на максимум",
-      shortDescription:
-        "Готовимся к заданию 27 ЕГЭ по русскому языку — от структуры до максимального балла по критериям.",
-      description:
-        "Курс посвящён написанию сочинения (задание 27) на самом ЕГЭ по русскому языку — том задании, которое приносит больше всего баллов и вызывает больше всего сложностей. Разбираем формулировку проблемы, комментарий с опорой на текст, позицию автора, собственную аргументацию и типичные ошибки, из-за которых снижают баллы. Практика построена на реальных текстах из ЕГЭ прошлых лет.",
-      whatsIncluded:
-        "Видеоуроки по каждому критерию оценивания;Разбор сочинений на реальных текстах ЕГЭ;Практические задания с проверкой;Материалы и шаблоны для скачивания",
-      forWhom:
-        "Ученикам 9–11 классов, которые готовятся к ЕГЭ по русскому языку и хотят получить максимум баллов за сочинение",
-      duration: "5 модулей, доступ без ограничения по времени",
-      isFree: false,
-      priceRub: 4990,
-      published: true,
-      order: 2,
-      modules: {
-        create: [
-          {
-            title: "Модуль 1. Формулировка проблемы",
-            order: 1,
-            lessons: {
-              create: [
-                { title: "Как найти и точно сформулировать проблему текста", order: 1 },
-              ],
-            },
-          },
-          {
-            title: "Модуль 2. Комментарий с опорой на текст",
-            order: 2,
-            lessons: {
-              create: [
-                { title: "Два примера-иллюстрации и смысловая связь между ними", order: 1 },
-              ],
-            },
-          },
-          {
-            title: "Модуль 3. Позиция автора и собственное мнение",
-            order: 3,
-            lessons: {
-              create: [{ title: "Как не потерять баллы на этом критерии", order: 1 }],
-            },
-          },
-          {
-            title: "Модуль 4. Аргументация своей позиции",
-            order: 4,
-            lessons: {
-              create: [{ title: "Подбор аргументов: жизненный и литературный опыт", order: 1 }],
-            },
-          },
-          {
-            title: "Модуль 5. Практика и разбор ошибок",
-            order: 5,
-            lessons: {
-              create: [
-                { title: "Разбор сочинений учеников на реальных текстах ЕГЭ", order: 1 },
-              ],
-            },
-          },
-        ],
+  /* Совпадает ли то, что в базе, с программой Анны? */
+  const existing = course.modules.flatMap((m) => m.lessons).map((l) => l.title);
+  const expected = COURSE_LESSONS.map((l) => l.title);
+  const matches = existing.length === expected.length && existing.every((t, i) => t === expected[i]);
+
+  if (!matches) {
+    /* Старая тестовая программа: убираем её целиком (вместе с прогрессом
+       по старым урокам и их текстами) и создаём уроки Анны. */
+    await prisma.courseDoc.deleteMany({ where: { courseId: course.id } });
+    await prisma.module.deleteMany({ where: { courseId: course.id } });
+    await prisma.module.create({
+      data: {
+        courseId: course.id,
+        title: "Уроки",
+        order: 1,
+        lessons: {
+          create: COURSE_LESSONS.map((l) => ({
+            title: l.title,
+            order: l.number,
+            description: l.text,
+            prep: l.prep,
+          })),
+        },
       },
-    },
-  });
-
-  console.log(`Courses ready: ${freeCourse.slug}, ${paidCourse.slug}`);
-
-  const reviewCount = await prisma.review.count();
-  if (reviewCount === 0) {
-    await prisma.review.createMany({
-      data: [
-        {
-          studentName: "Мария",
-          studentGrade: "11 класс",
-          text: "Готовилась к итоговому сочинению по курсу Анны — написала на «зачёт» без единого замечания. Всё объясняется понятно, по шагам.",
-          published: true,
-          order: 1,
-        },
-        {
-          studentName: "Артём",
-          studentGrade: "10 класс",
-          text: "Начал заниматься заранее, чтобы не гнаться перед самим ЕГЭ. Анна сразу видит пробелы и объясняет так, что запоминается с первого раза.",
-          published: true,
-          order: 2,
-        },
-        {
-          studentName: "Родитель ученицы, 9 класс",
-          studentGrade: null,
-          text: "Дочь стала увереннее в своих силах уже после нескольких занятий. Домашние задания и разбор ошибок — большой плюс.",
-          published: true,
-          order: 3,
-        },
-      ],
     });
-    console.log("Placeholder reviews created — replace with real ones from the admin panel.");
+    console.log(`Course "${FREE_COURSE_SLUG}": lessons rebuilt from Anna's program`);
+  } else {
+    console.log(`Course "${FREE_COURSE_SLUG}": lessons already match, left as is`);
   }
+
+  if ((await prisma.courseDoc.count({ where: { courseId: course.id } })) === 0) {
+    const lessons = await prisma.lesson.findMany({
+      where: { module: { courseId: course.id } },
+      orderBy: { order: "asc" },
+    });
+
+    const docs: Array<{ lessonId: string | null; kind: string; title: string; body: string; order: number }> = [
+      { lessonId: null, kind: "ROUTE", title: "Маршрут и список чтения", body: read("00 Маршрут и чтение.md"), order: 0 },
+    ];
+    lessons.forEach((lesson, i) => {
+      const n = pad(i + 1);
+      docs.push({ lessonId: lesson.id, kind: "NOTES", title: "Конспект и задания", body: read(`${n} Конспект и задания.md`), order: 1 });
+      docs.push({ lessonId: lesson.id, kind: "ANSWERS", title: "Ответы и самопроверка", body: read(`${n} Ответы.md`), order: 2 });
+      if (i + 1 === 6) {
+        docs.push({ lessonId: lesson.id, kind: "MOCK", title: "Темы пробника", body: read("06 Темы пробника.md"), order: 3 });
+      }
+    });
+
+    await prisma.courseDoc.createMany({ data: docs.map((d) => ({ ...d, courseId: course.id })) });
+    console.log(`Course texts created: ${docs.length}`);
+  }
+}
+
+async function main() {
+  await seedAdmin();
+  await seedFreeCourse();
 }
 
 main()

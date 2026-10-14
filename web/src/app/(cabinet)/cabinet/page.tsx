@@ -123,10 +123,10 @@ export default async function CabinetHomePage() {
               Начать можно с бесплатного курса — доступ откроется сразу, платить не нужно.
             </p>
             <Link
-              href="/courses"
+              href="/"
               className="mt-7 inline-flex items-center gap-2 rounded-full px-6 py-2.5 border-2 border-[var(--color-ink)] bg-[var(--color-primary)] font-bold text-white shadow-hard transition-[translate,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-hard-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
             >
-              Смотреть каталог
+              К бесплатному курсу
               <Icon name="arrowRight" className="h-4 w-4" />
             </Link>
           </div>
@@ -183,7 +183,7 @@ export default async function CabinetHomePage() {
             {otherCourses.map((course) => (
               <RevealItem key={course.id}>
                 <Link
-                  href={`/courses/${course.slug}`}
+                  href="/"
                   className="group flex items-center justify-between gap-4 rounded-card border-2 border-[var(--color-ink)] bg-[var(--color-surface)] p-5 transition-[translate,box-shadow] duration-150 ease-out hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-hard"
                 >
                   <div>
