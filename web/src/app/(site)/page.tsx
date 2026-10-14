@@ -1,59 +1,33 @@
-import { prisma } from "@/lib/prisma";
-import Hero from "@/components/home/Hero";
-import TrustBar from "@/components/home/TrustBar";
-import AboutPreview from "@/components/home/AboutPreview";
-import Results from "@/components/site/Results";
-import ForWhom from "@/components/site/ForWhom";
-import CoursesPreview from "@/components/home/CoursesPreview";
-import ClassesPreview from "@/components/home/ClassesPreview";
-import ChooseFormat from "@/components/home/ChooseFormat";
-import HowItWorks from "@/components/home/HowItWorks";
-import Quote from "@/components/ui/Quote";
-import Reviews from "@/components/home/Reviews";
-import FAQ from "@/components/home/FAQ";
-import ContactsPreview from "@/components/home/ContactsPreview";
-import { FEAR_QUOTE } from "@/content/site";
+import HeroPlayer from "@/components/landing/HeroPlayer";
+import CourseRoute from "@/components/landing/CourseRoute";
+import CourseHow from "@/components/landing/CourseHow";
+import AboutAnna from "@/components/landing/AboutAnna";
+import CourseFAQ from "@/components/landing/CourseFAQ";
+import FinalCta from "@/components/landing/FinalCta";
+import StickyCta from "@/components/landing/StickyCta";
+import { COURSE_HERO } from "@/content/course";
+import { getCourseAccess } from "@/lib/course-access";
 
 /**
- * Порядок блоков главной.
+ * Главная — лендинг бесплатного курса по итоговому сочинению.
  *
- * Логика чтения: кто я → чего добиваются ученики → кому это подходит →
- * что есть → что выбрать → как начать → слово Анны → отзывы → вопросы →
- * как связаться.
- *
- * Фоны секций чередуются (светлый, холодный, тёмный), и два одинаковых
- * по устройству блока не стоят рядом — иначе страница читается как одна
- * длинная лента карточек.
+ * Одна цель: начать первый урок. Порядок: большой «плеер» урока 1 →
+ * маршрут из шести уроков → как устроено обучение → коротко об Анне
+ * с контактами → вопросы → «С чего начать». Записи на занятия нет:
+ * мест у Анны нет (её просьба, октябрь 2026).
  */
 export default async function HomePage() {
-  const [courses, reviews] = await Promise.all([
-    prisma.course.findMany({
-      where: { published: true },
-      orderBy: { order: "asc" },
-      take: 2,
-    }),
-    prisma.review.findMany({
-      where: { published: true },
-      orderBy: { order: "asc" },
-      take: 3,
-    }),
-  ]);
+  const access = await getCourseAccess();
 
   return (
     <>
-      <Hero />
-      <TrustBar />
-      <AboutPreview />
-      <Results />
-      <ForWhom />
-      <CoursesPreview courses={courses} />
-      <ClassesPreview />
-      <ChooseFormat courses={courses} />
-      <Quote quote={{ text: FEAR_QUOTE.text, caption: "Анна Паршукова" }} eyebrow={FEAR_QUOTE.caption} />
-      <HowItWorks />
-      <Reviews reviews={reviews} />
-      <FAQ />
-      <ContactsPreview />
+      <HeroPlayer access={access} />
+      <CourseRoute />
+      <CourseHow />
+      <AboutAnna />
+      <CourseFAQ />
+      <FinalCta access={access} />
+      <StickyCta access={access} label={access.isEnrolled ? "Продолжить курс" : COURSE_HERO.button} />
     </>
   );
 }

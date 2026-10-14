@@ -6,14 +6,14 @@ import { readFile } from "node:fs/promises";
  * Картинка превью для ссылок.
  *
  * Когда ссылку на сайт кидают в Telegram, ВКонтакте или отправляют в поиск,
- * подтягивается это изображение. Слева — заголовок с главной, справа —
+ * подтягивается это изображение. Слева — название бесплатного курса, справа —
  * Анна без фона на фирменной арке, как на первом экране сайта.
  *
  * Важно: движок требует явный display у любого блока с несколькими детьми,
  * иначе картинка не соберётся. Фото — PNG: WebP движок не читает.
  */
 
-export const alt = "Анна Паршукова — подготовка к ЕГЭ и ОГЭ по русскому языку";
+export const alt = "Бесплатный курс по итоговому сочинению — Анна Паршукова";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -95,15 +95,15 @@ export default async function OpengraphImage() {
               color: "#4a3aff",
             }}
           >
-            РУССКИЙ ЯЗЫК · ЕГЭ И ОГЭ
+            БЕСПЛАТНЫЙ КУРС · 11 КЛАСС
           </div>
 
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ display: "flex", fontSize: 72, fontWeight: 800, letterSpacing: -2.5, lineHeight: 1.02 }}>
-              Подготовка
+              Бесплатный курс
             </div>
             <div style={{ display: "flex", fontSize: 72, fontWeight: 800, letterSpacing: -2.5, lineHeight: 1.02 }}>
-              к ЕГЭ и ОГЭ
+              по итоговому
             </div>
             <div
               style={{
@@ -115,14 +115,14 @@ export default async function OpengraphImage() {
                 color: "#4a3aff",
               }}
             >
-              по русскому языку
+              сочинению
             </div>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ display: "flex", fontSize: 28, fontWeight: 800 }}>Анна Паршукова</div>
             <div style={{ display: "flex", marginTop: 8, fontSize: 24, fontWeight: 500, color: "#57536b" }}>
-              Трижды 100 баллов на ЕГЭ · готовлю с 2015 года
+              6 видеоуроков · конспекты и разборы · 0 ₽
             </div>
           </div>
         </div>

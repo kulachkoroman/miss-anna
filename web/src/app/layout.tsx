@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Caveat, Inter, Unbounded } from "next/font/google";
 import "./globals.css";
 import MotionProvider from "@/components/ui/MotionProvider";
+import { COURSE_SEO } from "@/content/course";
 
 /*
   Inter — тот же шрифт, что на лендинге Давида. Вариативный: любые
@@ -29,9 +30,8 @@ const caveat = Caveat({
   display: "swap",
 });
 
-const SITE_NAME = "Анна Паршукова — эксперт по ЕГЭ и ОГЭ";
-const DESCRIPTION =
-  "Подготовка к ЕГЭ и ОГЭ по русскому языку с Анной Паршуковой: трижды 100 баллов на ЕГЭ, готовит к экзаменам с 2015 года. Онлайн-курсы и индивидуальные занятия.";
+const SITE_NAME = COURSE_SEO.title;
+const DESCRIPTION = COURSE_SEO.description;
 
 /**
  * metadataBase нужен, чтобы ссылки на картинку превью были абсолютными.
@@ -50,12 +50,11 @@ export const metadata: Metadata = {
   applicationName: "Русичка Анна Евгеньевна",
   authors: [{ name: "Анна Паршукова" }],
   keywords: [
-    "ЕГЭ русский язык",
-    "ОГЭ русский язык",
-    "подготовка к ЕГЭ",
     "итоговое сочинение",
-    "репетитор по русскому языку",
-    "сочинение ЕГЭ задание 27",
+    "бесплатный курс итоговое сочинение",
+    "подготовка к итоговому сочинению",
+    "итоговое сочинение 11 класс",
+    "литературный аргумент",
   ],
   openGraph: {
     type: "website",

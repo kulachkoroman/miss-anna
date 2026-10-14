@@ -10,9 +10,9 @@ import { BLOG_NAME } from "@/content/site";
 import type { CourseAccess } from "@/lib/course-access";
 
 const anchors = [
-  { href: "#program", label: "Программа" },
-  { href: "#anna", label: "Об Анне" },
-  { href: "#faq", label: "Вопросы" },
+  { href: "/#program", label: "Программа" },
+  { href: "/#anna", label: "Об Анне" },
+  { href: "/#faq", label: "Вопросы" },
 ];
 
 /**
@@ -51,7 +51,7 @@ export default function LandingHeader({
         )}
       >
         <div className="flex h-16 items-center justify-between gap-2 pl-5 pr-2 sm:h-[4.25rem] sm:pl-6 sm:pr-2.5">
-          <Link href="#top" className="flex min-w-0 flex-col leading-tight">
+          <Link href="/" className="flex min-w-0 flex-col leading-tight">
             <span className="truncate font-display text-[0.875rem] font-bold tracking-[-0.02em] text-[var(--color-ink)] sm:text-[0.9375rem]">
               {BLOG_NAME}
               <span className="text-[var(--color-accent)]">.</span>

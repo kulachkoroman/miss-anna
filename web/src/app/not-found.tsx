@@ -10,16 +10,11 @@ export const metadata: Metadata = {
  * Страница 404.
  *
  * Показывается вне основной оболочки сайта, поэтому шапки и подвала здесь нет —
- * вместо них прямые ссылки на разделы, чтобы человек не оказался в тупике.
+ * вместо них ссылка на курс, чтобы человек не оказался в тупике.
  * «404», исправленное красной ручкой, — шутка в тон сайту учителя русского.
  */
 export default function NotFound() {
-  const links = [
-    { href: "/", label: "На главную" },
-    { href: "/courses", label: "Курсы" },
-    { href: "/classes", label: "Занятия" },
-    { href: "/contacts", label: "Контакты" },
-  ];
+  const links = [{ href: "/", label: "К бесплатному курсу" }];
 
   return (
     <main className="relative flex flex-1 items-center justify-center overflow-hidden px-4 py-20">

@@ -10,8 +10,8 @@ export async function enrollFreeAction(courseSlug: string) {
   if (!user) redirect(`/?auth=1`);
 
   const course = await prisma.course.findUnique({ where: { slug: courseSlug } });
-  if (!course || !course.published) redirect("/courses");
-  if (!course.isFree) redirect(`/courses/${courseSlug}`);
+  if (!course || !course.published) redirect("/");
+  if (!course.isFree) redirect("/");
 
   await prisma.enrollment.upsert({
     where: { userId_courseId: { userId: user.id, courseId: course.id } },

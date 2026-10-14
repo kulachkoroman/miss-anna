@@ -1,19 +1,23 @@
 import { Suspense } from "react";
-import Header from "@/components/site/Header";
-import Footer from "@/components/site/Footer";
 import { AuthModalProvider } from "@/components/auth/AuthModalContext";
 import AuthModal from "@/components/auth/AuthModal";
 import AuthQueryOpener from "@/components/auth/AuthQueryOpener";
+import LandingHeader from "@/components/landing/LandingHeader";
+import LandingFooter from "@/components/landing/LandingFooter";
 import PageTransition from "@/components/ui/PageTransition";
+import { getCurrentUser } from "@/lib/auth";
+import { getCourseAccess } from "@/lib/course-access";
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+export default async function SiteLayout({ children }: { children: React.ReactNode }) {
+  const [user, access] = await Promise.all([getCurrentUser(), getCourseAccess()]);
+
   return (
     <AuthModalProvider>
-      <Header />
+      <LandingHeader access={access} userName={user ? user.studentName || user.name : null} />
       <main id="main" className="flex flex-1 flex-col pt-[88px] sm:pt-[104px]">
         <PageTransition>{children}</PageTransition>
       </main>
-      <Footer />
+      <LandingFooter />
       <AuthModal />
       {/*
         AuthQueryOpener читает параметры адреса (?auth=1), чтобы открыть окно входа.
