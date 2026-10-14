@@ -27,6 +27,12 @@ export default async function CabinetLayout({ children }: { children: React.Reac
               Мои курсы
             </Link>
             <Link
+              href="/cabinet/words"
+              className="rounded-full px-2 py-2 text-[var(--color-ink-soft)] sm:px-3.5 transition-colors hover:bg-[var(--color-accent-tint)] hover:text-[var(--color-ink)]"
+            >
+              Словарные слова
+            </Link>
+            <Link
               href="/cabinet/profile"
               className="rounded-full px-2 py-2 text-[var(--color-ink-soft)] sm:px-3.5 transition-colors hover:bg-[var(--color-accent-tint)] hover:text-[var(--color-ink)]"
             >

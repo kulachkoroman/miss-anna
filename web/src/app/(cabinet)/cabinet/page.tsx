@@ -206,6 +206,29 @@ export default async function CabinetHomePage() {
       )}
 
       <Reveal>
+        <Link
+          href="/cabinet/words"
+          className="group flex flex-col items-start justify-between gap-5 rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-primary-tint)] p-7 transition-[background-color] duration-300 hover:bg-[var(--color-primary-soft)] sm:flex-row sm:items-center"
+        >
+          <div className="flex gap-4">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-primary)] text-white">
+              <Icon name="pencil" className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-h4 text-[var(--color-ink)]">Тренажёр словарных слов</p>
+              <p className="mt-1 text-[0.9375rem] text-[var(--color-ink-soft)]">
+                Словарные слова и задание №14 ЕГЭ — по 5–10 минут в день.
+              </p>
+            </div>
+          </div>
+          <span className="inline-flex shrink-0 items-center gap-2 font-bold text-[var(--color-primary)]">
+            Открыть
+            <Icon name="arrowRight" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </span>
+        </Link>
+      </Reveal>
+
+      <Reveal>
         <div className="flex flex-col items-start justify-between gap-5 rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-accent-soft)] p-7 sm:flex-row sm:items-center">
           <div className="flex gap-4">
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-accent)] text-[var(--color-ink)]">
