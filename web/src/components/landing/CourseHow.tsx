@@ -4,16 +4,16 @@ import Icon from "@/components/ui/Icon";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { COURSE_HOW } from "@/content/course";
 
-/** «Как устроено обучение»: текст Анны и три шага работы с уроком. */
+/** «Как проходить уроки»: как работать с уроком и три шага. */
 export default function CourseHow() {
   return (
     <Section id="how">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
         <Reveal>
-          <SectionHeading eyebrow="Как это работает" title={COURSE_HOW.title} description={COURSE_HOW.text[0]} />
+          <SectionHeading eyebrow={COURSE_HOW.eyebrow} title={COURSE_HOW.title} description={COURSE_HOW.text} />
           <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--color-surface-alt)] px-4 py-2 text-[0.875rem] font-semibold text-[var(--color-ink)]">
             <Icon name="clock" className="h-4 w-4 text-[var(--color-primary)]" />
-            до 20 часов на весь маршрут, в своём темпе
+            {COURSE_HOW.time}
           </p>
         </Reveal>
         <RevealGroup stagger={0.1} className="grid gap-4 sm:grid-cols-3">

@@ -91,7 +91,7 @@ export default function SplitText({
   className?: string;
 }) {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.35 });
+  const inView = useInView(ref, { once: true, amount: 0.35, margin: "0px 0px 15% 0px" });
   const shown = immediate || inView;
 
   const tokens = tokenize(text, highlight);

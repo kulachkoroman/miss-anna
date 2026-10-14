@@ -31,8 +31,12 @@ export const transition: Transition = {
   ease: EASE.out,
 };
 
-/** Сколько элемента должно попасть в экран, чтобы анимация запустилась. */
-export const VIEWPORT = { once: true, amount: 0.2 } as const;
+/**
+ * Когда запускать появление при прокрутке. margin растягивает «экран» вниз
+ * на 15%: блок начинает проявляться чуть раньше, чем въедет в экран, —
+ * при быстрой прокрутке не видно пустых мест на месте ещё не появившихся блоков.
+ */
+export const VIEWPORT = { once: true, amount: 0.1, margin: "0px 0px 15% 0px" } as const;
 
 type Direction = "up" | "down" | "left" | "right" | "none";
 
@@ -94,18 +98,4 @@ export const staggerItem: Variants = {
   },
 };
 
-/** Переход между страницами. Держим очень коротким, иначе сайт «тупит». */
-export const pageTransition: Variants = {
-  hidden: { opacity: 0, y: 8 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: DURATION.fast, ease: EASE.out },
-  },
-};
 
-/** Наведение на карточку: подъём + увеличение тени. */
-export const hoverLift = {
-  whileHover: { y: -4, transition: { duration: DURATION.fast, ease: EASE.out } },
-  whileTap: { scale: 0.99 },
-} as const;

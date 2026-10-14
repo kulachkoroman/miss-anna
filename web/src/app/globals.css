@@ -344,6 +344,34 @@ body {
   animation: float-y 8s ease-in-out infinite;
 }
 
+/* Появление первого экрана — на CSS, без ожидания JavaScript (см. Reveal). */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.reveal-now {
+  animation: reveal-up 0.55s var(--ease-out-expo) both;
+}
+.reveal-now-scale {
+  animation: reveal-scale 0.7s var(--ease-out-expo) both;
+}
+
 /* ============================================================
    ДОСТУПНОСТЬ: уважаем системную настройку «меньше движения».
    Framer Motion гасится отдельно через MotionConfig в layout.
@@ -363,6 +391,10 @@ body {
   }
   .split .wi {
     transform: none !important;
+  }
+  .reveal-now,
+  .reveal-now-scale {
+    animation: none !important;
   }
   .hl {
     background-size: 100% 0.46em !important;

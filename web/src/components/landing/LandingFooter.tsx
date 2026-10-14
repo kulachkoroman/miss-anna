@@ -27,7 +27,8 @@ export default function LandingFooter() {
           </div>
 
           <div className="flex flex-wrap gap-2">
-            {[...MESSENGERS, ...BLOG_LINKS].map((l) => (
+            {/* Канал Telegram не дублируем: иконка та же, что у личных сообщений, — путает. Канал есть в блоке «Об Анне». */}
+            {[...MESSENGERS, ...BLOG_LINKS.filter((l) => l.brand !== "telegram")].map((l) => (
               <SocialButton key={l.href} brand={l.brand} href={l.href} label={l.label} variant="icon" />
             ))}
           </div>

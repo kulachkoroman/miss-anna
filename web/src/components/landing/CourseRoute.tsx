@@ -13,7 +13,7 @@ export default function CourseRoute() {
   return (
     <Section id="program" tone="tint">
       <Reveal>
-        <SectionHeading eyebrow="Маршрут курса" title="Шесть шагов к своему сочинению" highlight="своему сочинению" marker />
+        <SectionHeading eyebrow="Программа" title="Шесть шагов к своему сочинению" highlight="своему сочинению" marker />
       </Reveal>
 
       <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">

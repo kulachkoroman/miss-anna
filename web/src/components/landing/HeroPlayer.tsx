@@ -40,7 +40,7 @@ export default function HeroPlayer({ access }: { access: CourseAccess }) {
           <SplitText
             as="h1"
             immediate
-            delay={120}
+            delay={60}
             text={COURSE_HERO.title}
             highlight={COURSE_HERO.highlight}
             tone="inherit"
@@ -50,7 +50,7 @@ export default function HeroPlayer({ access }: { access: CourseAccess }) {
         </div>
 
         {/* Плеер */}
-        <Reveal immediate delay={0.25} variant="scale" className="relative mx-auto mt-8 max-w-[68rem] sm:mt-9">
+        <Reveal immediate delay={0.1} variant="scale" className="relative mx-auto mt-8 max-w-[68rem] sm:mt-9">
           {/* Стикер «бесплатно» поверх угла рамки */}
           <span className="absolute -left-2 -top-4 z-20 rotate-[-6deg] rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-accent)] px-3.5 py-2 font-display text-[0.9375rem] font-bold text-[var(--color-ink)] shadow-hard sm:-left-5 sm:-top-5 sm:px-5 sm:py-2.5 sm:text-[1.25rem]">
             0 ₽ · бесплатно
@@ -120,11 +120,11 @@ export default function HeroPlayer({ access }: { access: CourseAccess }) {
 
         {/* Текст и кнопка под плеером */}
         <div className="mx-auto mt-10 grid max-w-[68rem] gap-6 sm:mt-12 lg:grid-cols-[minmax(0,1.2fr)_auto] lg:items-center lg:gap-12">
-          <Reveal immediate delay={0.4}>
+          <Reveal immediate delay={0.2}>
             <p className="text-lead text-[var(--color-ink-soft)]">{COURSE_HERO.text}</p>
           </Reveal>
           {/* На телефоне кнопка идёт сразу под плеером, текст — после неё. */}
-          <Reveal immediate delay={0.5} className="order-first lg:order-none">
+          <Reveal immediate delay={0.15} className="order-first lg:order-none">
             <div className="lg:max-w-[22rem]">
               <StartCourseButton {...access} label={label} className="w-full" />
               <p className="mt-3 text-caption text-[var(--color-ink-muted)]">{COURSE_HERO.underButton}</p>

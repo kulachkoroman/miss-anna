@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import { reveal, revealScale, staggerContainer, staggerItem, VIEWPORT } from "@/lib/motion";
@@ -12,6 +13,11 @@ type Direction = "up" | "down" | "left" | "right" | "none";
  * <Reveal>            — стандартное появление снизу
  * <Reveal from="left"> — выезд сбоку
  * <Reveal variant="scale"> — с лёгким приближением, для картинок и карточек
+ *
+ * immediate (первый экран) — анимация на чистом CSS: она стартует, как только
+ * браузер нарисовал страницу, не дожидаясь загрузки JavaScript. Через Framer
+ * Motion первый экран оставался невидимым до запуска скриптов (на телефоне
+ * около двух секунд пустоты).
  */
 export function Reveal({
   children,
@@ -35,14 +41,24 @@ export function Reveal({
   immediate?: boolean;
   className?: string;
 }) {
+  if (immediate) {
+    return (
+      <div
+        className={clsx(variant === "scale" ? "reveal-now-scale" : "reveal-now", className)}
+        style={delay ? { animationDelay: `${delay}s` } : undefined}
+      >
+        {children}
+      </div>
+    );
+  }
+
   return (
     <motion.div
       className={className}
       variants={variant === "scale" ? revealScale : reveal(from, distance)}
       initial="hidden"
-      {...(immediate
-        ? { animate: "visible" }
-        : { whileInView: "visible", viewport: { once, amount } })}
+      whileInView="visible"
+      viewport={{ once, amount, margin: VIEWPORT.margin }}
       transition={{ delay }}
     >
       {children}
@@ -79,7 +95,7 @@ export function RevealGroup({
       initial="hidden"
       {...(immediate
         ? { animate: "visible" }
-        : { whileInView: "visible", viewport: { once, amount } })}
+        : { whileInView: "visible", viewport: { once, amount, margin: VIEWPORT.margin } })}
     >
       {children}
     </motion.div>
