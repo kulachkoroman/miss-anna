@@ -21,6 +21,8 @@ model User {
   studentAge          Int?
   parentContact       String?
   consentPersonalData Boolean  @default(false)
+  /// Анна отметила как своего ученика — для фильтра в админке.
+  isPersonalStudent   Boolean  @default(false)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
@@ -28,6 +30,8 @@ model User {
   progress       LessonProgress[]
   passwordResets PasswordResetToken[]
   courseRequests PaidCourseRequest[]
+  wordProgress   WordProgress[]
+  wordAnswers    WordAnswer[]
 }
 
 model Course {
@@ -161,4 +165,44 @@ model PasswordResetToken {
   createdAt DateTime  @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Тренажёр словарных слов. Сами слова — в коде (src/content/words), здесь
+// только прогресс ученика по id карточки ("d:акварель", "e:вплавь").
+// WordProgress.deck: "dictionary" | "ege14"
+// box: 0 — после ошибки, 1–5 — ступени повторения (через 1, 3, 7, 14, 30 дней).
+// После верного ответа на 5-й ступени слово выучено (learnedAt).
+model WordProgress {
+  id             String    @id @default(cuid())
+  userId         String
+  cardId         String
+  deck           String
+  box            Int       @default(0)
+  dueAt          DateTime
+  correctCount   Int       @default(0)
+  wrongCount     Int       @default(0)
+  lastAnsweredAt DateTime
+  learnedAt      DateTime?
+  createdAt      DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, cardId])
+  @@index([userId, deck, dueAt])
+}
+
+// Каждый засчитанный ответ (первый за день по слову) — для статистики
+// и списка ошибок. given — что выбрал ученик, словом: «в плавь».
+model WordAnswer {
+  id        String   @id @default(cuid())
+  userId    String
+  cardId    String
+  deck      String
+  correct   Boolean
+  given     String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
 }

@@ -1,6 +1,10 @@
+import { createHmac } from "node:crypto";
 import { DICTIONARY_WORDS } from "@/content/words/dictionary";
 import { EGE14_GROUPS } from "@/content/words/ege14";
 import { WORD_HINTS } from "@/content/words/hints";
+import { JOIN_LABELS, type JoinAnswer, type PublicCard, type Segment } from "@/lib/words/public";
+
+export { JOIN_LABELS, type JoinAnswer };
 
 /**
  * Карточки тренажёра словарных слов, собранные из размеченных списков
@@ -24,16 +28,13 @@ export const DECKS: { id: DeckId; title: string; short: string; description: str
     id: "ege14",
     title: "Слитно, раздельно, дефис",
     short: "№14 ЕГЭ",
-    description: "Наречия, предлоги, союзы и частицы из задания №14: (в)плавь, (на)ощупь.",
+    description: "Задание №14 ЕГЭ — наречия, предлоги, союзы: (в)плавь, (на)ощупь.",
   },
 ];
 
 export function isDeckId(value: string): value is DeckId {
   return value === "dictionary" || value === "ege14";
 }
-
-/** Кусок слова: обычный текст или пропуск с номером. */
-export type Segment = { text: string } | { gap: number };
 
 export type GapCard = {
   kind: "gap";
@@ -48,9 +49,6 @@ export type GapCard = {
   note?: string;
   hint?: string;
 };
-
-/** С — слитно, Р — раздельно, Д — через дефис. */
-export type JoinAnswer = "С" | "Р" | "Д";
 
 export type JoinCard = {
   kind: "join";
@@ -68,8 +66,6 @@ export type JoinCard = {
 };
 
 export type Card = GapCard | JoinCard;
-
-export const JOIN_LABELS: Record<JoinAnswer, string> = { С: "слитно", Р: "раздельно", Д: "через дефис" };
 
 const JOIN_SEPARATOR: Record<JoinAnswer, string> = { С: "", Р: " ", Д: "-" };
 
@@ -150,6 +146,23 @@ export function getCard(id: string): Card | undefined {
   return CARD_BY_ID.get(id);
 }
 
+/**
+ * Номер карточки для браузера. Настоящий id содержит слово целиком
+ * («d:акварель»), и ответ читался бы в коде страницы. Поэтому наружу
+ * уходит подпись id секретным ключом сайта: без ключа слово по ней
+ * не восстановить, а сервер находит карточку по таблице.
+ */
+export function publicCardId(card: Card): string {
+  return createHmac("sha256", process.env.AUTH_SECRET ?? "").update(card.id).digest("base64url").slice(0, 16);
+}
+
+let cardByPublicId: Map<string, Card> | undefined;
+
+export function getCardByPublicId(publicId: string): Card | undefined {
+  cardByPublicId ??= new Map(ALL_CARDS.map((card) => [publicCardId(card), card]));
+  return cardByPublicId.get(publicId);
+}
+
 export function deckCards(deck: DeckId): Card[] {
   return ALL_CARDS.filter((card) => card.deck === deck);
 }
@@ -178,4 +191,23 @@ export function describeAnswer(card: Card, given: string[]): string {
 export function isCorrect(card: Card, given: string[]): boolean {
   if (card.kind === "join") return given.length === 1 && given[0] === card.answer;
   return given.length === card.gaps.length && card.gaps.every(([right], i) => given[i] === right);
+}
+
+/** Карточка для браузера: без ответа, варианты в пропусках перемешаны. */
+export function toPublicCard(card: Card): PublicCard {
+  if (card.kind === "join") {
+    return { kind: "join", id: publicCardId(card), before: card.before, paren: card.paren, after: card.after };
+  }
+  return {
+    kind: "gap",
+    id: publicCardId(card),
+    segments: card.segments,
+    options: card.gaps.map((pair) => (Math.random() < 0.5 ? [...pair] : [pair[1], pair[0]])),
+    note: card.note,
+  };
+}
+
+/** Правильный ответ: буквы по пропускам или ["С"|"Р"|"Д"]. */
+export function rightAnswer(card: Card): string[] {
+  return card.kind === "join" ? [card.answer] : card.gaps.map(([right]) => right);
 }
