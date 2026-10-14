@@ -21,3 +21,11 @@ export async function revokeCourseAction(userId: string, courseId: string) {
   });
   revalidatePath("/admin/students");
 }
+
+/** Метка «Мой ученик»: Анна отмечает тех, кто занимается с ней лично. */
+export async function setPersonalStudentAction(userId: string, value: boolean) {
+  await requireAdmin();
+  await prisma.user.update({ where: { id: userId }, data: { isPersonalStudent: value } });
+  revalidatePath("/admin/students");
+  revalidatePath(`/admin/students/${userId}`);
+}
