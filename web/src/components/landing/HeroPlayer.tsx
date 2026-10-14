@@ -23,7 +23,6 @@ import type { CourseAccess } from "@/lib/course-access";
  */
 export default function HeroPlayer({ access }: { access: CourseAccess }) {
   const label = access.isEnrolled ? "Продолжить курс" : COURSE_HERO.button;
-  const first = COURSE_LESSONS[0];
 
   return (
     <section id="top" className="relative -mt-[88px] overflow-hidden sm:-mt-[104px]">
@@ -56,15 +55,22 @@ export default function HeroPlayer({ access }: { access: CourseAccess }) {
             0 ₽ · бесплатно
           </span>
 
-          <StartCourseTrigger {...access} ariaLabel={`Смотреть урок 1. ${first.title}`} className="group block w-full text-left">
-            <div className="relative overflow-hidden rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-ink)] shadow-[8px_8px_0_var(--color-ink)] transition-[translate,box-shadow] duration-150 group-hover:translate-x-[3px] group-hover:translate-y-[3px] group-hover:shadow-[5px_5px_0_var(--color-ink)]">
+          {/*
+            Наведение: сам плеер стоит на месте (раньше он сдвигался к тени — и «дёргался»,
+            когда край уезжал из-под курсора). Вместо этого плавно, за 0,7 с, чуть
+            приближаются слои внутри: фон, Анна, кнопка ▶ — с разной силой, как в кадре.
+          */}
+          <StartCourseTrigger {...access} ariaLabel="Начать бесплатный курс — урок 1" className="group block w-full text-left">
+            <div className="relative overflow-hidden rounded-panel border-2 border-[var(--color-ink)] bg-[var(--color-ink)] shadow-[8px_8px_0_var(--color-ink)] transition-shadow duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:shadow-[11px_11px_0_var(--color-ink)]">
               <div className="bg-brand-gradient relative aspect-[4/5] overflow-hidden sm:aspect-[16/9] lg:aspect-[2/1]">
-                <div aria-hidden className="bg-grid-light absolute inset-0" />
-                {/* Розовый круг за Анной */}
-                <div className="absolute bottom-[42%] right-[3%] aspect-square h-[26%] rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] sm:bottom-[30%] sm:right-[12%] sm:h-[52%]" />
+                {/* Фон: клетка и розовый круг — приближаются сильнее всего */}
+                <div className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]">
+                  <div aria-hidden className="bg-grid-light absolute inset-0" />
+                  <div className="absolute bottom-[42%] right-[3%] aspect-square h-[26%] rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] sm:bottom-[30%] sm:right-[12%] sm:h-[52%]" />
+                </div>
 
                 {/* Анна */}
-                <div className="absolute bottom-0 right-[-4%] h-[64%] sm:right-[3%] sm:h-[100%]">
+                <div className="absolute bottom-0 right-[-11%] h-[62%] origin-bottom transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04] sm:right-[3%] sm:h-[100%]">
                   <Image
                     src={MEDIA.heroCutout.src}
                     alt={MEDIA.heroCutout.alt}
@@ -77,31 +83,38 @@ export default function HeroPlayer({ access }: { access: CourseAccess }) {
                   />
                 </div>
 
-                {/* Название урока */}
-                <div className="absolute left-[6%] top-[7%] max-w-[70%] sm:left-[5%] sm:top-[9%] sm:max-w-[48%]">
-                  <p className="text-[0.75rem] font-bold uppercase tracking-[0.16em] text-white/70 sm:text-[0.8125rem]">
-                    Урок 1 из {COURSE_LESSONS.length}
+                {/* Название курса — как заставка видео */}
+                <div className="absolute left-[6%] top-[12%] max-w-[72%] origin-top-left transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] sm:left-[5%] sm:top-[9%] sm:max-w-[52%]">
+                  <p className="whitespace-nowrap text-[0.6875rem] font-bold uppercase tracking-[0.1em] text-white/75 sm:text-[0.8125rem] sm:tracking-[0.18em]">
+                    Бесплатный курс подготовки к
                   </p>
-                  <p className="mt-2 font-display text-[clamp(1.75rem,1rem+3.4vw,3.75rem)] font-bold leading-[1.02] tracking-[-0.03em] text-white">
-                    {first.title}
+                  <p className="mt-2 font-display text-[clamp(1.875rem,0.9rem+3.6vw,4rem)] font-bold leading-[0.98] tracking-[-0.035em] text-white">
+                    итоговому
+                    <br />
+                    <span className="mt-1 inline-block rotate-[-1.5deg] rounded-xl border-2 border-[var(--color-ink)] bg-[var(--color-accent)] px-2.5 pb-1 text-[var(--color-ink)] shadow-hard-sm sm:px-3.5">
+                      сочинению
+                    </span>
+                  </p>
+                  <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-[0.75rem] font-semibold text-white ring-1 ring-white/25 backdrop-blur-sm sm:mt-4 sm:text-[0.875rem]">
+                    {COURSE_LESSONS.length} видеоуроков · 11 класс
                   </p>
                 </div>
 
                 {/* Кнопка ▶ с пульсом */}
-                <div className="absolute left-[6%] top-[38%] sm:left-[5%] sm:top-[44%]">
-                  <span className="relative flex h-24 w-24 items-center justify-center sm:h-32 sm:w-32">
+                <div className="absolute bottom-[15%] left-[6%] sm:bottom-[17%] sm:left-[5%]">
+                  <span className="relative flex h-20 w-20 items-center justify-center sm:h-28 sm:w-28">
                     <span
                       aria-hidden
                       className="absolute inset-0 animate-ping rounded-full bg-[var(--color-accent)] opacity-40 [animation-duration:2.2s]"
                     />
-                    <span className="relative flex h-full w-full items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] shadow-hard-lg transition-transform duration-300 group-hover:scale-110">
-                      <Icon name="play" className="ml-1.5 h-11 w-11 fill-[var(--color-ink)] text-[var(--color-ink)] sm:h-14 sm:w-14" />
+                    <span className="relative flex h-full w-full items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-accent)] shadow-hard-lg transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.1]">
+                      <Icon name="play" className="ml-1.5 h-9 w-9 fill-[var(--color-ink)] text-[var(--color-ink)] sm:h-12 sm:w-12" />
                     </span>
                   </span>
-                  <span className="mt-4 block max-w-[10rem] rotate-[-4deg] font-hand text-[1.75rem] font-bold leading-[0.95] text-white sm:mt-5 sm:max-w-none sm:text-[2.25rem]">
-                    жми и смотри бесплатно
-                  </span>
                 </div>
+                <span className="absolute bottom-[19%] left-[calc(6%+6rem)] max-w-[6.5rem] rotate-[-4deg] font-hand text-[1.375rem] font-bold leading-[0.95] text-white sm:bottom-[22%] sm:left-[calc(5%+8.5rem)] sm:max-w-none sm:text-[2.125rem]">
+                  жми и смотри бесплатно
+                </span>
 
                 {/* Полоса управления */}
                 <div className="absolute inset-x-0 bottom-0 flex items-center gap-3 bg-[var(--color-ink)]/85 px-4 py-3 backdrop-blur-sm sm:gap-4 sm:px-6 sm:py-4">
@@ -110,7 +123,7 @@ export default function HeroPlayer({ access }: { access: CourseAccess }) {
                     <span className="block h-full w-[6%] rounded-full bg-[var(--color-accent)]" />
                   </span>
                   <span className="text-[0.75rem] font-semibold text-white/80 sm:text-[0.875rem]">
-                    1 / {COURSE_LESSONS.length}
+                    урок 1 / {COURSE_LESSONS.length}
                   </span>
                 </div>
               </div>

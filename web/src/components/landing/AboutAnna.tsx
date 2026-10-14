@@ -42,9 +42,13 @@ export default function AboutAnna() {
               </div>
 
               {/* Её фраза — розовой «запиской» */}
-              <figure className="relative mt-7 rotate-[-0.6deg] rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-accent-soft)] px-5 py-4 shadow-hard-sm">
-                <span aria-hidden className="absolute -top-5 left-4 font-display text-[3rem] leading-none text-[var(--color-accent-dark)]">
-                  “
+              <figure className="relative mt-9 rotate-[-0.6deg] rounded-2xl border-2 border-[var(--color-ink)] bg-[var(--color-accent-soft)] py-4 pl-9 pr-5 shadow-hard-sm sm:pl-11">
+                {/* Кавычка — круглая наклейка поверх угла рамки */}
+                <span
+                  aria-hidden
+                  className="absolute -left-4 -top-5 flex h-12 w-12 rotate-[-8deg] items-center justify-center rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-primary)] shadow-hard-sm sm:-left-5 sm:-top-6 sm:h-14 sm:w-14"
+                >
+                  <span className="mt-5 font-display text-[2.75rem] leading-none text-white sm:mt-6 sm:text-[3.25rem]">“</span>
                 </span>
                 <blockquote className="font-hand text-[1.5rem] font-bold leading-[1.15] text-[var(--color-ink)] sm:text-[1.625rem]">
                   {ABOUT.quote}
@@ -65,18 +69,23 @@ export default function AboutAnna() {
                 ))}
               </dl>
 
-              <div className="mt-7 flex flex-col gap-5 border-t-2 border-dashed border-[var(--color-border-strong)] pt-6 sm:flex-row sm:items-start sm:gap-6">
-                <div className="shrink-0">
-                  <p className="mb-2 text-caption font-semibold text-[var(--color-ink-muted)]">Вопрос о курсе?</p>
-                  <SocialButton brand={TELEGRAM.brand} href={TELEGRAM.href} label="Написать мне" />
-                </div>
-                <div className="min-w-0">
-                  <p className="mb-2 text-caption font-semibold text-[var(--color-ink-muted)]">Мой блог</p>
-                  <div className="flex flex-wrap gap-2">
-                    {BLOG_LINKS.map((l) => (
-                      <SocialButton key={l.href} brand={l.brand} href={l.href} label={l.label} variant="chip" />
-                    ))}
-                  </div>
+              {/* Контакты: четыре одинаковые карточки ровной сеткой 2×2 — как в прошлой версии, с никами */}
+              <div className="mt-7 border-t-2 border-dashed border-[var(--color-border-strong)] pt-6">
+                <p className="mb-3 text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-ink-muted)]">
+                  Вопросы о курсе и блог
+                </p>
+                <div className="grid grid-cols-1 gap-2.5 min-[420px]:grid-cols-2">
+                  <SocialButton
+                    brand={TELEGRAM.brand}
+                    href={TELEGRAM.href}
+                    label="Написать мне"
+                    handle={TELEGRAM.handle}
+                    variant="chip"
+                    className="w-full bg-[var(--color-accent-soft)]!"
+                  />
+                  {BLOG_LINKS.map((l) => (
+                    <SocialButton key={l.href} brand={l.brand} href={l.href} label={l.label} handle={l.handle} variant="chip" className="w-full" />
+                  ))}
                 </div>
               </div>
             </div>
